@@ -10,8 +10,6 @@ import vcf
 import numpy as np
 from .vcf_tool import *
 from termcolor import colored
-import os
-
 
 def get_filter_data(vcf_flt, num=4):
     ''' Interpret vcf filtering parameters into a list.
