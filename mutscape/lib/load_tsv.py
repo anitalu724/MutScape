@@ -46,7 +46,7 @@ def read_tsv(tsv_file):
             sample, vcf_file, caller_list = [], [], []
             sample.append(file.loc[i,'NORMAL'])
             sample.append(file.loc[i,'TUMOR'])
-            variant_list = ['MuSe', 'Mutect2', 'SomaticSniper', 'Strelka2', 'VarScan2']
+            variant_list = ['MuSE', 'Mutect2', 'SomaticSniper', 'Strelka2', 'VarScan2']
             for j in variant_list:
                 if not isinstance(file.loc[i, j], float):
                     if file.loc[i, j][-3:] != "vcf":

@@ -23,7 +23,6 @@ def main():
     --------
     python3 dataPreprocess.py \
     -f examples/tsv/testData.tsv \
-    -vf GI "[1,3]" \
     -c \
     -v2m 8 \
     -o examples/output \
@@ -61,7 +60,11 @@ def main():
         if not args.combine or not args.vcf2maf:
             raise ValeError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
         filter_list = []
-        vcf_filter(args.vcf_filter, category, category_caller, meta)
+        category = vcf_filter(args.vcf_filter, category, category_caller, meta)
+        
+
+
+
         
 if __name__ == '__main__':
     main()

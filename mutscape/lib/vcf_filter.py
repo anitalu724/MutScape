@@ -136,8 +136,41 @@ def genome_interval(record, select):
     return PASS
 
 def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
+    ''' Caller Information(CI) filter
+
+    Parameters
+    ----------
+    call : str (MuSE / Mutect2 / SomaticSniper / Strelka2 / VarScan2)
+    record : vcf.model._Record
+        A example of `record` is `Record(CHROM=1, POS=1560973, REF=C, ALT=[T])`.
+    DP_N : float
+        Coverage of the normal.
+    DP_T : float
+        Coverage of the tumor.
+    AD_N : float
+        Number of reads supporting the alternative allele in the normal.
+    AD_T : float
+        Number of reads supporting the alternative allele in the tumor.
+    AF_N : float
+        Fraction of variant supporting reads in the normal.
+    AF_T : float
+        Fraction of variant supporting reads in the tumor.
+    NLOD : float
+        Normal LOD score.
+    TLOD : float
+        Tumor LOD score.
+
+    Returns
+    -------
+    PASS : bool
+
+    Raises
+    ------
+    ValueError if `call` is not in the list below.
+        [MuSE / Mutect2 / SomaticSniper / Strelka2 / VarScan2]
+    '''
+    PASS = True
     if call == "Mutect2":
-        PASS = True
         if record.INFO['NLOD'][0] < NLOD or record.INFO['TLOD'][0] < TLOD:
             return False
         for sample in record.samples:
@@ -151,9 +184,7 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
                     PASS = False
                 else:
                     PASS = True
-        return PASS
-    elif call == "MuSe":
-        PASS = True
+    elif call == "MuSE":
         for sample in record.samples:
             if sample.sample == "NORMAL":
                 DP = (sample['DP'] < DP_N)
@@ -169,9 +200,7 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
                     PASS = False
             else:
                 PASS = False
-        return PASS
     elif call == "SomaticSniper":
-        PASS = True
         for sample in record.samples:
             AD[0] = sample['DP4'][0]+sample['DP4'][1]
             AD[1] = sample['DP4'][2]+sample['DP4'][3]
@@ -189,9 +218,7 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
                     PASS = False
             else:
                 PASS = False
-        return PASS
     elif call == "VarScan2":
-        PASS = True
         for sample in record.samples:
             if sample.sample == "NORMAL":
                 DP = (sample['DP'] < DP_N)
@@ -207,9 +234,7 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
                     PASS = False
             else:
                 PASS = False
-        return PASS
     elif call == "Strelka2":
-        PASS = True
         for sample in record.samples:
             _AD = []
             if sample["AU"][0] > 0:
@@ -243,15 +268,55 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
                     PASS = False
             else:
                 PASS = False
-        return PASS
+    else:
+        raise ValueError('[MutScape] The name for caller variant is not defined.')
+    return PASS
 
+def pass_filter(record):
+    ''' PASS(PA) filter 
+    Return  `False` if `record.FILTER` is not `PASS`
 
+    Parameters
+    ----------
+    record : vcf.model._Record
+        A example of `record` is `Record(CHROM=1, POS=1560973, REF=C, ALT=[T])`.
+    
+    Returns
+    -------
+    PASS : bool
+    '''
+    PASS = True
+    if type(record.FILTER) == list:
+        PASS = True if len(record.FILTER) == 0 else False
+    elif type(record.FILTER) == type(None):
+        PASS = True
+    return PASS
 
+def artifact_variant(call,record,delta):
+    ''' Artifact variant(AV) filter
 
+    Parameters
+    ----------
+    call : str
+    record : vcf.model._Record
+        A example of `record` is `Record(CHROM=1, POS=1560973, REF=C, ALT=[T])`.
+    delta : float
 
+    Returns
+    -------
+    True/False : bool
 
-
-
+    Raises
+    ------
+    ValueError if the name of variant caller is not defined.
+    '''
+    if call == "Mutect2":
+        F1R2 = record.samples[1]['F1R2'][1]
+        F2R1 = record.samples[1]['F2R1'][1]
+        d = abs((F1R2-F2R1)/(F1R2+F2R1))
+        return True if d <= delta else False
+    else:
+        raise ValueError('[MutScape] The name of variant caller is not defined.')
 
 def vcf_filter(if_filter, category, category_caller, meta):
     '''Implement VCF formalizing and filtering simultaneously.
@@ -265,9 +330,12 @@ def vcf_filter(if_filter, category, category_caller, meta):
 
     Returns
     -------
-
-    Raises
-    ------
+    category : list
+        New category must be updated.
+    
+    Outputs
+    -------
+    The formalized VCFs or filtered VCFs will be outputed in the path of `meta`.
     '''
     filter_list = []
     if if_filter:
@@ -306,35 +374,32 @@ def vcf_filter(if_filter, category, category_caller, meta):
                 if len(record.ALT) != 1 and PASS:
                     del_count += 1
                     PASS = False
+                
                 if len(filter_list) != 0 and PASS:
                     filter_score = np.zeros(4, dtype = bool)
                     for i in range(len(new_filter_list)):
-                        if new_filter_list[i]:
-                            score = True
-                            if i == 0:
-                                score = genome_interval(record, new_filter_list[i])
-                            elif i == 1:
-                                call = category_caller[s_idx][vcf_idx]
-                                [DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD] = new_filter_list[i]
-                                score = caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD)
-                            elif i == 2:
-                                score = find_pass(record)
-                            elif i == 3:
-                                call = category_caller[s_idx][vcf_idx]
-                                score = FFPE_filter(call, record, new_filter_list[i])
-                            filter_score[i] = score
+                        if PASS:
+                            if new_filter_list[i]:
+                                if i == 0:
+                                    PASS = genome_interval(record, new_filter_list[i])
+                                elif i == 1:
+                                    call = category_caller[s_idx][vcf_idx]
+                                    [DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD] = new_filter_list[i]
+                                    PASS = caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD)
+                                elif i == 2:
+                                    PASS = pass_filter(record)
+                                elif i == 3:
+                                    call = category_caller[s_idx][vcf_idx]
+                                    PASS = True if call != 'Mutect2' else artifact_variant(call, record, new_filter_list[i])
                         else:
-                            filter_score[i] = True
-                    if not all(x == True for x in filter_score):
-                        PASS = False
-                        del_count += 1
+                            break
+                    del_count = del_count + 1 if not PASS else del_count
                 if PASS:
                     vcf_writer.write_record(record)
-            if del_count!= 0:
-                print("NOTICE: "+str(del_count)+" data have been removed from "+sample[2][vcf_idx])
+            if del_count != 0:
+                print("NOTICE: " + str(del_count)+ " data have been removed from "+ sample[2][vcf_idx])
             vcf_writer.close()
         listToStr = ', '.join([str(elem) for elem in formalized_data_list]) 
         sample[2] = formalized_data_list
         print(colored("\n=> Finish formalizing files: \n[ "+ listToStr+" ]\n", "green"))
-    
-
+    return category

@@ -1,3 +1,3 @@
-NORMAL	TUMOR	MuSe	Mutect2	SomaticSniper	Strelka2	VarScan2	At Least # CALLS
+NORMAL	TUMOR	MuSE	Mutect2	SomaticSniper	Strelka2	VarScan2	At Least # CALLS
 sample1-NORMAL	sample1-TUMOR	./examples/test_data/vcf/sample1_muse.vcf	./examples/test_data/vcf/sample1_mutect2.vcf	./examples/test_data/vcf/sample1_somaticsniper.vcf	./examples/test_data/vcf/sample1_strelka2.vcf	./examples/test_data/vcf/sample1_varscan2.vcf	2
 sample2-NORMAL	sample2-TUMOR	./examples/test_data/vcf/sample2_muse.vcf	./examples/test_data/vcf/sample2_mutect2.vcf	./examples/test_data/vcf/sample2_somaticsniper.vcf	./examples/test_data/vcf/sample2_strelka2.vcf	./examples/test_data/vcf/sample2_varscan2.vcf	2
