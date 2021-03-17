@@ -9,6 +9,7 @@
 from .vcf_tool import *
 from termcolor import colored
 from datetime import datetime
+from tabulate import tabulate
 import os
 
 def generate_header(read_list, caller_list, NT):
@@ -114,10 +115,27 @@ def generate_header(read_list, caller_list, NT):
     read_header.infos, read_header.filters, read_header.formats = combine_infos_filters_formats(read_list)
     return read_header
 
-# Get Somatic list
-# A few dictionaries in this list, one dictionary for a file
-# If don't want to remove chrX, chrY, set Somatic to False
 def get_somatic_list(read_list, caller_list, Somatic = True):
+    '''Use `read_list` to get somatic list
+
+    Parameters
+    ----------
+    read_list : list
+        The type of all items in `read_list` is `vcf.parser.Reader`.
+    caller_list : list
+    Somatic : bool(Optional)
+        Set `False` if do not want to remove chrX, chrY, chrM.
+
+    Returns
+    -------
+    Somatic_list : list
+        The size of `Somatic_list` is equal to the size of `read_list`.
+        In `Somatic_list`, each item is a dictionary which has classified 
+        records by `record.CHROM`.
+    num_list : list
+        The size of `num_list` is 22 which calculate the total number of each
+        # of CHROM.
+    '''
     Somatic_list = []
     chromo_num_list =[str(i) for i in range(1,23)]#+["M","X","Y"]
     for read in read_list:
