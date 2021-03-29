@@ -10,7 +10,10 @@ from .vcf_tool import *
 from termcolor import colored
 from datetime import datetime
 from tabulate import tabulate
+from tqdm import tqdm
 import os
+import sys, operator
+import numpy as np
 
 def generate_header(read_list, caller_list, NT):
     ''' Generate combined header in the VCF
@@ -151,6 +154,167 @@ def get_somatic_list(read_list, caller_list, Somatic = True):
     print(tabulate(somatic_print, headers=['#']+caller_list, tablefmt='orgtbl'))
     print("\n")
     return Somatic_list, num_list
+
+def merge_and_sort(somatic_list, NEW_FORMAT_STR, INFO_list, caller_list, FORMAT_list, Sample_list, num_list):
+    ''' Merge similar records in different VCFs, and sort them in the correct order.
+
+    Parameters
+    ----------
+    somatic_list : list
+        The size of `Somatic_list` is equal to the size of `read_list`.
+        In `Somatic_list`, each item is a dictionary which has classified 
+        records by `record.CHROM`.
+    NEW_FORMAT_STR : str
+        The combination of `FORMAT` in each VCFs. Every item is linked by `:`.
+        Ex: GT:AD:AP:AF:F1R2:F2R1
+    INFO_list : list
+        A list of `INFO` which has combined those in each VCFs. We have added two 
+        items `CALLS` and `REJECT` to store the origin of each record.
+        Ex: ...;CALLS='MuSE_Mutect2';REJECT='Strelka2'
+    caller_list : list
+    FORMAT_list : list
+        A list of `FORMAT` which has combined those in each VCFs.
+    Sample_list : list
+        Generally, the size of `Sample_list` is 2. 
+        Ex: ['NORMAL', 'TUMOR']
+    num_list : list
+        The size of `num_list` is 22 which calculate the total number of each
+        # of CHROM.
+
+    Returns
+    -------
+    merged_list : list
+        22 lists are in merged_list. Each of the list is related to 1~22 
+        chromosome respectively.
+    '''
+    # Part2 in vcf_combination
+# change info for each record
+    def get_new_info(record_info, info_list, caller, PASS):
+        '''Add `CALLS` and `REJECT` into `INFO` column in VCF.
+
+        Parameters
+        ----------
+        record_info : dict
+        info_list : list
+        caller : str
+            MuSE/ Mutect2/ SomaticSniper/ Strelka2/ VarScans
+        PASS : bool
+
+        Returns
+        -------
+        record_info : dict
+            New `record_info` which has added
+        '''
+        for info in info_list:
+            if info not in record_info:
+                record_info[info] = None
+        record_info['CALLS'] = caller
+        record_info['REJECT'] = None if PASS else caller
+        return record_info
+    def get_new_samples(record, format_list, sample_list):
+        origin_format = record.FORMAT.split(':')
+        for sample in record.samples:
+            new_list= []
+            for item in format_list:
+                if item not in origin_format:
+                    new_list.append(None)
+                else:
+                    new_list.append(sample[item])
+            sample.data = tuple(new_list)
+        return record.samples
+    def merge_info(candidate, INFO_list, caller_list, iMin, similar):
+        # merge similar record to one
+        merge_INFO = candidate[iMin].INFO.copy()
+        for s in similar:
+            for info in candidate[s].INFO:
+                if info not in merge_INFO:
+                    merge_INFO[info] =  candidate[s].INFO[info]   
+                else:
+                    if merge_INFO[info] != candidate[s].INFO[info]:
+                        merge_INFO[info] = None
+        for info in INFO_list:
+            if info not in merge_INFO:
+                merge_INFO[info] = None
+        c = [iMin]+similar
+        merge_INFO['CALLS'] = "_".join(list(np.array(caller_list)[c]))
+        reject = "_".join(list(np.array(caller_list)[[i for i in c if len(candidate[i].FILTER) != 0]]))
+        merge_INFO['REJECT'] = reject if reject != "" else None
+        return merge_INFO
+    def merge_samples(candidate, FORMAT_list, Sample_list, iMin, similar):
+        origin_format = candidate[iMin].FORMAT.split(':')
+        similar_format = [candidate[s].FORMAT.split(':') for s in similar]
+        merge_Sample = candidate[iMin].samples.copy()
+        for idx, sample in enumerate(merge_Sample):
+            new_list= []
+            for item in FORMAT_list:
+                sim = []
+                for ids, s in enumerate(similar):
+                    if item in similar_format[ids]:
+                        sim.append(candidate[s].samples[idx][item])
+                if len(sim) == 0:
+                    if item not in origin_format:
+                        new_list.append(None)
+                    else:
+                        new_list.append(sample[item])
+                else:
+                    if item in origin_format:
+                        sim.append(sample[item])
+                        if any([s != sim[0] for s in sim]):
+                            new_list.append(None)
+                        else:
+                            new_list.append(sample[item])
+                    else:
+                        if any([s != sim[0] for s in sim]):
+                            new_list.append(None)
+                        else:
+                            new_list.append(sim[0])
+            sample.data = tuple(new_list)
+        return merge_Sample
+    list_order = [str(i) for i in range(1,23)]
+    merged_list, no = [[] for i in range(len(list_order))], len(somatic_list)
+    print(colored("Merging....\n",'yellow'))
+    for idx, CHROM in enumerate(list_order):
+        if num_list[idx] != 0:
+            pbar = tqdm(total = num_list[idx], desc = "chr"+CHROM+" ")
+            candidate, candidate_POS, empty = [], [], False
+            for file in somatic_list:
+                if len(file[CHROM]) != 0:
+                    candidate.append(file[CHROM][0])
+                    candidate_POS.append(file[CHROM][0].POS)
+                else:
+                    candidate.append(sys.maxsize)
+                    candidate_POS.append(sys.maxsize)
+            while not empty:
+                iMin, Min = min(enumerate([i for i in candidate_POS]), key=operator.itemgetter(1))
+                if Min != sys.maxsize:
+                    similar = list(set(np.where([(i.POS == Min and i.REF == candidate[iMin].REF and i.ALT == candidate[iMin].ALT) for i in candidate if i != sys.maxsize])[0])-set([iMin])-set([ic for ic, i in enumerate(candidate) if i == sys.maxsize]))
+                    if len(similar) != 0:
+                        #Deal with similar record
+                        somatic_list[iMin][CHROM].pop(0)
+                        for item in similar:
+                            somatic_list[item][CHROM].pop(0)
+                        candidate[iMin].INFO = merge_info(candidate, INFO_list, caller_list, iMin, similar)
+                        candidate[iMin].samples = merge_samples(candidate, FORMAT_list, Sample_list, iMin, similar)
+                        candidate[iMin].FORMAT = NEW_FORMAT_STR
+                        merged_list[idx].append(candidate[iMin])
+                        candidate[iMin] = somatic_list[iMin][CHROM][0] if len(somatic_list[iMin][CHROM]) > 0 else sys.maxsize
+                        candidate_POS[iMin] = somatic_list[iMin][CHROM][0].POS if len(somatic_list[iMin][CHROM]) > 0 else sys.maxsize
+                        for item in similar:
+                            candidate[item] = somatic_list[item][CHROM][0] if len(somatic_list[item][CHROM]) > 0 else sys.maxsize
+                            candidate_POS[item] = somatic_list[item][CHROM][0].POS if len(somatic_list[item][CHROM]) > 0 else sys.maxsize
+                        pbar.update(1+len(similar))
+                    else:   # move this chosen record into merged_list
+                        somatic_list[iMin][CHROM].pop(0)
+                        candidate[iMin].INFO = get_new_info(candidate[iMin].INFO, INFO_list, caller_list[iMin], len(candidate[iMin].FILTER) == 0 )
+                        candidate[iMin].samples = get_new_samples(candidate[iMin], FORMAT_list, Sample_list)
+                        candidate[iMin].FORMAT = NEW_FORMAT_STR
+                        merged_list[idx].append(candidate[iMin])
+                        candidate[iMin] = somatic_list[iMin][CHROM][0] if len(somatic_list[iMin][CHROM]) > 0 else sys.maxsize
+                        candidate_POS[iMin] = somatic_list[iMin][CHROM][0].POS if len(somatic_list[iMin][CHROM]) > 0 else sys.maxsize   
+                        pbar.update(1)   
+                else:
+                    empty = True
+    return merged_list
 
 
 def vcf_combination(sample_content_list, caller_list, output_file):
