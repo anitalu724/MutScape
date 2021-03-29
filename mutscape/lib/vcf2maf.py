@@ -20,7 +20,7 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
 
     perl_path = input("Please enter vcf2maf.pl's path: ")
     if perl_path == "":
-        perl_path = "../vcf2maf.pl"
+        perl_path = "../../vcf2maf.pl"
     fork = str(multiprocessing.cpu_count())
     if isinstance(vcf_file_list, list) and isinstance(maf_file_list, list) and len(vcf_file_list) == len(maf_file_list):
         for index, vcf_file in enumerate(vcf_file_list):
