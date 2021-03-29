@@ -1,0 +1,5 @@
+# general things to ignore
+.vscode
+.DS_Store
+__pycache__
+examples

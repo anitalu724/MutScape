@@ -9,6 +9,8 @@
 
 from lib.load_tsv import *
 from lib.vcf_filter import *
+from lib.vcf_combination import all_combine
+from lib.vcf2maf import vcf2maf
 
 import argparse, textwrap
 
@@ -23,6 +25,7 @@ def main():
     --------
     python3 dataPreprocess.py \
     -f examples/tsv/testData.tsv \
+    -vf GI [1,3] \
     -c \
     -v2m 8 \
     -o examples/output \
@@ -61,10 +64,12 @@ def main():
             raise ValeError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
         filter_list = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
-        
+        combine_filter_filelist = all_combine(category, category_caller, meta)
+        vcf2maf(combine_filter_filelist, folder, category, args.vcf2maf[0])
+    
 
 
 
-        
+
 if __name__ == '__main__':
     main()
