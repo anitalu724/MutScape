@@ -5,6 +5,6 @@ MutScape provides a comprehensive pipeline of filtering, combination, transforma
 
 ## Implementation
 MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. 
-![](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/fig1.pdf)
+![fig1](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/fig1.pdf)
 ### Data Preprocessing
 
