@@ -13,6 +13,16 @@ from termcolor import colored
 import multiprocessing
 
 def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
+    ''' Write a .sh file to automatically implement vcf2maf utility.
+
+    Parameters
+    ----------
+    vcf_file_list : list
+    maf_file_list : list
+    path : str
+    category : list
+    max_filter_ac : int
+    '''
     run_file = open(path+"run.sh", "w")
     run_file.write("YELLOW='\\033[0;33m'\n")
     run_file.write("GREEN='\\033[0;32m'\n")
@@ -47,7 +57,20 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     os.system("rm "+path+"/run.sh")
 
 def vcf2maf(combine_filter_filelist, folder, category, num):
-    '''
+    ''' Transform VCF file to MAF file using vcf2maf utility.
+
+    Parameters
+    ----------
+    combine_filter_filelist : list
+        The list of VCF files.
+    folder : str
+    category : list
+    num : int
+        max_filter_ac
+
+    Returns
+    -------
+    maf_output_list
     '''
     print(colored("Start transforming VCF to MAF....\n", "yellow"))
     print("WARNING: This transformation tool must be implemented in the direction of \"mskcc-vcf2maf-bbe39fe\"!\n")
@@ -55,5 +78,5 @@ def vcf2maf(combine_filter_filelist, folder, category, num):
     for idx, file in enumerate(combine_filter_filelist):
         fileName = file[:-4]+"_2maf.maf"
         maf_output_list.append(fileName)
-    print(maf_output_list)
     vcf2vep2maf(combine_filter_filelist, maf_output_list, folder, category, num)
+    return maf_output_list
