@@ -11,6 +11,7 @@ from lib.load_tsv import *
 from lib.vcf_filter import *
 from lib.vcf_combination import all_combine
 from lib.vcf2maf import vcf2maf
+from lib.maf_filter import all_maf_filter
 
 import argparse, textwrap
 
@@ -41,8 +42,8 @@ def main():
     '''
     parser = argparse.ArgumentParser(description='Data preprocessing', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('-f','--file', help='Input the tsv file.\n\n', required = True, metavar='tsv_file')
-    parser.add_argument("-vf", "--vcf_filter",nargs='*', metavar='params',\
-                                              help=textwrap.dedent("GI: Genome Interval\n"
+    parser.add_argument("-vf", "--vcf_filter", nargs='*', metavar='params',\
+                                               help=textwrap.dedent("GI: Genome Interval\n"
                                                                    "CI: Caller Information\n"
                                                                    "PA: Keep or exclude non-PASS tag\n"
                                                                    "AV: Artifact variant filter: FFPE filter (Only for caller = Mutect2)\n\n"))
@@ -52,7 +53,14 @@ def main():
     
     parser.add_argument("-o", "--output", required = True, help="The path for storing output files.\nThis path must end with a folder.\n\n", metavar='out_folder')
     parser.add_argument("-m","--meta", required = True, help="The path for storing metafiles.\nThis path must end with a folder.\n\n", metavar='meta_folder')
+    parser.add_argument("-mf", "--maf_filter", nargs='*', metavar='params',\
+                                               help = textwrap.dedent("GI: Genome Interval\n"
+                                                                      "CI: Caller Information\n"
+                                                                      "TE: Tissue Expression\n"
+                                                                      "PF: Population Frequency\n"
+                                                                      "HY: Hypermutation or Sample Exclusion\n\n"))
     
+
     args = parser.parse_args()
 
     flag, category, category_caller = loading_tsv(args.file)
@@ -65,8 +73,8 @@ def main():
         filter_list = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
         combine_filter_filelist = all_combine(category, category_caller, meta)
-        vcf2maf(combine_filter_filelist, folder, category, args.vcf2maf[0])
-    
+        maf_output_list = vcf2maf(combine_filter_filelist, folder, category, args.vcf2maf[0])
+        all_maf_filter(args.maf_filter, maf_output_list)
 
 
 
