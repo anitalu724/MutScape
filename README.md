@@ -58,7 +58,7 @@ After installing VEP, we can start to install `vcf2maf`.
     perl vcf2maf.pl --man
     perl maf2maf.pl --man
 
-Before we start to use vcf2maf, we need some references.
+Before we start to use vcf2maf, we need some references.<br/>
 ***:warning: Since these files are quite large, it may take a long time to download them!*** 
 
     mkdir -p $HOME/.vep/homo_sapiens/102_GRCh37/
