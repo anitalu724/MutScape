@@ -59,7 +59,7 @@ After installing VEP, we can start to install `vcf2maf`.
     perl maf2maf.pl --man
 
 Before we start to use vcf2maf, we need some references.
-***:warning: *** 
+***:warning: Since these files are quite large, it may take a long time to download them!*** 
 
     mkdir -p $HOME/.vep/homo_sapiens/102_GRCh37/
     wget ftp://ftp.ensembl.org/pub/grch37/release-102/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.dna.toplevel.fa.gz
@@ -67,26 +67,10 @@ Before we start to use vcf2maf, we need some references.
     gzip -d $HOME/.vep/homo_sapiens/102_GRCh37/Homo_sapiens.GRCh37.dna.toplevel.fa.gz
     bgzip -i $HOME/.vep/homo_sapiens/102_GRCh37/Homo_sapiens.GRCh37.dna.toplevel.fa
     samtools faidx $HOME/.vep/homo_sapiens/102_GRCh37/Homo_sapiens.GRCh37.dna.toplevel.fa.gz
-
-
     wget ftp://ftp.ensembl.org/pub/release-102/variation/indexed_vep_cache/homo_sapiens_vep_102_GRCh37.tar.gz
     mv homo_sapiens_vep_102_GRCh37.tar.gz $HOME/.vep/
     tar -zxf $HOME/.vep/homo_sapiens_vep_102_GRCh37.tar.gz -C $HOME/.vep/
-
-
-    conda install -c bioconda -c conda-forge ensembl-vep==102.0
-
-    #conda install -qy -c conda-forge -c bioconda -c defaults ensembl-vep==102.0 bcftools==1.10.2 ucsc-liftover==377#
-
-    curl -sLO https://raw.githubusercontent.com/Ensembl/ensembl-vep/release/102/examples/homo_sapiens_GRCh37.vcf
     
-    vep --species homo_sapiens --assembly GRCh37 --offline --no_progress --no_stats --sift b --ccds --uniprot --hgvs --symbol --numbers --domains --gene_phenotype --canonical --protein --biotype --tsl --pubmed --variant_class --shift_hgvs 1 --check_existing --total_length --allele_number --no_escape --xref_refseq --failed 1 --vcf --minimal --flag_pick_allele --pick_order canonical,tsl,biotype,rank,ccds,length --dir $HOME/.vep --fasta $HOME/.vep/homo_sapiens/102_GRCh37/Homo_sapiens.GRCh37.dna.toplevel.fa.gz --input_file homo_sapiens_GRCh37.vcf --output_file homo_sapiens_GRCh37.vep.vcf --polyphen b --af --af_1kg --af_esp --regulatory
-    
-
-    
-
-
-
 ## Implementation
 MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. 
 
