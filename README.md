@@ -1,5 +1,7 @@
 # MutScape: analytical toolkit for mutational landscape in cancer genomics
 
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/oC2EmEr" data-context="false" ><a href="//imgur.com/a/oC2EmEr"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
 ## Introduction
 MutScape provides a comprehensive pipeline of filtering, combination, transformation, analysis and visualization. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses, including driver gene detection, mutational signature, large-scale alteration identification, and actionable biomarker annotation simultaneously. Furthermore, MutScape supports both somatic variants in Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication-quality images are generated automatically. Herein, we demonstrate the performance of MutScape using breast cancer samples from The Cancer Genome Atlas (TCGA) that correctly reproduce known results. More significantly, it enables discovery of novel results for cancer genomics studies through the advanced features in MutScape.
 
@@ -16,6 +18,10 @@ There is a script for users to install Miniconda quickly.
     bash Miniconda3-py37_4.9.2-Linux-x86_64.sh
     export PATH="$HOME/miniconda3/bin:$PATH"
 
+MutScape is prefered to be implementing under a brand-new conda environment.
+
+    conda create --name [env_name]
+    conda activate [env_name]
 ### Install Ensembl's VEP
 If you have already install Ensembl's VEP, you may skip this part and directly into the next part for install `vcf2maf`. (However, you must confirm that your VEP version is compatible to vcf2maf. Here, we recommended to install `ensembl-vep=102.0`. )
 
@@ -50,10 +56,6 @@ MutScape is provided on Github website, please download it.
     git clone https://github.com/anitalu724/MutScape.git
 
 ## Implementation
-MutScape is prefered to be implementing under a brand-new conda environment.
-
-    conda create --name [env_name]
-    conda activate [env_name]
 
 If you have never install `pip`, install it by `conda`.
 
@@ -61,13 +63,13 @@ If you have never install `pip`, install it by `conda`.
 
 To make sure our code smoothly implement, we need to install several modules that are used in MutScape:
 
-    bash MutScape/mutscape/installation/install_module.sh
+    cd MutScape/mutscape
+    bash installation/install_module.sh
 
 MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. 
 
 ### Data Preprocessing
 
-    cd MutScape/mutscape
     python3 dataPreprocess.py \
     -f examples/tsv/testData.tsv \
     -vf GI [1,3] \
