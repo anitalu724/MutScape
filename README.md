@@ -78,3 +78,5 @@ MutScape has simply separated into two main modules: data preprocessing and anal
     -o examples/output \
     -m examples/meta 
 
+### MAF Analysis and Visualization
+
