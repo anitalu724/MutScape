@@ -1,6 +1,6 @@
 # MutScape: analytical toolkit for mutational landscape in cancer genomics
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/oC2EmEr" data-context="false" ><a href="//imgur.com/a/oC2EmEr"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/movie.gif?raw=true)
 
 ## Introduction
 MutScape provides a comprehensive pipeline of filtering, combination, transformation, analysis and visualization. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses, including driver gene detection, mutational signature, large-scale alteration identification, and actionable biomarker annotation simultaneously. Furthermore, MutScape supports both somatic variants in Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication-quality images are generated automatically. Herein, we demonstrate the performance of MutScape using breast cancer samples from The Cancer Genome Atlas (TCGA) that correctly reproduce known results. More significantly, it enables discovery of novel results for cancer genomics studies through the advanced features in MutScape.
