@@ -341,12 +341,12 @@ def vcf_all_filter_combine(input_params_list, maf_output_list, folder):
                         filtered_file.writelines(lines)
                 print(colored(("=> Finish combining MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
 
-def maf_all_filter_combine(input_params_list, category, folder):
+def maf_all_filter_combine(input_params_list, category, meta, folder):
     if input_params_list:
         print(colored("Start MAF filtering....\n", "yellow"))
         maf_output_list = list(category)
         maf_flt_list = get_maf_filter_data(input_params_list)
-        maf_filtered_list = [x[:-4]+"_filtered.maf" for x in maf_output_list]
+        maf_filtered_list = [meta+x[x.rfind("/")+1:-4]+"_filtered.maf" for x in maf_output_list]
         ALL_DICT = {}
         if maf_flt_list[2] != False:
             if not os.path.isfile('src/auxiliary_file/rna_tissue_consensus.json'):

@@ -78,7 +78,7 @@ def main():
     elif flag == 'maf':
         if args.vcf_filter or args.combine or args.vcf2maf:
             raise ValeError('[MutScape] Command -vf, -c and -v2m must not required if inputs are MAFs.')
-        maf_all_filter_combine(args.maf_filter, category, folder)
+        maf_all_filter_combine(args.maf_filter, category, meta, folder)
 
 
 
