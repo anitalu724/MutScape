@@ -80,7 +80,6 @@ def generate_header(read_list, caller_list, NT):
         # NORMAL and TUMOR
         Combine_metadata['NORMAL'] = [NT[0]]
         Combine_metadata['TUMOR'] = [NT[1]]
-        print(type(Combine_metadata))
         return Combine_metadata
     def combine_infos_filters_formats(read_list):
         ''' Combine info, filter and format in VCF header
@@ -111,7 +110,6 @@ def generate_header(read_list, caller_list, NT):
                     combine_format[fmt] = file.formats[fmt]
         combine_info['CALLS'] = vcf.parser._Info(id= "CALLS", num = 1, type= "String", desc="Sign caller names that contain this variant", source = None, version = None)
         combine_info['REJECT'] = vcf.parser._Info(id= "REJECT", num = 1, type= "String", desc="Sign caller names that reject this variant", source = None, version = None)
-        print(type(combine_info), type(combine_filter),type(combine_format))
         return combine_info, combine_filter, combine_format
     read_header = read_list[0]
     read_header.metadata = combine_metadata(read_list, caller_list, NT)
