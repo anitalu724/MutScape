@@ -69,12 +69,15 @@ To make sure our code smoothly implement, we need to install several modules tha
 MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. 
 
 ### Data Preprocessing
+MutScape accepts both VCF and MAF files as input data. 
+For multiple files will be implemented simultaneously, the user should enter a format-limited TSV file. The detailed format please refer to `examples/tsv/testData_vcf.tsv` and `examples/tsv/testData_maf.tsv`
 
     python3 dataPreprocess.py \
-    -f examples/tsv/testData.tsv \
+    -f examples/tsv/testData_vcf.tsv \
     -vf GI [1,3] \
     -c \
     -v2m 8 \
+    -mf GI [1,3] \
     -o examples/output \
     -m examples/meta 
 
