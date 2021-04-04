@@ -4,14 +4,14 @@
 # Synopsis     [ Control all functions to preprocess input data, including filtering, 
 #                combination and transformation. ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 3 ]
+# Copyright    [ 2021 4 ]
 ############################################################################################
 
 from lib.load_tsv import *
 from lib.vcf_filter import *
 from lib.vcf_combination import all_combine
 from lib.vcf2maf import vcf2maf
-from lib.maf_filter import all_maf_filter
+from lib.maf_filter import vcf_all_filter_combine, maf_all_filter_combine
 
 import argparse, textwrap
 
@@ -74,8 +74,11 @@ def main():
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
         combine_filter_filelist = all_combine(category, category_caller, meta)
         maf_output_list = vcf2maf(combine_filter_filelist, folder, category, args.vcf2maf[0])
-        all_maf_filter(args.maf_filter, maf_output_list, folder)
-
+        vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
+    elif flag == 'maf':
+        if args.vcf_filter or args.combine or args.vcf2maf:
+            raise ValeError('[MutScape] Command -vf, -c and -v2m must not required if inputs are MAFs.')
+        maf_all_filter_combine(args.maf_filter, category, folder)
 
 
 

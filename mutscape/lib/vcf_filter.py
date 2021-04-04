@@ -3,7 +3,7 @@
 # PackageName  [ lib ]
 # Synopsis     [ Sifting records from VCFs ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 3 ]
+# Copyright    [ 2021 4 ]
 ############################################################################################
 
 import vcf

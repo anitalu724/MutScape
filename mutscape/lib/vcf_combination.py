@@ -3,7 +3,7 @@
 # PackageName  [ lib ]
 # Synopsis     [ Combine 2 or more vcf files for a sample with different variants ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 3 ]
+# Copyright    [ 2021 4 ]
 ############################################################################################
 
 from .vcf_tool import *
