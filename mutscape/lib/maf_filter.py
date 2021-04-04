@@ -297,8 +297,6 @@ def all_maf_filter(input_params_list, maf_output_list):
     if input_params_list:
         print(colored("Start MAF filtering....\n", "yellow"))
         maf_flt_list = get_maf_filter_data(input_params_list)
-        print(maf_flt_list)
-        os._exit()
         maf_filtered_list = [x[:-4]+"_filtered.maf" for x in maf_output_list]
         ALL_DICT = {}
         if maf_flt_list[2] != False:
