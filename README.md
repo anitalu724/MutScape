@@ -72,14 +72,45 @@ MutScape has simply separated into two main modules: data preprocessing and anal
 MutScape accepts both VCF and MAF files as input data. 
 For multiple files will be implemented simultaneously, the user should enter a format-limited TSV file. The detailed format please refer to `examples/tsv/testData_vcf.tsv` and `examples/tsv/testData_maf.tsv`
 
+#### VCF
+For VCFs as input data, some commands are required while others are optional.
+* `--file`, `-f` : The relative path of the input TSV file.
+* `--vcf_filter`, `-vf` (optional) : 
+    - GI: Genome Interval (ex: `GI [1,3]` , `GI [2:4]` or `GI "{1: [*,*], 2 : [1, 300000]}"`)
+    - CI: Caller Information (ex: `CI "15,15,0,0,0,0.05,8,8"`)
+    - PA: Keep or exclude non-PASS tag (ex: `PA 1`)
+    - AV: Artifact variant filter: FFPE filter (ex: `AV 0.9`)
+* `--combine`, `-c` : No parameter is required. VCFs combination will be implemented if this command is ordered.
+* `--vcf2maf`, `-v2m` : The parameter is `max_filter_ac` which is an integer when transforming files to MAF. (Refer to [vcf2maf](https://github.com/mskcc/vcf2maf))
+* `--output`, `-o` : The path for storing output files. This path must end with a folder.
+* `--meta`, `-m` : The path for storing metafiles. This path must end with a folder.
+
+Some simple test commands are displayed below.
+    
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
     -vf GI [1,3] \
     -c \
     -v2m 8 \
-    -mf GI [1,3] \
     -o examples/output \
     -m examples/meta 
+    
+    
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_vcf.tsv \
+    -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9\
+    -c \
+    -v2m 8 \
+    -o examples/output \
+    -m examples/meta
 
+
+#### MAF
+
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_maf.tsv \
+    -mf GI [1:3] \
+    -o examples/output \
+    -m examples/meta 
 ### MAF Analysis and Visualization
 
