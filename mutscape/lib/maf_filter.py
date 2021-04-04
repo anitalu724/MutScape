@@ -104,6 +104,27 @@ def read_TSV(tsv_file):
     pbar.close()
     return ALL_DICT
 
+def fast_read_maf(maf_file):
+        '''Read MAF(Mutation Annotation Format) file
+
+        Parameters
+        ----------
+        maf_file : str
+
+        Returns
+        -------
+        head : str
+        df : pandas.dataFrame
+        '''
+        file = open(maf_file, 'r')
+        head = file.readline()
+        if head.startswith('#'):
+            df = pd.read_csv(maf_file, sep="\t", skiprows = 1, header = 0,encoding = 'gb2312', low_memory=False)
+        else:
+            df = pd.read_csv(maf_file, sep="\t", header = 0, encoding = 'gb2312', low_memory=False)
+            head = ""
+        return head, df
+
 def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
     ''' Write a new MAF file to output_file
 
@@ -273,27 +294,6 @@ def all_maf_filter(input_params_list, maf_output_list):
     Returns
     -------
     '''
-    def fast_read_maf(maf_file):
-        '''Read MAF(Mutation Annotation Format) file
-
-        Parameters
-        ----------
-        maf_file : str
-
-        Returns
-        -------
-        head : str
-        df : pandas.dataFrame
-        '''
-        file = open(maf_file, 'r')
-        head = file.readline()
-        if head.startswith('#'):
-            df = pd.read_csv(maf_file, sep="\t", skiprows = 1, header = 0,encoding = 'gb2312', low_memory=False)
-        else:
-            df = pd.read_csv(maf_file, sep="\t", header = 0, encoding = 'gb2312', low_memory=False)
-            head = ""
-        return head, df
-
     if input_params_list:
         print(colored("Start MAF filtering....\n", "yellow"))
         maf_flt_list = get_maf_filter_data(input_params_list)
