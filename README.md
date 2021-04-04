@@ -72,10 +72,9 @@ MutScape has simply separated into two main modules: data preprocessing and anal
 MutScape accepts both VCF and MAF files as input data. 
 For multiple files will be implemented simultaneously, the user should enter a format-limited TSV file. The detailed format please refer to `examples/tsv/testData_vcf.tsv` and `examples/tsv/testData_maf.tsv`
 
-#### VCF
-For VCFs as input data, some commands are required while others are optional.
+Commands are listed below:
 * `--file`, `-f` : The relative path of the input TSV file.
-* `--vcf_filter`, `-vf` (optional) : 
+* `--vcf_filter`, `-vf` : Some parameters for VCF filtering.
     - GI: Genome Interval (ex: `GI [1,3]` , `GI [2:4]` or `GI "{1: [*,*], 2 : [1, 300000]}"`)
     - CI: Caller Information (ex: `CI "15,15,0,0,0,0.05,8,8"`)
     - PA: Keep or exclude non-PASS tag (ex: `PA 1`)
@@ -84,7 +83,15 @@ For VCFs as input data, some commands are required while others are optional.
 * `--vcf2maf`, `-v2m` : The parameter is `max_filter_ac` which is an integer when transforming files to MAF. (Refer to [vcf2maf](https://github.com/mskcc/vcf2maf))
 * `--output`, `-o` : The path for storing output files. This path must end with a folder.
 * `--meta`, `-m` : The path for storing metafiles. This path must end with a folder.
+* `--maf_filter`, `-mf` : Some parameters for MAF filtering.
+    - GI: Genome Interval (ex: `GI [1,3]` , `GI [2:4]` or `GI "{1: [*,*], 2 : [1, 300000]}"`)
+    - CI: Caller Information (ex: `CI "15,15,0,0,0,0.05,8,8"`)
+    - TE: Tissue Expression (ex: `TE [breast,5]`)
+    - PF: Population Frequency (ex: `PF 1`)
+    - HY: Hypermutation or Sample Exclusion (ex: `HY 500`)
 
+#### VCF
+For VCFs as input data, `-f`, `-c`, `-v2m`, `-o` and `-m` are required while `-vf` and `-mf` are optional. 
 Some simple test commands are displayed below.
     
     python3 dataPreprocess.py \
@@ -98,19 +105,38 @@ Some simple test commands are displayed below.
     
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
-    -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9\
+    -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9 \
     -c \
     -v2m 8 \
     -o examples/output \
     -m examples/meta
+    
+    
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_vcf.tsv \
+    -c \
+    -v2m 8 \
+    -o examples/output \
+    -m examples/meta \
+    -mf GI [1,3]
 
 
 #### MAF
+For MAFs as input data, `-f`, `-o` and `-m` are required while `-mf` are optional. 
+Some simple test commands are displayed below.
 
     python3 dataPreprocess.py \
     -f examples/tsv/testData_maf.tsv \
     -mf GI [1:3] \
     -o examples/output \
     -m examples/meta 
+    
+    
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_maf.tsv \
+    -mf GI [1:3] CI "15,15,0,0,0,0.05,8,8" TE [breast,5] PF 1 HY 500 \
+    -o examples/output \
+    -m examples/meta 
+    
 ### MAF Analysis and Visualization
 
