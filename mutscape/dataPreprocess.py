@@ -74,7 +74,7 @@ def main():
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
         combine_filter_filelist = all_combine(category, category_caller, meta)
         maf_output_list = vcf2maf(combine_filter_filelist, folder, category, args.vcf2maf[0])
-        all_maf_filter(args.maf_filter, maf_output_list)
+        all_maf_filter(args.maf_filter, maf_output_list, folder)
 
 
 

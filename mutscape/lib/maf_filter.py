@@ -283,7 +283,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
             filtered_file.write(head)
             filtered_file.writelines(lines)
 
-def all_maf_filter(input_params_list, maf_output_list):
+def all_maf_filter(input_params_list, maf_output_list, folder):
     ''' Implement MAF filtering and combination
 
     Parameters
