@@ -87,37 +87,55 @@ from comut import comut
 from comut import fileparsers
 
 class CoMutPlot:
-    def __init__(self, file, info):
-        print(colored(("\nStart plotting CoMut Plot...."), 'yellow'))
-        self.fd = (pd.read_csv(file, sep="\t")).to_dict('list')
+    '''MAF analysis: CoMut plot plotting
+
+    Parameters
+    ----------
+    tsv_file : str
+        A TSV file includes all file paths that need for plotting.
+    tsv_info : str
+        A TSV file includes all informations for plotting.
+    pic : str
+        The path for storing comut plot.
+    theme : int
+        The color theme. (0: cold, 1: warm) 
+    comut_name : str
+        The file name of CoMut plot.
+    
+    Output files
+    ------------
+    output :
+        An image of CoMut plot.
+    
+    '''  
+    def __init__(self, tsv_file, tsv_info):
+        print(colored(('\nStart plotting CoMut Plot....'), 'yellow'))
+        self.fd = (pd.read_csv(tsv_file, sep='\t')).to_dict('list')
         for item in self.fd:
             cleanedList = [x for x in self.fd[item] if str(x) != 'nan']
             self.fd[item] = cleanedList
-        self.info = (pd.read_csv(info, sep="\t")).to_dict('list')
+        self.info = (pd.read_csv(tsv_info, sep='\t')).to_dict('list')
         for item in self.info:
             cleanedList = [x for x in self.info[item] if str(x) != 'nan']
             self.info[item] = cleanedList
-    def plot(self, pic, theme, name):
+    def plot(self, pic, theme, comut_name):
         fixed_category = ['Same Patient','Copy Number Alteration','Mutation Type','Purity','Mutation Signature','Mutation Classification','Frequency', 'Whole Genome Doubling']
         feature_category = [item for item in self.fd if item not in fixed_category]
-        fixed_path_list = [self.fd[item][0] if len(self.fd[item]) != 0 else "" for item in fixed_category ]
+        fixed_path_list = [self.fd[item][0] if len(self.fd[item]) != 0 else '' for item in fixed_category ]
         
         feature_path_list = [self.fd[item][0] for item in feature_category ]
       
-        print(colored(("*   Reading Data...."), 'yellow'))
-        same_patient_df = pd.read_csv(fixed_path_list[0], sep = '\t') if fixed_path_list[0] != "" else pd.DataFrame(data={})
-        copy_num_df     = pd.read_csv(fixed_path_list[1], sep = '\t') if fixed_path_list[1] != "" else pd.DataFrame(data={})
-        mut_type_df     = pd.read_csv(fixed_path_list[2], sep = '\t') if fixed_path_list[2] != "" else pd.DataFrame(data={})
-        purity_df       = pd.read_csv(fixed_path_list[3], sep = '\t') if fixed_path_list[3] != "" else pd.DataFrame(data={})
-        mut_sig_df      = pd.read_csv(fixed_path_list[4], sep = '\t') if fixed_path_list[4] != "" else pd.DataFrame(data={})
-        mut_clone_df    = pd.read_csv(fixed_path_list[5], sep = '\t') if fixed_path_list[5] != "" else pd.DataFrame(data={})
-        freq_df         = pd.read_csv(fixed_path_list[6], sep = '\t') if fixed_path_list[6] != "" else pd.DataFrame(data={})
-        wgd_df          = pd.read_csv(fixed_path_list[7], sep = '\t') if fixed_path_list[7] != "" else pd.DataFrame(data={})
+        print(colored(('*   Reading Data....'), 'yellow'))
+        same_patient_df = pd.read_csv(fixed_path_list[0], sep = '\t') if fixed_path_list[0] != '' else pd.DataFrame(data={})
+        copy_num_df     = pd.read_csv(fixed_path_list[1], sep = '\t') if fixed_path_list[1] != '' else pd.DataFrame(data={})
+        mut_type_df     = pd.read_csv(fixed_path_list[2], sep = '\t') if fixed_path_list[2] != '' else pd.DataFrame(data={})
+        purity_df       = pd.read_csv(fixed_path_list[3], sep = '\t') if fixed_path_list[3] != '' else pd.DataFrame(data={})
+        mut_sig_df      = pd.read_csv(fixed_path_list[4], sep = '\t') if fixed_path_list[4] != '' else pd.DataFrame(data={})
+        mut_clone_df    = pd.read_csv(fixed_path_list[5], sep = '\t') if fixed_path_list[5] != '' else pd.DataFrame(data={})
+        freq_df         = pd.read_csv(fixed_path_list[6], sep = '\t') if fixed_path_list[6] != '' else pd.DataFrame(data={})
+        wgd_df          = pd.read_csv(fixed_path_list[7], sep = '\t') if fixed_path_list[7] != '' else pd.DataFrame(data={})
         feature_df = [pd.read_csv(i, sep = '\t') for i in feature_path_list]
         
-        # primary_df      = pd.read_csv(path_list[4], sep = '\t') if path_list[4] != "" else pd.DataFrame(data={})
-        # best_res_df     = pd.read_csv(path_list[5], sep = '\t') if path_list[5] != "" else pd.DataFrame(data={})
-
         cold_set = {'mut':['#b7d5ea','#acc6aa','#266199','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22'],
                     'purity':'Blues',
                     'burden':['#266199','#b7d5ea'],
@@ -135,7 +153,7 @@ class CoMutPlot:
                     'primary':{'Skin':'#f7e7bd', 'Acral': '#d9c6a5', 'Occult':'#a35d6a', 'Mucosal': '#c26565'},
                     'response':{'SD': '#ea907a', 'MR': '#fbc687', 'PR': '#f4f7c5', 'CR':'#aacdbe', 'PD':  '#ACBF89'}}
 
-        used_set = cold_set if theme == "0" else warm_set
+        used_set = cold_set if theme == '0' else warm_set
 
     # info
         #wgd
@@ -168,7 +186,7 @@ class CoMutPlot:
         for feature in feature_category:
             fea = self.info[feature]
             if len(fea) > 8:
-                print(colored(('ERROR: The number of type of \"'+feature+"\" must be less than 8!\n"), 'red'))
+                print(colored(('ERROR: The number of type of \''+feature+'\' must be less than 8!\n'), 'red'))
                 print(colored('CoMut Plotting Halt\n', 'red'))
                 return
             fea_mapping = {fea[i]:used_set['feature'][i] for i in range(len(fea))}
@@ -177,61 +195,29 @@ class CoMutPlot:
         custom_rcParams = {'font.family': 'arial','font.size': 14}   
         rcParams.update(custom_rcParams)
 
-
     # Plot
         toy_comut = comut.CoMut()
         toy_comut.samples = list(wgd_df['sample'])
-        width, fig_info = 0, 0
-        FigCol = 2 if width > 10 else 1
-        height = int(width/10)*8
-        # print(width)
         FigSize = (10, 10)
         
         if not same_patient_df.empty:
-        #     width += 1
-        #     fig_info += 1
             toy_comut.add_sample_indicators(same_patient_df, name = fixed_category[0], plot_kwargs = indicator_kwargs) 
         if not wgd_df.empty:
             toy_comut.add_categorical_data(wgd_df, name=fixed_category[7], mapping = wgd_mapping)
-
         if not copy_num_df.empty:
-        #     width += 2
-        #     fig_info += 7
             toy_comut.add_categorical_data(copy_num_df, name=fixed_category[1], mapping = cna_mapping, category_order = cna_order, tick_style = 'italic') 
         if not mut_type_df.empty:
-            # width += 5*int(len(self.info['Mutation Type'])/10)
-            # fig_info += 9
             toy_comut.add_categorical_data(mut_type_df, name = fixed_category[2], category_order = category_order, mapping = mut_mapping,tick_style = 'italic')
-        
         if not purity_df.empty:
-        #     width += 1
             toy_comut.add_continuous_data(purity_df, name = fixed_category[3], mapping = used_set['purity'], value_range = (0, 1))
-        
-        # for i in range(len(feature_df)):
-        #     width += 1
-        #     toy_comut.add_categorical_data(feature_df[i], name=feature_category[i], mapping = feature_mapping[i])
-        
         if not mut_sig_df.empty:
-        #     width += 2
             toy_comut.add_bar_data(mut_sig_df, name = fixed_category[4], mapping = sig_mapping, stacked = True, ylabel = 'Mutational\nsignatures',bar_kwargs = sig_kwargs)
         if not mut_clone_df.empty:
-        #     # width += 2
             toy_comut.add_bar_data(mut_clone_df, name = fixed_category[5], mapping = bar_mapping, stacked = True, bar_kwargs = bar_kwargs, ylabel = 'Muts/Mb')
-        
-        
         toy_comut.plot_comut(figsize = FigSize, x_padding = 0.04, y_padding = 0.04, tri_padding = 0.03)
         toy_comut.add_unified_legend(ncol = 1)
         toy_comut.axes[fixed_category[1]].set_xticklabels([])
-        toy_comut.figure.savefig(pic+name, dpi = 300, bbox_inches = 'tight')
-        # os._exit()
-        
-        # print(FigSize)
-        
-        
-        # patient_leg = toy_comut.add_axis_legend('Same Patient', bbox_to_anchor = (1.025, 1.2), frameon = False, numpoints = 2)
-        # toy_comut.plot_comut(figsize = FigSize, x_padding = 0.04, y_padding = 0.04, tri_padding = 0.03)
-        # toy_comut.add_unified_legend(ncol = 2)
-        # toy_comut.figure.savefig(folder+name, dpi = 300, bbox_inches = 'tight')
-        print(colored(("=> Generate CoMut Plot: "+pic+name), 'green'))
+        toy_comut.figure.savefig(pic+comut_name, dpi = 300, bbox_inches = 'tight')
+        print(colored(('=> Generate CoMut Plot: '+pic+comut_name+'\n'), 'green'))
 
  
