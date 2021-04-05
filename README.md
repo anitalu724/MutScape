@@ -170,7 +170,7 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
-    -cm
+    -cm \
     -o examples/output \
 	-p examples/pic/
     ```
