@@ -111,4 +111,4 @@ class WGDnCIN:
         ax.set_yticks(np.arange(0, 1, 0.2))
         ax.xaxis.set_visible(False)
         plt.savefig(pic+"CIN_Score.pdf", dpi=300,bbox_inches='tight')
-        print(colored(("=> Generate Bar Plot: " + pic + "CIN_Score.pdf"), 'green'))
+        print(colored(("=> Generate Bar Plot: " + pic + "CIN_Score.pdf"+'\n'), 'green'))
