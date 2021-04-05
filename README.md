@@ -165,4 +165,13 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     -o examples/output \
 	-p examples/pic/
     ```
+4. CoMut plot analysis
+   * comut analysis
+    ```
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/TCGA_test.maf \
+    -cm
+    -o examples/output \
+	-p examples/pic/
+    ```
 
