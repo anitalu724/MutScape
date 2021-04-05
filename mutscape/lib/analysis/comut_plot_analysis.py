@@ -1,7 +1,7 @@
 ############################################################################################
 # FileName     [ comut_plot_analysis.py ]
 # PackageName  [ lib/analysis ]
-# Synopsis     [ Calculate TMB for each data. ]
+# Synopsis     [ Implement CoMut analysis. ]
 # Author       [ Cheng-Hua Lu ]
 # Copyright    [ 2021 4 ]
 ############################################################################################
