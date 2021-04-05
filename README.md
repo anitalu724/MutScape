@@ -189,5 +189,10 @@ MutScape provides 8 different analyses and some of them generate plots after ana
 	-p examples/pic/
 
 
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/ms.maf \
+    -ms 2 "[3]" \
+    -o examples/output \
+	-p examples/pic/
     ```
 

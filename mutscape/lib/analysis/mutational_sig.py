@@ -19,6 +19,8 @@ import matplotlib.ticker as mtick
 import matplotlib.style
 import matplotlib
 
+COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
+
 class MutationalSignature:
     """Mutational signature
 
@@ -153,7 +155,7 @@ class MutationalSignature:
             code.write("fig.tight_layout(pad=1.0)\n")
             code.write("plt.savefig(\"../"+pic+"Estimation.pdf\",dpi=300,bbox_inches = 'tight')\n")
             code.close()
-            print(colored(("\nStart Estimation(may need a few minutes)...."), 'yellow'))
+            print(colored(("\nStart Estimation (may need a few minutes)...."), 'yellow'))
             p = os.popen("python3 nimfa.py\n")
             x = p.read()
             print(x)
