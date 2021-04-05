@@ -32,19 +32,36 @@ def main():
     -o examples/output \
     -m examples/meta 
 
+
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
-    -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9\
+    -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9 \
     -c \
     -v2m 8 \
     -o examples/output \
     -m examples/meta
+
+
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_vcf.tsv \
+    -c \
+    -v2m 8 \
+    -o examples/output \
+    -m examples/meta \
+    -mf GI [1,3]
 
     python3 dataPreprocess.py \
     -f examples/tsv/testData_maf.tsv \
     -mf GI [1:3] \
     -o examples/output \
     -m examples/meta 
+
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_maf.tsv \
+    -mf GI [1:3] CI "15,15,0,0,0,0.05,8,8" TE [breast,5] PF 1 HY 500 \
+    -o examples/output \
+    -m examples/meta 
+
     '''
     parser = argparse.ArgumentParser(description='Data preprocessing', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('-f','--file', help='Input the tsv file.\n\n', required = True, metavar='tsv_file')
