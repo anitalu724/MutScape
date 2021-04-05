@@ -10,7 +10,7 @@ import argparse, textwrap
 from lib.analysis.sig_mutated_gene_detect import SigMutatedGeneDetection
 from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
 from lib.analysis.total_mutated_burden import TotalMutationBurden
-from lib.analysis.comut_plot_analysis import CoMutAnalysis
+from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 
 def main():
     ''' Implement MAF analysis and visualization in one single command.
@@ -37,6 +37,11 @@ def main():
     parser.add_argument("-tmb","--total_mutation_burden",nargs=1,help="One item must be entered:\n \
                                                                        1. Sequencing Length\n",)
     parser.add_argument("-cm", "--comut_analysis", action="store_true")
+    parser.add_argument('-cmp', '--comut_plot',nargs=4, help="Four items need to be entered:\n\
+                                                              1. TSV file for data paths.\n\
+                                                              2. TSV file which contain all information for image.\n\
+                                                              3. plot color theme(0: cold, 1: warm)\n\
+                                                              4. CoMut_plot picture file name")
 
     parser.add_argument("-o","--output",required=True,metavar="OUTPUT folder",help="The path for storing every generated file.\n\
                                                                                     This path must end with a folder.\n")
@@ -59,6 +64,9 @@ def main():
     if args.comut_analysis:
         df = CoMutAnalysis(args.file[0])
         df.data_analysis(folder)
+    if args.comut_plot:
+        plot1 = CoMutPlot(args.comut_plot[0], args.comut_plot[1])
+        plot1.plot(pic, args.comut_plot[2], args.comut_plot[3])
 
 if __name__ == '__main__':
     main()

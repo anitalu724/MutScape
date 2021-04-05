@@ -1,0 +1,2 @@
+Same Patient	Copy Number Alteration	Mutation Type	Purity	Mutation Signature	Mutation Classification	Frequency	Whole Genome Doubling
+examples/test_data/comut/sp.tsv	examples/test_data/comut/cna.tsv	examples/test_data/comut/mutation_data.tsv	examples/test_data/comut/purity.tsv	examples/test_data/comut/sig_contribution.tsv	examples/test_data/comut/mutation_burden.tsv		examples/test_data/comut/wgd.tsv
