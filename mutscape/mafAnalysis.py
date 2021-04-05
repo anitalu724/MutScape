@@ -6,7 +6,7 @@
 # Copyright    [ 2021 4 ]
 ############################################################################################
 
-import argparse, textwrap
+import argparse, textwrap, ast
 from lib.analysis.sig_mutated_gene_detect import SigMutatedGeneDetection
 from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
 from lib.analysis.total_mutated_burden import TotalMutationBurden
