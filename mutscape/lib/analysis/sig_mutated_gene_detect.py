@@ -1,7 +1,7 @@
 ############################################################################################
 # FileName     [ sig_mutated_gene_detect.py ]
 # PackageName  [ lib/analysis ]
-# Synopsis     [ Control all functions to implement MAF analysis and visualization. ]
+# Synopsis     [ Detect significantly mutated gene. ]
 # Author       [ Cheng-Hua Lu ]
 # Copyright    [ 2021 4 ]
 ############################################################################################

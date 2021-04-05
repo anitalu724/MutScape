@@ -43,6 +43,9 @@ def main():
     if args.significantly_mutated_gene:
         df = SigMutatedGeneDetection(args.file[0])
         df.oncodriveCLUST(folder)
+    if args.known_cancer_gene_annotaiton:
+        df = KnownCancerGeneAnnotation(args.file[0])
+        df.annotation(folder)
 
 if __name__ == '__main__':
     main()
