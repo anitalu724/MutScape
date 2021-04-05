@@ -205,6 +205,11 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     ```
 7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
     ```
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/hrd.maf \
+    -wgdcin examples/tsv/hrd.tsv \
+    -o examples/output \
+	-p examples/pic/
     ```
 8. Actionable mutation(drug) annotation
     ```

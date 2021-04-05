@@ -13,6 +13,7 @@ from lib.analysis.total_mutated_burden import TotalMutationBurden
 from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 from lib.analysis.mutational_sig import MutationalSignature
 from lib.analysis.hrd_score import HRDScore
+from lib.analysis.wgd_cin import WGDnCIN
 
 def main():
     ''' Implement MAF analysis and visualization in one single command.
@@ -55,6 +56,7 @@ def main():
     parser.add_argument("-hrd","--hrd_score",nargs=2,help="Two items must be entered:\n\
                                                            1. The CSV_input file.\n\
                                                            2. The reference for HRD Score.\n")
+    parser.add_argument("-wgdcin", "--wgd_cin", nargs=1)
 
     parser.add_argument("-o","--output",required=True,metavar="OUTPUT folder",help="The path for storing every generated file.\n\
                                                                                     This path must end with a folder.\n")
@@ -90,6 +92,10 @@ def main():
     if args.hrd_score:
         df = HRDScore(args.hrd_score[0])
         df.data_analysis(folder, args.hrd_score[1])
+        df.plotting(folder, pic)
+    if args.wgd_cin:
+        df = WGDnCIN(args.wgd_cin[0])
+        df.data_analysis(folder)
         df.plotting(folder, pic)
 
 if __name__ == '__main__':
