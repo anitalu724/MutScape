@@ -49,4 +49,4 @@ class KnownCancerGeneAnnotation:
             origin_file.loc[origin_file['Hugo_Symbol'] == anno['Hugo Symbol'][item],List] = anno['# of occurrence within resources (Column D-J)'][item], anno['OncoKB Annotated'][item],anno['Is Oncogene'][item], anno['Is Tumor Suppressor Gene'][item], anno['MSK-IMPACT'][item], anno['MSK-HEME'][item], anno['FOUNDATION ONE'][item], anno['FOUNDATION ONE HEME'][item],anno['Vogelstein'][item],anno['SANGER CGC(05/30/2017)'][item]
         origin_file.to_csv(output_file, sep = '\t', index = False)
         print(colored('=> Generate output file: ', 'green'))
-        print(colored(('   '+output_file), 'green'))
+        print(colored(('   '+output_file+'\n'), 'green'))
