@@ -241,7 +241,7 @@ class MutationalSignature:
             print(colored(("=> Generate SBS Plot: "+pic+"SBS_96_plots.pdf"), 'green'))
         def CosineSimilarity():
             from sklearn.metrics.pairwise import cosine_similarity
-            my_file, aux_file = folder+"96_sig.csv", "src/auxiliary_file/COSMIC_72.tsv"
+            my_file, aux_file = folder+"96_sig.csv", "lib/auxiliary/COSMIC_72.tsv"
             my_df, aux_df = pd.read_csv(my_file, index_col=0), pd.read_csv(aux_file, sep="\t",index_col=0)
             my_list, aux_list = my_df.columns, aux_df.columns
             X = np.array(my_df.T.to_numpy())
