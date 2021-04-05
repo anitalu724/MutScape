@@ -9,6 +9,7 @@
 import argparse, textwrap
 from lib.analysis.sig_mutated_gene_detect import SigMutatedGeneDetection
 from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
+from lib.analysis.total_mutated_burden import TotalMutationBurden
 
 def main():
     ''' Implement MAF analysis and visualization in one single command.
@@ -32,6 +33,9 @@ def main():
     parser.add_argument("-f", "--file", nargs=1, metavar="MAF file", required=True)
     parser.add_argument("-smg", "--significantly_mutated_gene", action="store_true")
     parser.add_argument("-kcga", "--known_cancer_gene_annotaiton", action="store_true")
+    parser.add_argument("-tmb","--total_mutation_burden",nargs=1,help="One item must be entered:\n \
+                                                                       1. Sequencing Length\n",)
+
 
     parser.add_argument("-o","--output",required=True,metavar="OUTPUT folder",help="The path for storing every generated file.\n\
                                                                                     This path must end with a folder.\n")
@@ -48,6 +52,9 @@ def main():
     if args.known_cancer_gene_annotaiton:
         df = KnownCancerGeneAnnotation(args.file[0])
         df.annotation(folder)
+    if args.total_mutation_burden:
+        df = TotalMutationBurden(args.file[0])
+        df.data_analysis(folder, int(args.total_mutation_burden[0]))
 
 if __name__ == '__main__':
     main()
