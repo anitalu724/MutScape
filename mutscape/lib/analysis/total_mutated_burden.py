@@ -60,4 +60,4 @@ class TotalMutationBurden:
         stat_dict_df.to_csv(output_folder+'TMB_statistic.tsv', sep='\t')
         print(colored('=> Generate analysis files: ', 'green'))
         print(colored(('   '+output_folder+'TMB_analysis.tsv'), 'green'))
-        print(colored(('   '+output_folder+'TMB_statistic.tsv'), 'green'))
+        print(colored(('   '+output_folder+'TMB_statistic.tsv'+'\n'), 'green'))

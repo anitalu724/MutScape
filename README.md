@@ -157,5 +157,12 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     -o examples/output \
 	-p examples/pic/
     ```
-
+3. Mutation burden statistics
+    ```
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/TCGA_test.maf \
+    -tmb 60456963 \
+    -o examples/output \
+	-p examples/pic/
+    ```
 
