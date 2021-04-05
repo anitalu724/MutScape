@@ -143,12 +143,19 @@ MutScape provides 8 different analyses and some of them generate plots after ana
 
 1. Significantly mutated gene detection
 	```
-	    python3 mafAnalysis.py \
-	    -f examples/test_data/maf/TCGA_test.maf \
-	    -smg \
-	    -o examples/output \
-	    -p examples/pic/
+	python3 mafAnalysis.py \
+	-f examples/test_data/maf/TCGA_test.maf \
+	-smg \
+	-o examples/output \
+	-p examples/pic/
 	```
-
+2. Known cancer gene annotation
+    ```
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/TCGA_test.maf \
+    -kcga \
+    -o examples/output \
+	-p examples/pic/
+    ```
 
 
