@@ -12,23 +12,22 @@ from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
 from lib.analysis.total_mutated_burden import TotalMutationBurden
 from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 from lib.analysis.mutational_sig import MutationalSignature
+from lib.analysis.hrd_score import HRDScore
 
 def main():
     ''' Implement MAF analysis and visualization in one single command.
 
     This function contains 8 different analyses and some of them generate
-    plots after analysis.
+    plots after analysis:
 
-    Examples
-    --------
-    python3 mafAnalysis.py \
-    -f examples/test_data/maf/TCGA_test.maf \
-    -smg \
-    -o examples/output \
-    -p examples/pic/
-
-
-
+    1. Significantly mutated gene detection
+    2. Known cancer gene annotation
+    3. Mutation burden statistics
+    4. CoMut plot analysis
+    5. Mutational signature
+    6. HRD Score
+    7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
+    8. Actionable mutation(drug) annotation
 
     '''
     parser = argparse.ArgumentParser(description="MAF analysis", formatter_class=argparse.RawTextHelpFormatter)
@@ -53,6 +52,9 @@ def main():
                         * Plotting
                           1. 2
                           2. [Signature Number]'''))
+    parser.add_argument("-hrd","--hrd_score",nargs=2,help="Two items must be entered:\n\
+                                                           1. The CSV_input file.\n\
+                                                           2. The reference for HRD Score.\n")
 
     parser.add_argument("-o","--output",required=True,metavar="OUTPUT folder",help="The path for storing every generated file.\n\
                                                                                     This path must end with a folder.\n")
@@ -85,6 +87,10 @@ def main():
             df.data_analysis(folder, pic, params[0], params[1], params[2])
         elif args.mutational_signature[0] == '2':
             df.plotting(folder, pic, params[0])
+    if args.hrd_score:
+        df = HRDScore(args.hrd_score[0])
+        df.data_analysis(folder, args.hrd_score[1])
+        df.plotting(folder, pic)
 
 if __name__ == '__main__':
     main()

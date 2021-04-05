@@ -195,4 +195,17 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     -o examples/output \
 	-p examples/pic/
     ```
-
+6. HRD Score
+    ```
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/hrd.maf \
+    -hrd examples/test_data/tsv/hrd.tsv grch37 \
+    -o examples/output \
+	-p examples/pic/
+    ```
+7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
+    ```
+    ```
+8. Actionable mutation(drug) annotation
+    ```
+    ```
