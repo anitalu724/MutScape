@@ -30,6 +30,7 @@ def main():
     parser = argparse.ArgumentParser(description="MAF analysis", formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("-f", "--file", nargs=1, metavar="MAF file", required=True)
     parser.add_argument("-smg", "--significantly_mutated_gene", action="store_true")
+    parser.add_argument("-kcga", "--known_cancer_gene_annotaiton", action="store_true")
     
     parser.add_argument("-o","--output",required=True,metavar="OUTPUT folder",help="The path for storing every generated file.\n\
                                                                                     This path must end with a folder.\n")
