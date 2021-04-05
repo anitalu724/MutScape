@@ -180,4 +180,14 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     -o examples/output \
 	-p examples/pic/
     ```
+5. Mutational signature
+    ```
+    python3 maf_analysis.py \
+    -f examples/test_data/maf/ms.maf \
+    -ms 1 "[2,9,10]" \
+    -o examples/output \
+	-p examples/pic/
+
+    
+    ```
 

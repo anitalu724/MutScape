@@ -11,6 +11,7 @@ from lib.analysis.sig_mutated_gene_detect import SigMutatedGeneDetection
 from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
 from lib.analysis.total_mutated_burden import TotalMutationBurden
 from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
+from lib.analysis.mutational_sig import MutationalSignature
 
 def main():
     ''' Implement MAF analysis and visualization in one single command.
@@ -42,6 +43,16 @@ def main():
                                                               2. TSV file which contain all information for image.\n\
                                                               3. plot color theme(0: cold, 1: warm)\n\
                                                               4. CoMut_plot picture file name")
+    parser.add_argument("-ms", "--mutational_signature", nargs=2, metavar=('step_#', 'list_of_params'),
+                        help=textwrap.dedent('''\
+                        Two steps are included: Estimation(0) and Plotting(1).
+                        For each step, two values are required:
+                        * Estimation
+                          1. 1
+                          2. [<Rank start number>, <Rank end number>, <Epoch number>]
+                        * Plotting
+                          1. 2
+                          2. [Signature Number]'''))
 
     parser.add_argument("-o","--output",required=True,metavar="OUTPUT folder",help="The path for storing every generated file.\n\
                                                                                     This path must end with a folder.\n")
@@ -67,6 +78,13 @@ def main():
     if args.comut_plot:
         plot1 = CoMutPlot(args.comut_plot[0], args.comut_plot[1])
         plot1.plot(pic, args.comut_plot[2], args.comut_plot[3])
+    if args.mutational_signature:
+        df = MutationalSignature(args.file[0])
+        params = ast.literal_eval(args.mutational_signature[1])
+        if args.mutational_signature[0] == '1':
+            df.data_analysis(folder, pic, params[0], params[1], params[2])
+        elif args.mutational_signature[0] == '2':
+            df.plotting(folder, pic, params[0])
 
 if __name__ == '__main__':
     main()
