@@ -14,3 +14,5 @@ pip3 install sklearn
 pip3 install fonttools
 pip3 install PyVCF
 pip3 install comut
+conda install -c conda-forge r-devtools
+Rscript scarHRD.r
