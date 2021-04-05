@@ -19,8 +19,14 @@ class SigMutatedGeneDetection:
         A MAF file path.
     output_folder : str
         The path for every output file.
-    '''
 
+    Output files
+    ------------
+    output : 
+        oncodriveCLUST.nonsyn.txt
+        oncodriveCLUST.syn.txt
+        oncodriveclust_results.tsv
+    '''
     def __init__(self, maf_file):
         print(colored(("\nStart Significantly_Mutated_Gene_Detection...."), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)

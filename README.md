@@ -139,4 +139,16 @@ Some simple test commands are displayed below.
     -m examples/meta 
     
 ### MAF Analysis and Visualization
+MutScape provides 8 different analyses and some of them generate plots after analysis.
+
+1. Significantly mutated gene detection
+	```
+	    python3 mafAnalysis.py \
+	    -f examples/test_data/maf/TCGA_test.maf \
+	    -smg \
+	    -o examples/output \
+	    -p examples/pic/
+	```
+
+
 
