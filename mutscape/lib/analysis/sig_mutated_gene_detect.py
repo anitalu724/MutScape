@@ -7,6 +7,8 @@
 ############################################################################################
 
 from ..maf_filter import fast_read_maf
+from termcolor import colored
+import os
 
 class SigMutatedGeneDetection:
     '''MAF analysis: Significantly mutated gene detection 
@@ -54,9 +56,9 @@ class SigMutatedGeneDetection:
             print(colored(("   "+output_folder+"oncodriveCLUST.nonsyn.txt"), 'green'))
             print(colored(("   "+output_folder+"oncodriveCLUST.syn.txt\n"), 'green'))
         def implement():
-            os.system("oncodriveclust -m 3 --cgc src/auxiliary_file/CGC_phenotype.tsv "+\
+            os.system("oncodriveclust -m 3 --cgc lib/auxiliary/CGC_phenotype.tsv "+\
                       output_folder+"oncodriveCLUST.nonsyn.txt "+output_folder+"oncodriveCLUST.syn.txt "+\
-                      "src/auxiliary_file/gene_transcripts.tsv -o "+output_folder+"oncodriveclust_results.tsv\n")
+                      "lib/auxiliary/gene_transcripts.tsv -o "+output_folder+"oncodriveclust_results.tsv\n")
         get_input()
         implement()
         print("\n")
