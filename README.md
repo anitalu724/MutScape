@@ -199,7 +199,7 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/hrd.maf \
-    -hrd examples/test_data/tsv/hrd.tsv grch37 \
+    -hrd examples/tsv/hrd.tsv grch37 \
     -o examples/output \
 	-p examples/pic/
     ```
