@@ -44,25 +44,9 @@ class OncoKBAnnotator:
     def data_analysis(self, folder, path, token, clinical, cna = ''):
         selected_df = (self.df[['NCBI_Build','Hugo_Symbol', 'Variant_Classification', 'Tumor_Sample_Barcode', 'HGVSp_Short', 'HGVSp',  'Chromosome', 'Start_Position', 'End_Position', 'Reference_Allele', 'Tumor_Seq_Allele1', 'Tumor_Seq_Allele2']]).set_index("Hugo_Symbol")
         selected_df.to_csv(folder + "maf_oncokb_input.txt", sep="\t")
-        ## Generate clinical and cna data automatically
-        # sample_list = selected_df['Tumor_Sample_Barcode'].unique()
-        # print(sample_list)
-        # print(len(sample_list))
-        # oncotree_code = ['BRCA']*len(sample_list)
-        # clin_d = {'SAMPLE_ID':sample_list, 'ONCOTREE_CODE':oncotree_code}
-        # clin_df = pd.DataFrame(clin_d)
-        # clin_df.to_csv("examples/TCGA/clinical_input.txt",sep="\t",index=False)
-        # dfa = pd.DataFrame(np.random.randint(-1,1,size=(23058,len(sample_list))), columns=sample_list)
-        # first_3_col = (pd.read_csv("examples/TCGA/TCGA_Mutect_v10_white_rerun_cna_part.txt",sep="\t")).iloc[:,[0,1,2]]
-        # cna_df = pd.concat([first_3_col, dfa], axis=1)
-        # cna_df.to_csv("examples/TCGA/cna.txt",sep="\t",index=False)
-        # os._exit()
-        #
-        # os.system("pwd")
-        # os._exit()
-        
+
         os.system("git clone https://github.com/oncokb/oncokb-annotator.git\n")
-        os.system('cp src/auxiliary_file/autoChange.py oncokb-annotator\n')
+        os.system('cp lib/auxiliary/autoChange.py oncokb-annotator\n')
         os.chdir("oncokb-annotator")
         os.system('python3 autoChange.py\n')
         os.system('pip3 install requests\n')
@@ -79,13 +63,10 @@ class OncoKBAnnotator:
             p.close()
         os.chdir("..")
         os.system("rm -rf oncokb-annotator\n")
-        # os.system("rm "+folder+"maf_oncokb_input.txt\n")
         print(colored("=> Generate analysis files: ", 'green'))
         print(colored(("   " + folder + "maf_oncokb_output.txt"), 'green'))
         print(colored(("   " + folder + "clinical_oncokb_output.txt"), 'green'))
-        # print(colored(("   "+folder+"cna_oncokb_output.txt"), 'green'))
     def plotting(self, folder, pic, level='4'):
-        
         LABEL_SIZE, TITLE_SIZE = 24,30
         self.file = folder + "clinical_oncokb_output.txt"
         df = pd.read_csv(self.file, sep="\t")
@@ -116,7 +97,6 @@ class OncoKBAnnotator:
         _, _, autotexts = ax1.pie(size, labels=labels, autopct='%1.1f%%', startangle=90, colors=[COLOR_MAP[3],COLOR_MAP[4]] ,textprops={'fontsize': LABEL_SIZE})
         autotexts[1].set_color('white')
         ax1.axis('equal')
-        # plt.title("Total", fontsize=18, fontweight='bold')
         plt.savefig(pic+"oncokb_total_pie.pdf", dpi=300, bbox_inches='tight')
         print(colored(("=> Generate Pie Plot: " + pic + "oncokb_total_pie.pdf"), 'green'))
         
