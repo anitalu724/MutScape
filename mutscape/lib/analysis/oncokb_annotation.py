@@ -1,7 +1,7 @@
 ############################################################################################
-# FileName     [ wgd_cin.py ]
+# FileName     [ oncokb_annotation.py ]
 # PackageName  [ lib/analysis ]
-# Synopsis     [ Whole-genome doubling (WGD) and Chromosome instability (CIN) analysis. ]
+# Synopsis     [ Actionable mutation(drug) annotation ]
 # Author       [ Cheng-Hua Lu ]
 # Copyright    [ 2021 4 ]
 ############################################################################################
@@ -17,33 +17,44 @@ import matplotlib.ticker as mtick
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
 
 class OncoKBAnnotator:
-    """OncoKB annotator
+    '''MAF analysis: Actionable mutation(drug) annotation
 
-    Arguments:
-        file            {string}    -- A MAF file path
-        folder          {string}    -- The path for output files
-        path            {string}    -- The path for oncokb-annotator
-        token           {string}    -- The personal token provided from OncoKB
-        clinical        {string}    -- The path for clinical data
-        pic             {string}    -- The path especially for output figures(.pdf)
-        cna             {string}    -- (Optional) The path for cna data
-        level           {string}    -- (Optional) The level the user chooses (default = 4)
+    Parameters
+    ----------
+    maf_file : str
+        A MAF file path.
+    output_folder : str
+        The path for every output file.
+    path : str
+        The path for oncokb-annotator folder.
+    token : str
+        The personal token provided from OncoKB.
+    clinical : str
+        The path for clinical data.
+    pic : str
+        The path for storing plots.
+    cna : str (Optional) 
+        The path for cna data
+    level : str (Optional) 
+        The level the user chooses (default = 4)
 
-    Outputs:
+    Output files
+    ------------
+    output :
         maf_oncokb_output.txt
         clinical_oncokb_output.txt
 
-    Pictures:
+    pictures:
         oncokb_total_pie.pdf
         oncokb_freq_actionable_genes.pdf
 
-    """
-    def __init__(self, file):
+    '''
+    def __init__(self, maf_file):
         print(colored(("\nStart OncoKB annotator(drug)...."), 'yellow'))
-        self.head, self.df = fast_read_maf(file)
-    def data_analysis(self, folder, path, token, clinical, cna = ''):
+        self.head, self.df = fast_read_maf(maf_file)
+    def data_analysis(self, output_folder, path, token, clinical, cna = ''):
         selected_df = (self.df[['NCBI_Build','Hugo_Symbol', 'Variant_Classification', 'Tumor_Sample_Barcode', 'HGVSp_Short', 'HGVSp',  'Chromosome', 'Start_Position', 'End_Position', 'Reference_Allele', 'Tumor_Seq_Allele1', 'Tumor_Seq_Allele2']]).set_index("Hugo_Symbol")
-        selected_df.to_csv(folder + "maf_oncokb_input.txt", sep="\t")
+        selected_df.to_csv(output_folder + "maf_oncokb_input.txt", sep="\t")
 
         os.system("git clone https://github.com/oncokb/oncokb-annotator.git\n")
         os.system('cp lib/auxiliary/autoChange.py oncokb-annotator\n')
@@ -51,24 +62,24 @@ class OncoKBAnnotator:
         os.system('python3 autoChange.py\n')
         os.system('pip3 install requests\n')
         
-        p = os.popen("python3 MafAnnotator.py -i ../"+folder + "maf_oncokb_input.txt -o ../" + folder + "maf_oncokb_output.txt -c ../"+clinical+" -b " + token + "\n")
+        p = os.popen("python3 MafAnnotator.py -i ../"+output_folder + "maf_oncokb_input.txt -o ../" + output_folder + "maf_oncokb_output.txt -c ../"+clinical+" -b " + token + "\n")
         print(p.read())
         p.close()
-        p = os.popen("python3 ClinicalDataAnnotator.py -i ../"+clinical+" -o ../"+ folder +"clinical_oncokb_output.txt -a ../"+folder+"maf_oncokb_output.txt\n")
+        p = os.popen("python3 ClinicalDataAnnotator.py -i ../"+clinical+" -o ../"+ output_folder +"clinical_oncokb_output.txt -a ../"+output_folder+"maf_oncokb_output.txt\n")
         print(p.read())
         p.close()
         if cna !='':
-            p = os.popen("python3 CnaAnnotator.py -i ../"+cna+" -o ../"+folder+"cna_oncokb_output.txt -c ../"+clinical+" -b "+ token + "\n")
+            p = os.popen("python3 CnaAnnotator.py -i ../"+cna+" -o ../"+output_folder+"cna_oncokb_output.txt -c ../"+clinical+" -b "+ token + "\n")
             print(p.read())
             p.close()
         os.chdir("..")
         os.system("rm -rf oncokb-annotator\n")
         print(colored("=> Generate analysis files: ", 'green'))
-        print(colored(("   " + folder + "maf_oncokb_output.txt"), 'green'))
-        print(colored(("   " + folder + "clinical_oncokb_output.txt"), 'green'))
-    def plotting(self, folder, pic, level='4'):
+        print(colored(("   " + output_folder + "maf_oncokb_output.txt"), 'green'))
+        print(colored(("   " + output_folder + "clinical_oncokb_output.txt"), 'green'))
+    def plotting(self, output_folder, pic, level='4'):
         LABEL_SIZE, TITLE_SIZE = 24,30
-        self.file = folder + "clinical_oncokb_output.txt"
+        self.file = output_folder + "clinical_oncokb_output.txt"
         df = pd.read_csv(self.file, sep="\t")
         df_level = df[['HIGHEST_LEVEL']]
         level_list = ['LEVEL_1', 'LEVEL_2', 'LEVEL_3A', 'LEVEL_3B', 'LEVEL_4']
