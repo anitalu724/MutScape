@@ -182,6 +182,8 @@ Some simple test commands are displayed below.
 	-p examples/pic/
     ```
 4. CoMut plot analysis
+    > Output figure is shown like **Fig2**.
+
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
@@ -197,6 +199,7 @@ Some simple test commands are displayed below.
 	-p examples/pic/
     ```
 5. Mutational signature
+   > Output figure is shown like **Fig3**.
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/ms.maf \
@@ -212,6 +215,7 @@ Some simple test commands are displayed below.
 	-p examples/pic/
     ```
 6. HRD Score
+   > Output figure is shown like **Fig4.A, B**.
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/hrd.maf \
@@ -220,6 +224,7 @@ Some simple test commands are displayed below.
 	-p examples/pic/
     ```
 7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
+   > Output figure is shown like **Fig4.C, D**.
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/hrd.maf \
@@ -227,7 +232,9 @@ Some simple test commands are displayed below.
     -o examples/output \
 	-p examples/pic/
     ```
-8. Actionable mutation(drug) annotation
+8. Actionable mutation (drug) annotation
+   `[your_oncokb_token]` is gotten from [OncoKB Website](https://www.oncokb.org/). You must create  your own account and get your personal API token.
+   > Output figure is shown like **Fig5**.
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
