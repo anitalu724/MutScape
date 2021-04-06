@@ -141,6 +141,22 @@ Some simple test commands are displayed below.
 ### MAF Analysis and Visualization
 MutScape provides 8 different analyses and some of them generate plots after analysis.
 
+Commands are listed below:
+* `--file`, `-f` : The relative path of the input TSV file.
+* `--significantly_mutated_gene`, `-smg` : Significantly mutated gene detection
+* `--known_cancer_gene_annotaiton`, `-kcga` : Known cancer gene annotation
+* `--total_mutation_burden`, `-tmb` : Mutation burden statistics
+* `--comut_analysis`, `-cm` : CoMut plot analysis -- analysis
+* `--comut_plot`, `-cmp` : CoMut plot analysis -- visualization
+* `--mutational_signature`, `-ms` : Mutational signature
+* `--hrd_score`, `-hrd` : HRD Score
+* `--wgd_cin`, `-wgdcin` : Whole-genome doubling (WGD) and Chromosome instability (CIN)
+* `--oncokb_annotator`, `-oncokb`: Actionable mutation(drug) annotation
+* `--output`, `-o` : The path for storing output files. This path must end with a folder.
+* `--picture`, `-p` : The path for storing output images. This path must end with a folder.
+
+Some simple test commands are displayed below.
+
 1. Significantly mutated gene detection
 	```
 	python3 mafAnalysis.py \
@@ -219,5 +235,3 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     -o examples/output \
 	-p examples/pic/
     ```
-
-    
