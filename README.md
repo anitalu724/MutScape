@@ -66,7 +66,7 @@ To make sure our code smoothly implement, we need to install several modules tha
     cd MutScape/mutscape
     bash installation/install_module.sh
 
-MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. 
+MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. Detailed structure please refer to **Fig1**.
 
 ### Data Preprocessing
 MutScape accepts both VCF and MAF files as input data. 
