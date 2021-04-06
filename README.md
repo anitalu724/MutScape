@@ -213,4 +213,9 @@ MutScape provides 8 different analyses and some of them generate plots after ana
     ```
 8. Actionable mutation(drug) annotation
     ```
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/TCGA_test.maf \
+    -oncokb ../oncokb-annotator/ [your_oncokb_token] 4 examples/test_data/oncokb/clinical_input.txt \
+    -o examples/output \
+	-p examples/pic/
     ```

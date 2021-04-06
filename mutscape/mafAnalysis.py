@@ -14,6 +14,7 @@ from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 from lib.analysis.mutational_sig import MutationalSignature
 from lib.analysis.hrd_score import HRDScore
 from lib.analysis.wgd_cin import WGDnCIN
+from lib.analysis.oncokb_annotation import OncoKBAnnotator
 
 def main():
     ''' Implement MAF analysis and visualization in one single command.
@@ -57,6 +58,12 @@ def main():
                                                            1. The CSV_input file.\n\
                                                            2. The reference for HRD Score.\n")
     parser.add_argument("-wgdcin", "--wgd_cin", nargs=1)
+    parser.add_argument("-oncokb","--oncokb_annotator",nargs='*',help='Three items must be entered:\n \
+                                                                     1. The relative path of the folder "oncokb-annotator".\n \
+                                                                     2. The token of your OncoKB account.\n \
+                                                                     3. The level of the drug. \n\
+                                                                     4. The file path of clinical input.\n\
+                                                                     5. (Optional) The file path of cna input.\n')
 
     parser.add_argument("-o","--output",required=True,metavar="OUTPUT folder",help="The path for storing every generated file.\n\
                                                                                     This path must end with a folder.\n")
@@ -97,6 +104,13 @@ def main():
         df = WGDnCIN(args.wgd_cin[0])
         df.data_analysis(folder)
         df.plotting(folder, pic)
+    if args.oncokb_annotator:
+        df = OncoKBAnnotator(args.file[0])
+        if len(args.oncokb_annotator) == 5:
+            df.data_analysis(folder,args.oncokb_annotator[0],args.oncokb_annotator[1],args.oncokb_annotator[3],args.oncokb_annotator[4])
+        else:
+            df.data_analysis(folder,args.oncokb_annotator[0],args.oncokb_annotator[1],args.oncokb_annotator[3])
+        df.plotting(folder,pic, args.oncokb_annotator[2])
 
 if __name__ == '__main__':
     main()
