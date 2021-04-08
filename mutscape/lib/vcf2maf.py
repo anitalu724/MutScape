@@ -31,7 +31,7 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
 
     perl_path = input("Please enter vcf2maf.pl's path (If the path is '../../vcf2maf.pl', just press ENTER.): ")
     vep_path = input("Please enter the path of vep (Folder containing the vep script): ")
-    apath = subprocess.check_output("which vep", shell=True)
+    apath = (subprocess.check_output("which vep", shell=True)).decode("utf-8") 
     # a = os.system('which vep\n')
     print(type(apath))
     print('apath = ', apath[2,-2])
