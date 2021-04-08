@@ -11,6 +11,7 @@ from vcfpy import header
 import os
 from termcolor import colored
 import multiprocessing
+import subprocess
 
 def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     ''' Write a .sh file to automatically implement vcf2maf utility.
@@ -30,8 +31,9 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
 
     perl_path = input("Please enter vcf2maf.pl's path (If the path is '../../vcf2maf.pl', just press ENTER.): ")
     vep_path = input("Please enter the path of vep (Folder containing the vep script): ")
-    a = os.system('which vep\n')
-    print('a = ', a)
+    apath = subprocess.check_output("which vep", shell=True)
+    # a = os.system('which vep\n')
+    print('apath = ', apath)
     os.exit()
     if perl_path == "":
         perl_path = "../../vcf2maf.pl"
