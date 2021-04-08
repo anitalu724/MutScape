@@ -28,7 +28,10 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     run_file.write("GREEN='\\033[0;32m'\n")
     run_file.write("NC='\\033[0m'\n")
 
-    perl_path = input("Please enter vcf2maf.pl's path: ")
+    perl_path = input("Please enter vcf2maf.pl's path (If the path is '../../vcf2maf.pl', just press ENTER.): ")
+    vep_path = input("Please enter the path of vep (Folder containing the vep script): ")
+    os.system('which vep\n')
+    os.exit()
     if perl_path == "":
         perl_path = "../../vcf2maf.pl"
     fork = str(multiprocessing.cpu_count())
@@ -42,6 +45,7 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
                             "--normal-id "+category[index][0]+" \\\n"+\
                             "--vcf-tumor-id "+category[index][1]+" \\\n"+\
                             "--vcf-normal-id "+category[index][0]+" \\\n"+\
+                            "--vep-path "+vep_path+" \\\n"+\
                             "--max-filter-ac "+max_filter_ac+" \\\n"+\
                             "--input-vcf "+vcf_file+" \\\n"+\
                             "--output-maf "+maf_file_list[index]+" \\\n")
