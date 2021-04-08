@@ -32,12 +32,11 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     perl_path = input("Please enter vcf2maf.pl's path (If the path is '../../vcf2maf.pl', just press ENTER.): ")
     vep_path = input("Please enter the path of vep (Folder containing the vep script): ")
     apath = (subprocess.check_output("which vep", shell=True)).decode("utf-8") 
-    # a = os.system('which vep\n')
-    print(type(apath))
-    print('apath = ', apath)
-    os.exit()
+
     if perl_path == "":
         perl_path = "../../vcf2maf.pl"
+    if vep_path == '':
+        perl_path = apath
     fork = str(multiprocessing.cpu_count())
     if isinstance(vcf_file_list, list) and isinstance(maf_file_list, list) and len(vcf_file_list) == len(maf_file_list):
         for index, vcf_file in enumerate(vcf_file_list):
