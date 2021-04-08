@@ -91,7 +91,7 @@ def main():
 
     if flag == 'vcf':
         if not args.combine or not args.vcf2maf:
-            raise ValeError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
+            raise ValueError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
         filter_list = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
         combine_filter_filelist = all_combine(category, category_caller, meta)
@@ -99,7 +99,7 @@ def main():
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
     elif flag == 'maf':
         if args.vcf_filter or args.combine or args.vcf2maf:
-            raise ValeError('[MutScape] Command -vf, -c and -v2m must not required if inputs are MAFs.')
+            raise ValueError('[MutScape] Command -vf, -c and -v2m must not required if inputs are MAFs.')
         maf_all_filter_combine(args.maf_filter, category, meta, folder)
 
 if __name__ == '__main__':
