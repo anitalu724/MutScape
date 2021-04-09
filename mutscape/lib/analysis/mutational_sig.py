@@ -124,7 +124,7 @@ class MutationalSignature:
             os.system('python3 setup.py install --user')
             code = open('nimfa.py', 'w')
             code.write("import nimfa\nfrom collections import defaultdict, Counter\nimport urllib\nimport numpy as np\nfrom matplotlib import pyplot as plt\nimport matplotlib.gridspec as gridspec\nfrom sklearn import preprocessing\nimport scipy.cluster.hierarchy as sch\nimport pandas as pd\n")
-            code.write("df = (pd.read_csv(\"../"+output_folder+"ms_input.tsv\", sep=\"\t\")).T\n")
+            code.write("df = (pd.read_csv(\"../" + output_folder + "ms_input.tsv\", sep=\"\t\")).T\n")
             code.write("data = (df.to_numpy())[1:]\n")
             code.write("rank_cands = range('+str(rank1)+','+ str(rank2)+', 1)\n")
             code.write("snmf = nimfa.Snmf(data, seed='random_vcol', max_iter=100)\n")
