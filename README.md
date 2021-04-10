@@ -1,4 +1,4 @@
-# MutScape: analytical toolkit for mutational landscape in cancer genomics
+# MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics
 
 ![](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/movie.gif?raw=true)
 
