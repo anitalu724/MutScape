@@ -1,5 +1,5 @@
 ############################################################################################
-# FileName     [ total_mutated_burden.py ]
+# FileName     [ tumor_mutated_burden.py ]
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Calculate TMB for each data. ]
 # Author       [ Cheng-Hua Lu ]
@@ -10,7 +10,7 @@ from ..maf_filter import fast_read_maf
 from termcolor import colored
 import pandas as pd
 
-class TotalMutationBurden:
+class TumorMutationBurden:
     '''MAF analysis: Mutation burden statistics
 
     Parameters

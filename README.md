@@ -145,7 +145,7 @@ Commands are listed below:
 * `--file`, `-f` : The relative path of the input TSV file.
 * `--significantly_mutated_gene`, `-smg` : Significantly mutated gene detection
 * `--known_cancer_gene_annotaiton`, `-kcga` : Known cancer gene annotation
-* `--total_mutation_burden`, `-tmb` : Mutation burden statistics
+* `--tumor_mutation_burden`, `-tmb` : Mutation burden statistics
 * `--comut_analysis`, `-cm` : CoMut plot analysis -- analysis
 * `--comut_plot`, `-cmp` : CoMut plot analysis -- visualization
 * `--mutational_signature`, `-ms` : Mutational signature

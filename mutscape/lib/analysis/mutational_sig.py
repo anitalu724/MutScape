@@ -1,5 +1,5 @@
 ############################################################################################
-# FileName     [ total_mutated_burden.py ]
+# FileName     [ mutational_sig.py ]
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Implement mutational signature analysis. ]
 # Author       [ Cheng-Hua Lu ]

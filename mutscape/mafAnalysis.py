@@ -9,7 +9,7 @@
 import argparse, textwrap, ast
 from lib.analysis.sig_mutated_gene_detect import SigMutatedGeneDetection
 from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
-from lib.analysis.total_mutated_burden import TotalMutationBurden
+from lib.analysis.tumor_mutated_burden import TumorMutationBurden
 from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 from lib.analysis.mutational_sig import MutationalSignature
 from lib.analysis.hrd_score import HRDScore
@@ -36,7 +36,7 @@ def main():
     parser.add_argument("-f", "--file", nargs=1, metavar="MAF file", required=True)
     parser.add_argument("-smg", "--significantly_mutated_gene", action="store_true")
     parser.add_argument("-kcga", "--known_cancer_gene_annotaiton", action="store_true")
-    parser.add_argument("-tmb","--total_mutation_burden",nargs=1,help="One item must be entered:\n \
+    parser.add_argument("-tmb","--tumor_mutation_burden",nargs=1,help="One item must be entered:\n \
                                                                        1. Sequencing Length\n",)
     parser.add_argument("-cm", "--comut_analysis", action="store_true")
     parser.add_argument('-cmp', '--comut_plot',nargs=4, help="Four items need to be entered:\n\
@@ -80,9 +80,9 @@ def main():
     if args.known_cancer_gene_annotaiton:
         df = KnownCancerGeneAnnotation(args.file[0])
         df.annotation(folder)
-    if args.total_mutation_burden:
-        df = TotalMutationBurden(args.file[0])
-        df.data_analysis(folder, int(args.total_mutation_burden[0]))
+    if args.tumor_mutation_burden:
+        df = TumorMutationBurden(args.file[0])
+        df.data_analysis(folder, int(args.tumor_mutation_burden[0]))
     if args.comut_analysis:
         df = CoMutAnalysis(args.file[0])
         df.data_analysis(folder)
