@@ -173,25 +173,25 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
             return False
         for sample in record.samples:
             if "-N" in str(sample):
-                if sample['DP'] < DP_N or sample['AD'][1] < AD_N or not(type(sample['AF']) is float and sample['AF'] >= float(AF_N)):
+                if sample['DP'] <= DP_N or sample['AD'][1] > AD_N or not(type(sample['AF']) is float and sample['AF'] > float(AF_N)):
                     PASS = False
                 else:
                     PASS = True
             elif "-T" in str(sample):
-                if sample['DP'] < DP_T or sample['AD'][1] < AD_T or not(type(sample['AF']) is float and sample['AF'] >= float(AF_T)):
+                if sample['DP'] <= DP_T or sample['AD'][1] < AD_T or not(type(sample['AF']) is float and sample['AF'] > float(AF_T)):
                     PASS = False
                 else:
                     PASS = True
     elif call == "MuSE":
         for sample in record.samples:
             if sample.sample == "NORMAL":
-                DP = (sample['DP'] < DP_N)
-                AD = (sample['AD'][1] < AD_N)
+                DP = (sample['DP'] <= DP_N)
+                AD = (sample['AD'][1] > AD_N)
                 AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
                 if DP or AD or AF or len(sample['AD'])> 2:
                     PASS = False
             elif sample.sample == "TUMOR":
-                DP = (sample['DP'] < DP_T)
+                DP = (sample['DP'] <= DP_T)
                 AD = (sample['AD'][1] < AD_T)
                 AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
                 if DP or AD or AF or len(sample['AD'])> 2:
@@ -203,13 +203,13 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
             AD[0] = sample['DP4'][0]+sample['DP4'][1]
             AD[1] = sample['DP4'][2]+sample['DP4'][3]
             if "-N" in str(sample):
-                DP = (sample['DP'] < DP_N)
-                AD = (sample['AD'][1] < AD_N)
+                DP = (sample['DP'] <= DP_N)
+                AD = (sample['AD'][1] > AD_N)
                 AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
                 if DP or AD or AF:
                     PASS = False
             elif "-T" in str(sample):
-                DP = (sample['DP'] < DP_T)
+                DP = (sample['DP'] <= DP_T)
                 AD = (sample['AD'][1] < AD_T)
                 AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
                 if DP or AD or AF:
@@ -219,13 +219,13 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
     elif call == "VarScan2":
         for sample in record.samples:
             if sample.sample == "NORMAL":
-                DP = (sample['DP'] < DP_N)
-                AD = (sample['AD'] < AD_N)
+                DP = (sample['DP'] <= DP_N)
+                AD = (sample['AD'] > AD_N)
                 AF = (round(sample['AD']/sample['DP'],3) < AF_N)
                 if DP or AD or AF:
                     PASS = False
             elif sample.sample == "TUMOR":
-                DP = (sample['DP'] < DP_T)
+                DP = (sample['DP'] <= DP_T)
                 AD = (sample['AD'] < AD_T)
                 AF = (round(sample['AD']/sample['DP'],3) < AF_T)
                 if DP or AD or AF:
@@ -252,14 +252,14 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
             if sample['DP'] == 0 or len(_AD)!= 2:
                 return False
             if sample.sample == "NORMAL":
-                DP = (sample['DP'] < DP_N)
-                AD = (_AD[1] < AD_N)
+                DP = (sample['DP'] <= DP_N)
+                AD = (_AD[1] > AD_N)
                 AF = (round(_AD[1]/sample['DP'],3) < AF_N)
                 # print(round(_AD[1]/sample['DP'],3))
                 if DP or AD or AF:
                     PASS = False
             elif sample.sample == "TUMOR":
-                DP = (sample['DP'] < DP_T)
+                DP = (sample['DP'] <= DP_T)
                 AD = (_AD[1] < AD_T)
                 AF = (round(_AD[1]/sample['DP'],3) < AF_T)
                 if DP or AD or AF:
