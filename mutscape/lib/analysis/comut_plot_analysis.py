@@ -9,6 +9,7 @@
 from ..maf_filter import fast_read_maf
 from termcolor import colored
 import pandas as pd
+import os
 
 class CoMutAnalysis:
     '''MAF analysis: CoMut plot analysis
@@ -19,18 +20,20 @@ class CoMutAnalysis:
         A MAF file path.
     output_folder : str
         The path for every output file.
+    length : int
+        The length of genome (WES = 60456963)
 
     Output files
     ------------
     output :
         mutation_data.tsv
-        mutation_burden.tsv
+        mutation_classification.tsv
     
     '''    
     def __init__(self, maf_file):
         print(colored(('\nStart CoMut_Plot_Analysis....'), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
-    def data_analysis(self, output_folder):
+    def data_analysis(self, output_folder, length):
         def mutation_type():
             maf = self.df
             chosen_col = maf[['Tumor_Sample_Barcode','Hugo_Symbol','Variant_Classification']]
@@ -75,11 +78,15 @@ class CoMutAnalysis:
                     sample_dict[data['sample']][1]+=1
                 else:
                     sample_dict[data['sample']][0]+=1
+            for s in sample_dict:
+                sample_dict[s][0] = sample_dict[s][0]*1000000/length
+                sample_dict[s][1] = sample_dict[s][1]*1000000/length
+                
 
             mutation_clone = pd.DataFrame.from_dict(sample_dict, orient='index')
             mutation_clone.reset_index(level=0, inplace=True)
-            mutation_clone.to_csv(output_folder+'mutation_burden.tsv', sep='\t', header=['sample', 'Nonsynonymous', 'Synonymous'], index=False)
-            print(colored(('   '+output_folder+'mutation_burden.tsv'+'\n'), 'green'))
+            mutation_clone.to_csv(output_folder+'mutation_classification.tsv', sep='\t', header=['sample', 'Nonsynonymous', 'Synonymous'], index=False)
+            print(colored(('   '+output_folder+'mutation_classification.tsv'+'\n'), 'green'))
         mutation_type()
         mutation_clonality() 
 

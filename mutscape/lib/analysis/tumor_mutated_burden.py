@@ -20,7 +20,7 @@ class TumorMutationBurden:
     output_folder : str
         The path for every output file.
     length : int
-        The length of genome (WGS = 60456963)
+        The length of genome (WES = 60456963)
 
     Output files
     ------------
@@ -30,7 +30,7 @@ class TumorMutationBurden:
             
     ''' 
     def __init__(self, maf_file):
-        print(colored(('\nStart Total Mutation Burden....'), 'yellow'))
+        print(colored(('\nStart Tumor Mutation Burden....'), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
     def data_analysis(self, output_folder, length):
         select_df = self.df[['Variant_Classification', 'Tumor_Sample_Barcode']]

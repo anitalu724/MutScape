@@ -38,7 +38,8 @@ def main():
     parser.add_argument("-kcga", "--known_cancer_gene_annotaiton", action="store_true")
     parser.add_argument("-tmb","--tumor_mutation_burden",nargs=1,help="One item must be entered:\n \
                                                                        1. Sequencing Length\n",)
-    parser.add_argument("-cm", "--comut_analysis", action="store_true")
+    parser.add_argument("-cm", "--comut_analysis", nargs=1,help="One item must be entered:\n \
+                                                                       1. Sequencing Length\n",)
     parser.add_argument('-cmp', '--comut_plot',nargs=4, help="Four items need to be entered:\n\
                                                               1. TSV file for data paths.\n\
                                                               2. TSV file which contain all information for image.\n\
@@ -85,7 +86,7 @@ def main():
         df.data_analysis(folder, int(args.tumor_mutation_burden[0]))
     if args.comut_analysis:
         df = CoMutAnalysis(args.file[0])
-        df.data_analysis(folder)
+        df.data_analysis(folder, int(args.comut_analysis[0]))
     if args.comut_plot:
         plot1 = CoMutPlot(args.comut_plot[0], args.comut_plot[1])
         plot1.plot(pic, args.comut_plot[2], args.comut_plot[3])

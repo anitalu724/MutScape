@@ -340,7 +340,7 @@ Some simple test commands are displayed below.
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
-    -cm \
+    -cm 60456963 \
     -o examples/output \
     -p examples/pic/
 
