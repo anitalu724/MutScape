@@ -66,7 +66,9 @@ def get_filter_data(vcf_flt, num=4):
                         new_dict[str(i[0])] = [s, e]
                     flt_list[0] = new_dict
             elif data == "CI":
-                flt_list[1] = [float(x) for x in (vcf_flt[idx+1].replace(" ", "").replace("[", "").replace("]", "")).split(",")]
+                flt_list[1] = [x for x in (vcf_flt[idx+1].replace(" ", "").replace("[", "").replace("]", "")).split(",")]
+                for i in range(len(flt_list[1])):
+                    flt_list[1][i] = float(flt_list[1][i]) if flt_list[1][i] != '*' else flt_list[1][i]
             elif data == "PA":
                 flt_list[2] = bool(int(vcf_flt[idx+1]))
             elif data == "AV":
@@ -162,6 +164,10 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
     ValueError if `call` is not in the list below.
         [MuSE / Mutect2 / SomaticSniper / Strelka2 / VarScan2]
     '''
+    import os
+    print(DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD)
+    print(type(DP_N))
+    os._exit()
     PASS = True
     if call == "Mutect2":
         if record.INFO['NLOD'][0] < NLOD or record.INFO['TLOD'][0] < TLOD:
