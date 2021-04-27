@@ -130,7 +130,7 @@ def genome_interval(record, select):
     return PASS
     
 
-def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
+def caller_info(call, record, para_list, nt_name):
     ''' Caller Information(CI) filter
 
     Parameters
@@ -138,22 +138,25 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
     call : str (MuSE / Mutect2 / SomaticSniper / Strelka2 / VarScan2)
     record : vcf.model._Record
         A example of `record` is `Record(CHROM=1, POS=1560973, REF=C, ALT=[T])`.
-    DP_N : float
-        Coverage of the normal.
-    DP_T : float
-        Coverage of the tumor.
-    AD_N : float
-        Number of reads supporting the alternative allele in the normal.
-    AD_T : float
-        Number of reads supporting the alternative allele in the tumor.
-    AF_N : float
-        Fraction of variant supporting reads in the normal.
-    AF_T : float
-        Fraction of variant supporting reads in the tumor.
-    NLOD : float
-        Normal LOD score.
-    TLOD : float
-        Tumor LOD score.
+    para_list : list
+        DP_N : float
+            Coverage of the normal.
+        DP_T : float
+            Coverage of the tumor.
+        AD_N : float
+            Number of reads supporting the alternative allele in the normal.
+        AD_T : float
+            Number of reads supporting the alternative allele in the tumor.
+        AF_N : float
+            Fraction of variant supporting reads in the normal.
+        AF_T : float
+            Fraction of variant supporting reads in the tumor.
+        NLOD : float
+            Normal LOD score.
+        TLOD : float
+            Tumor LOD score.
+    nt_name : list
+    
 
     Returns
     -------
@@ -165,75 +168,103 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
         [MuSE / Mutect2 / SomaticSniper / Strelka2 / VarScan2]
     '''
     import os
-    print(DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD)
-    print(type(DP_N))
-    os._exit()
-    PASS = True
-    if call == "Mutect2":
-        if record.INFO['NLOD'][0] < NLOD or record.INFO['TLOD'][0] < TLOD:
-            return False
-        for sample in record.samples:
-            if "-N" in str(sample):
-                if sample['DP'] <= DP_N or sample['AD'][1] > AD_N or not(type(sample['AF']) is float and sample['AF'] > float(AF_N)):
-                    PASS = False
-                else:
-                    PASS = True
-            elif "-T" in str(sample):
-                if sample['DP'] <= DP_T or sample['AD'][1] < AD_T or not(type(sample['AF']) is float and sample['AF'] > float(AF_T)):
-                    PASS = False
-                else:
-                    PASS = True
-    elif call == "MuSE":
-        for sample in record.samples:
-            if sample.sample == "NORMAL":
-                DP = (sample['DP'] <= DP_N)
-                AD = (sample['AD'][1] > AD_N)
-                AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
-                if DP or AD or AF or len(sample['AD'])> 2:
-                    PASS = False
-            elif sample.sample == "TUMOR":
-                DP = (sample['DP'] <= DP_T)
-                AD = (sample['AD'][1] < AD_T)
-                AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
-                if DP or AD or AF or len(sample['AD'])> 2:
-                    PASS = False
-            else:
-                PASS = False
-    elif call == "SomaticSniper":
-        for sample in record.samples:
-            AD[0] = sample['DP4'][0]+sample['DP4'][1]
-            AD[1] = sample['DP4'][2]+sample['DP4'][3]
-            if "-N" in str(sample):
-                DP = (sample['DP'] <= DP_N)
-                AD = (sample['AD'][1] > AD_N)
-                AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
-                if DP or AD or AF:
-                    PASS = False
-            elif "-T" in str(sample):
-                DP = (sample['DP'] <= DP_T)
-                AD = (sample['AD'][1] < AD_T)
-                AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
-                if DP or AD or AF:
-                    PASS = False
-            else:
-                PASS = False
-    elif call == "VarScan2":
-        for sample in record.samples:
-            if sample.sample == "NORMAL":
-                DP = (sample['DP'] <= DP_N)
-                AD = (sample['AD'] > AD_N)
-                AF = (round(sample['AD']/sample['DP'],3) < AF_N)
-                if DP or AD or AF:
-                    PASS = False
-            elif sample.sample == "TUMOR":
-                DP = (sample['DP'] <= DP_T)
-                AD = (sample['AD'] < AD_T)
-                AF = (round(sample['AD']/sample['DP'],3) < AF_T)
-                if DP or AD or AF:
-                    PASS = False
-            else:
-                PASS = False
-    elif call == "Strelka2":
+    if call == 'Mutect2':
+        print(record)
+        for idx, para in enumerate(para_list):
+            if idx == 0 and para != '*':    # DP_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['DP'] <= para:
+                        return False
+            elif idx == 1 and para != '*':    # DP_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['DP'] <= para:
+                        return False
+            elif idx == 2 and para != '*':    # AD_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['AD'][1] > para:
+                        return False
+            elif idx == 3 and para != '*':    # AD_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['AD'][1] < para:
+                        return False
+            elif idx == 4 and para != '*':    # AF_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and type(sample['AF']) is float:
+                        if sample['AF'] > para:
+                            return False
+            elif idx == 5 and para != '*':    # AF_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and type(sample['AF']) is float:
+                        if sample['AF'] < para:
+                            return False
+            elif idx == 6 and para != '*':    # NLOD
+                if record.INFO['NLOD'][0] < para:
+                    return False
+            elif idx == 7 and para != '*':    # TLOD
+                if record.INFO['TLOD'][0] < para:
+                    return False
+    elif call == 'MuSE':
+        for idx, para in enumerate(para_list):
+            if idx == 0 and para != '*':    # DP_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['DP'] <= para:
+                        return False
+            elif idx == 1 and para != '*':    # DP_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['DP'] <= para:
+                        return False
+            elif idx == 2 and para != '*':    # AD_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['AD'][1] > para:
+                        return False
+            elif idx == 3 and para != '*':    # AD_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['AD'][1] < para:
+                        return False
+            elif idx == 4 and para != '*':    # AF_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0]:
+                        AF_N = round(sample['AD'][1]/sample['DP'],3)
+                        if AF_N > para:
+                            return False
+            elif idx == 5 and para != '*':    # AF_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1]:
+                        AF_T = round(sample['AD'][1]/sample['DP'],3)
+                        if AF_T < para:
+                            return False
+    elif call == 'SomaticSniper':
+        for idx, para in enumerate(para_list):
+            if idx == 0 and para != '*':    # DP_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['DP'] <= para:
+                        return False
+            elif idx == 1 and para != '*':    # DP_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['DP'] <= para:
+                        return False
+            elif idx == 2 and para != '*':    # AD_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['AD'][1] > para:
+                        return False
+            elif idx == 3 and para != '*':    # AD_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['AD'][1] < para:
+                        return False
+            elif idx == 4 and para != '*':    # AF_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0]:
+                        AF_N = round(sample['AD'][1]/sample['DP'],3)
+                        if AF_N > para:
+                            return False
+            elif idx == 5 and para != '*':    # AF_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1]:
+                        AF_T = round(sample['AD'][1]/sample['DP'],3)
+                        if AF_T < para:
+                            return False
+    elif call == 'Strelka2':
+        AD_N, AD_T = 0,0
         for sample in record.samples:
             _AD = []
             if sample["AU"][0] > 0:
@@ -245,31 +276,185 @@ def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
             if sample["TU"][0] > 0:
                 _AD.append(sample["TU"][0])
             if len(_AD) == 2:
-                if _AD[1] > _AD[0]:
-                    tmp = _AD[1]
-                    _AD[1] = _AD[0]
-                    _AD[0] = tmp
-            
-            if sample['DP'] == 0 or len(_AD)!= 2:
-                return False
-            if sample.sample == "NORMAL":
-                DP = (sample['DP'] <= DP_N)
-                AD = (_AD[1] > AD_N)
-                AF = (round(_AD[1]/sample['DP'],3) < AF_N)
-                # print(round(_AD[1]/sample['DP'],3))
-                if DP or AD or AF:
-                    PASS = False
-            elif sample.sample == "TUMOR":
-                DP = (sample['DP'] <= DP_T)
-                AD = (_AD[1] < AD_T)
-                AF = (round(_AD[1]/sample['DP'],3) < AF_T)
-                if DP or AD or AF:
-                    PASS = False
+                _AD = [_AD[1],_AD[0]] if _AD[1] > _AD[0] else _AD
+            if sample.sample == nt_name[0]:
+                AD_N = _AD
             else:
-                PASS = False
+                AD_T = _AD
+        for idx, para in enumerate(para_list):
+            if idx == 0 and para != '*':    # DP_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['DP'] <= para:
+                        return False
+            elif idx == 1 and para != '*':    # DP_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['DP'] <= para:
+                        return False
+            elif idx == 2 and para != '*':    # AD_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0]:
+                        if AD_N[1] < para:
+                            return False
+            elif idx == 3 and para != '*':    # AD_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1]:
+                        if AD_T[1] < para:
+                            return False
+            elif idx == 4 and para != '*':    # AF_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0]:
+                        AF_N = round(AD_N[1]/sample['DP'],3)
+                        if AF_N > para:
+                            return False
+            elif idx == 5 and para != '*':    # AF_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1]:
+                        AF_T = round(AD_T[1]/sample['DP'],3)
+                        if AF_T < para:
+                            return False
+    elif call == 'VarScan2':
+        for idx, para in enumerate(para_list):
+            if idx == 0 and para != '*':    # DP_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['DP'] <= para:
+                        return False
+            elif idx == 1 and para != '*':    # DP_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['DP'] <= para:
+                        return False
+            elif idx == 2 and para != '*':    # AD_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0] and sample['AD'][1] > para:
+                        return False
+            elif idx == 3 and para != '*':    # AD_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1] and sample['AD'][1] < para:
+                        return False
+            elif idx == 4 and para != '*':    # AF_N
+                for sample in record.samples:
+                    if sample.sample == nt_name[0]:
+                        AF_N = round(sample['AD'][1]/sample['DP'],3)
+                        if AF_N > para:
+                            return False
+            elif idx == 5 and para != '*':    # AF_T
+                for sample in record.samples:
+                    if sample.sample == nt_name[1]:
+                        AF_T = round(sample['AD'][1]/sample['DP'],3)
+                        if AF_T < para:
+                            return False
     else:
         raise ValueError('[MutScape] The name for caller variant is not defined.')
-    return PASS
+    return True
+    # for idx, para in enumerate(para_list):
+    #     if para != '*':
+    #         if idx == 0:
+    #         elif idx == 1:
+    #         elif idx == 2:
+    #         elif idx == 3:
+    #         elif idx == 4:
+    #         elif idx == 5:
+    #         elif idx == 6:
+    # os._exit()
+    # PASS = True
+    # if call == "Mutect2":
+    #     if record.INFO['NLOD'][0] < NLOD or record.INFO['TLOD'][0] < TLOD:
+    #         return False
+    #     for sample in record.samples:
+    #         if "-N" in str(sample):
+    #             if sample['DP'] <= DP_N or sample['AD'][1] > AD_N or not(type(sample['AF']) is float and sample['AF'] > float(AF_N)):
+    #                 PASS = False
+    #             else:
+    #                 PASS = True
+    #         elif "-T" in str(sample):
+    #             if sample['DP'] <= DP_T or sample['AD'][1] < AD_T or not(type(sample['AF']) is float and sample['AF'] > float(AF_T)):
+    #                 PASS = False
+    #             else:
+    #                 PASS = True
+    # elif call == "MuSE":
+    #     for sample in record.samples:
+    #         if sample.sample == "NORMAL":
+    #             DP = (sample['DP'] <= DP_N)
+    #             AD = (sample['AD'][1] > AD_N)
+    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
+    #             if DP or AD or AF or len(sample['AD'])> 2:
+    #                 PASS = False
+    #         elif sample.sample == "TUMOR":
+    #             DP = (sample['DP'] <= DP_T)
+    #             AD = (sample['AD'][1] < AD_T)
+    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
+    #             if DP or AD or AF or len(sample['AD'])> 2:
+    #                 PASS = False
+    #         else:
+    #             PASS = False
+    # elif call == "SomaticSniper":
+    #     for sample in record.samples:
+    #         AD[0] = sample['DP4'][0]+sample['DP4'][1]
+    #         AD[1] = sample['DP4'][2]+sample['DP4'][3]
+    #         if "-N" in str(sample):
+    #             DP = (sample['DP'] <= DP_N)
+    #             AD = (sample['AD'][1] > AD_N)
+    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
+    #             if DP or AD or AF:
+    #                 PASS = False
+    #         elif "-T" in str(sample):
+    #             DP = (sample['DP'] <= DP_T)
+    #             AD = (sample['AD'][1] < AD_T)
+    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
+    #             if DP or AD or AF:
+    #                 PASS = False
+    #         else:
+    #             PASS = False
+    # elif call == "VarScan2":
+    #     for sample in record.samples:
+    #         if sample.sample == "NORMAL":
+    #             DP = (sample['DP'] <= DP_N)
+    #             AD = (sample['AD'] > AD_N)
+    #             AF = (round(sample['AD']/sample['DP'],3) < AF_N)
+    #             if DP or AD or AF:
+    #                 PASS = False
+    #         elif sample.sample == "TUMOR":
+    #             DP = (sample['DP'] <= DP_T)
+    #             AD = (sample['AD'] < AD_T)
+    #             AF = (round(sample['AD']/sample['DP'],3) < AF_T)
+    #             if DP or AD or AF:
+    #                 PASS = False
+    #         else:
+    #             PASS = False
+    # elif call == "Strelka2":
+    #     for sample in record.samples:
+    #         _AD = []
+    #         if sample["AU"][0] > 0:
+    #             _AD.append(sample["AU"][0]) 
+    #         if sample["CU"][0] > 0:
+    #             _AD.append(sample["CU"][0]) 
+    #         if sample["GU"][0] > 0:
+    #             _AD.append(sample["GU"][0]) 
+    #         if sample["TU"][0] > 0:
+    #             _AD.append(sample["TU"][0])
+    #         if len(_AD) == 2:
+    #             if _AD[1] > _AD[0]:
+    #                 _AD = [_AD[1],_AD[0]]
+            
+    #         if sample['DP'] == 0 or len(_AD)!= 2:
+    #             return False
+    #         if sample.sample == "NORMAL":
+    #             DP = (sample['DP'] <= DP_N)
+    #             AD = (_AD[1] > AD_N)
+    #             AF = (round(_AD[1]/sample['DP'],3) < AF_N)
+    #             # print(round(_AD[1]/sample['DP'],3))
+    #             if DP or AD or AF:
+    #                 PASS = False
+    #         elif sample.sample == "TUMOR":
+    #             DP = (sample['DP'] <= DP_T)
+    #             AD = (_AD[1] < AD_T)
+    #             AF = (round(_AD[1]/sample['DP'],3) < AF_T)
+    #             if DP or AD or AF:
+    #                 PASS = False
+    #         else:
+    #             PASS = False
+    # else:
+    #     raise ValueError('[MutScape] The name for caller variant is not defined.')
+    # return PASS
 
 def pass_filter(record):
     ''' PASS(PA) filter 
@@ -377,6 +562,7 @@ def vcf_filter(if_filter, category, category_caller, meta):
                 if len(filter_list) != 0 and PASS:
                     filter_score = np.zeros(4, dtype = bool)
                     for i in range(len(new_filter_list)):
+                        nt_name = [category[0][0], category[0][1]]
                         if PASS:
                             if new_filter_list[i]:
                                 if i == 0:
@@ -384,7 +570,7 @@ def vcf_filter(if_filter, category, category_caller, meta):
                                 elif i == 1:
                                     call = category_caller[s_idx][vcf_idx]
                                     [DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD] = new_filter_list[i]
-                                    PASS = caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD)
+                                    PASS = caller_info(call, record, new_filter_list[i], nt_name)
                                 elif i == 2:
                                     PASS = pass_filter(record)
                                 elif i == 3:
