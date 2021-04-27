@@ -110,6 +110,7 @@ def genome_interval(record, select):
     -------
     PASS : bool
     '''
+    
     PASS = True
     if type(select) == list:
         selected_list = []
@@ -117,21 +118,15 @@ def genome_interval(record, select):
             selected_list.append(str(i))
         PASS = True if record.CHROM in selected_list else False
     elif type(select) == dict:
-        for i in select:
-            if record.CHROM == (str(i)):
-                if select[i][0] == -1 and select[i][1] == -1:
-                    PASS = True
-                elif select[i][0] == -1:
-                    PASS = True if record.POS <= select[i][1] else False
-                elif select[i][1] == -1:
-                    PASS = True if record.POS >= select[i][0] else False
-                else:
-                    PASS = True if record.POS >= select[i][0] and record.POS <= select[i][1] else False
+        if record.CHROM in select.keys():
+            if select[record.CHROM][0] <= record.POS and record.POS <= select[record.CHROM][1]:
+                PASS = True
             else:
                 PASS = False
-    else:
-        PASS = False
+        else:
+            PASS = False
     return PASS
+    
 
 def caller_info(call, record, DP_N, DP_T, AD_N, AD_T, AF_N, AF_T, NLOD, TLOD):
     ''' Caller Information(CI) filter
