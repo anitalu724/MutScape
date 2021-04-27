@@ -139,21 +139,21 @@ def caller_info(call, record, para_list, nt_name):
     record : vcf.model._Record
         A example of `record` is `Record(CHROM=1, POS=1560973, REF=C, ALT=[T])`.
     para_list : list
-        DP_N : float
+        DP_N : float/*
             Coverage of the normal.
-        DP_T : float
+        DP_T : float/*
             Coverage of the tumor.
-        AD_N : float
+        AD_N : float/*
             Number of reads supporting the alternative allele in the normal.
-        AD_T : float
+        AD_T : float/*
             Number of reads supporting the alternative allele in the tumor.
-        AF_N : float
+        AF_N : float/*
             Fraction of variant supporting reads in the normal.
-        AF_T : float
+        AF_T : float/*
             Fraction of variant supporting reads in the tumor.
-        NLOD : float
+        NLOD : float/*
             Normal LOD score.
-        TLOD : float
+        TLOD : float/*
             Tumor LOD score.
     nt_name : list
     
@@ -167,9 +167,7 @@ def caller_info(call, record, para_list, nt_name):
     ValueError if `call` is not in the list below.
         [MuSE / Mutect2 / SomaticSniper / Strelka2 / VarScan2]
     '''
-    import os
     if call == 'Mutect2':
-        print(record)
         for idx, para in enumerate(para_list):
             if idx == 0 and para != '*':    # DP_N
                 for sample in record.samples:
