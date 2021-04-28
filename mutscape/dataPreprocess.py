@@ -102,7 +102,7 @@ def main():
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
         if args.vcf_filter == None and args.vcf2maf == None and args.maf_filter != None:
-            print(colored('Warning: No MAF files, so no implementation of MAF_filtering!\n','yellow'))
+            print(colored('Warning: No MAF files, so no implementation of MAF filtering!\n','yellow'))
     elif flag == 'maf':
         if args.vcf_filter or args.vcf2maf:
             raise ValueError('[MutScape] Command -vf, -c and -v2m must not required if inputs are MAFs.')
