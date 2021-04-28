@@ -73,7 +73,7 @@ def get_maf_filter_data(maf_flt, num = 5):
                 if "[" in info:
                     info = info.strip("[").strip("]").split(",")
                     flt_list[2] = info
-            elif data == "PF":
+            elif data == "PAC":
                 flt_list[3] = bool(int(maf_flt[idx+1]))
             elif data == "H":
                 flt_list[4] = int(maf_flt[idx+1])
@@ -268,8 +268,8 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
         GI = genome_interval(df.iloc[i], flt_list[0])
         CI = caller_info(df.iloc[i], flt_list[1])
         TE = tissue_expression(df.iloc[i], flt_list[2], ALL_DICT)
-        PF = population_allele_count(df.iloc[i], flt_list[3])
-        if not (GI and CI and TE and PF):
+        PAC = population_allele_count(df.iloc[i], flt_list[3])
+        if not (GI and CI and TE and PAC):
             rm_list.append(i)
     pbar.close()
     df = df.drop(df.index[rm_list])
