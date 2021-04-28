@@ -80,12 +80,12 @@ def get_maf_filter_data(maf_flt, num = 5):
     return flt_list
 
 def read_TSV(tsv_file):
-    '''Read lib/auxiliary/rna_tissue_consensus.tsv
+    '''Read lib/auxiliary/rna_cancer_consensus.tsv
 
     Parameters
     ----------
     tsv_file : str
-        The path of `rna_tissue_consensus.tsv`.
+        The path of `rna_cancer_consensus.tsv`.
 
     Returns
     -------
@@ -100,7 +100,7 @@ def read_TSV(tsv_file):
         pbar.update(1)
         if df.iloc[i]['Gene name'] not in ALL_DICT:
             ALL_DICT[df.iloc[i]['Gene name']] = {}
-        ALL_DICT[df.iloc[i]['Gene name']][df.iloc[i]['Tissue']] = df.iloc[i]['NX']
+        ALL_DICT[df.iloc[i]['Gene name']][df.iloc[i]['Cancer']] = df.iloc[i]['NX']
     pbar.close()
     return ALL_DICT
 
@@ -200,7 +200,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
             A list with length = 2.
             ex : ['breast', 5]
         ALL_DICT : dict
-            data from `lib/auxiliary/rna_tissue_consensus.json`.
+            data from `lib/auxiliary/rna_cancer_consensus.json`.
 
         Returns
         -------
@@ -302,12 +302,12 @@ def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
         maf_filtered_list = [x[:-4]+"_filtered.maf" for x in maf_output_list]
         ALL_DICT = {}
         if maf_flt_list[2] != False:
-            if not os.path.isfile('lib/auxiliary/rna_tissue_consensus.json'):
-                ALL_DICT = read_TSV("lib/auxiliary/rna_tissue_consensus.tsv")
-                with open("lib/auxiliary/rna_tissue_consensus.json", "w") as jsonfile:  
+            if not os.path.isfile('lib/auxiliary/rna_cancer_consensus.json'):
+                ALL_DICT = read_TSV("lib/auxiliary/rna_cancer_consensus.tsv")
+                with open("lib/auxiliary/rna_cancer_consensus.json", "w") as jsonfile:  
                     json.dump(ALL_DICT, jsonfile) 
             else:
-                with open("lib/auxiliary/rna_tissue_consensus.json", "r") as jsonfile:  
+                with open("lib/auxiliary/rna_cancer_consensus.json", "r") as jsonfile:  
                     ALL_DICT = json.load(jsonfile)
         for idx, maf in enumerate(maf_output_list):
             maf_filter(maf, maf_flt_list, ALL_DICT, maf_filtered_list[idx])
@@ -366,12 +366,12 @@ def maf_all_filter_combine(if_maf_filter, category, meta, folder):
         maf_filtered_list = [meta+x[x.rfind("/")+1:-4]+"_filtered.maf" for x in maf_output_list]
         ALL_DICT = {}
         if maf_flt_list[2] != False:
-            if not os.path.isfile('lib/auxiliary/rna_tissue_consensus.json'):
-                ALL_DICT = read_TSV("lib/auxiliary/rna_tissue_consensus.tsv")
-                with open("lib/auxiliary/rna_tissue_consensus.json", "w") as jsonfile:  
+            if not os.path.isfile('lib/auxiliary/rna_cancer_consensus.json'):
+                ALL_DICT = read_TSV("lib/auxiliary/rna_cancer_consensus.tsv")
+                with open("lib/auxiliary/rna_cancer_consensus.json", "w") as jsonfile:  
                     json.dump(ALL_DICT, jsonfile) 
             else:
-                with open("lib/auxiliary/rna_tissue_consensus.json", "r") as jsonfile:  
+                with open("lib/auxiliary/rna_cancer_consensus.json", "r") as jsonfile:  
                     ALL_DICT = json.load(jsonfile)
         for idx, maf in enumerate(maf_output_list):
             maf_filter(maf, maf_flt_list, ALL_DICT, maf_filtered_list[idx])

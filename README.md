@@ -94,7 +94,6 @@ Some simple test commands are displayed below.
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
     -vf GI [1,3] \
-    -c \
     -v2m 8 \
     -o examples/output \
     -m examples/meta 
@@ -103,7 +102,6 @@ Some simple test commands are displayed below.
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
     -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9 \
-    -c \
     -v2m 8 \
     -o examples/output \
     -m examples/meta
@@ -111,7 +109,6 @@ Some simple test commands are displayed below.
     
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
-    -c \
     -v2m 8 \
     -o examples/output \
     -m examples/meta \
