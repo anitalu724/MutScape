@@ -343,7 +343,7 @@ def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
     else:
         print(colored("Start MAF combination....\n", "yellow"))
         maf_df, head = pd.DataFrame(), ""
-        for maf_file in category:
+        for maf_file in maf_output_list:
             head, maf = fast_read_maf(maf_file)
             maf_df = pd.concat([maf_df, maf])
         maf_df.to_csv(folder+"maf_combination.maf", sep="\t", index= False, header = list(maf_df.columns.values))
@@ -353,7 +353,7 @@ def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
                 filtered_file.seek(0)
                 filtered_file.write(head)
                 filtered_file.writelines(lines)
-        print(colored(("=> Finish combining "+str(len(category))+" MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
+        print(colored(("=> Finish combining "+str(len(maf_output_list))+" MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
         
 
 def maf_all_filter_combine(if_maf_filter, category, meta, folder):
