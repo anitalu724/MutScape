@@ -55,8 +55,8 @@ class OncoKBAnnotator:
     def data_analysis(self, output_folder, path, token, clinical, cna = ''):
         selected_df = (self.df[['NCBI_Build','Hugo_Symbol', 'Variant_Classification', 'Tumor_Sample_Barcode', 'HGVSp_Short', 'HGVSp',  'Chromosome', 'Start_Position', 'End_Position', 'Reference_Allele', 'Tumor_Seq_Allele1', 'Tumor_Seq_Allele2']]).set_index("Hugo_Symbol")
         selected_df.to_csv(output_folder + "maf_oncokb_input.txt", sep="\t")
-
-        os.system("git clone https://github.com/oncokb/oncokb-annotator.git\n")
+        if not os.path.isdir('oncokb-annotator'):
+            os.system("git clone https://github.com/oncokb/oncokb-annotator.git\n")
         os.system('cp lib/auxiliary/autoChange.py oncokb-annotator\n')
         os.chdir("oncokb-annotator")
         os.system('python3 autoChange.py\n')
