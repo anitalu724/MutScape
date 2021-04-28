@@ -93,7 +93,7 @@ def main():
     if flag == 'vcf':
         # if not args.combine or not args.vcf2maf:
         #     raise ValueError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
-        if args.vcf2maf:
+        if args.vcf2maf != None:
             if len(args.vcf2maf) == 0:
                 args.vcf2maf.append('10')
         combine_filter_filelist = []

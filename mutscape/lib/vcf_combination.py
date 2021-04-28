@@ -361,7 +361,7 @@ def all_combine(if_combine, category, category_caller, meta):
         print("\n")
         for idx, file in enumerate(combine_filter_filelist):
             if idx == 0:
-                print(colored(("=> Final combined file: "+file), 'green'))
+                print(colored(("=> Final combined files: "+file), 'green'))
             else:
                 print(colored(('\t\t\t'+file), 'green'))
         print("\n")
@@ -370,4 +370,11 @@ def all_combine(if_combine, category, category_caller, meta):
         combine_filter_filelist = []
         for i in category:
             combine_filter_filelist += i[2]
+        print("NOTICE: No VCF combination!\n")
+        for idx, file in enumerate(combine_filter_filelist):
+            if idx == 0:
+                print(colored(("=> All files: "+file), 'green'))
+            else:
+                print(colored(('\t'+file), 'green'))
+        print("\n")
         return combine_filter_filelist
