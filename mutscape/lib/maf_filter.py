@@ -142,7 +142,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
 
         Parameters
         ----------
-        data :
+        data : pandas.core.series.Series
         interval : bool/list/dict
 
         Returns
@@ -175,7 +175,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
 
         Parameters
         ----------
-        data :
+        data : pandas.core.series.Series
         info : bool/list
 
         Returns
@@ -195,7 +195,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
 
         Parameters
         ----------
-        data :
+        data : pandas.core.series.Series
         tissue : list
             A list with length = 2.
             ex : ['breast', 5]
@@ -218,12 +218,12 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
                 return False
         return True
     
-    def population_frequency(data, info):
-        '''Population Frequency (PF) filter
+    def population_allele_count(data, info):
+        '''Population Allele Count (PAC) filter
 
         Parameters
         ----------
-        data :
+        data : pandas.core.series.Series
         info : bool
 
         Returns
@@ -268,7 +268,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
         GI = genome_interval(df.iloc[i], flt_list[0])
         CI = caller_info(df.iloc[i], flt_list[1])
         TE = tissue_expression(df.iloc[i], flt_list[2], ALL_DICT)
-        PF = population_frequency(df.iloc[i], flt_list[3])
+        PF = population_allele_count(df.iloc[i], flt_list[3])
         if not (GI and CI and TE and PF):
             rm_list.append(i)
     pbar.close()
