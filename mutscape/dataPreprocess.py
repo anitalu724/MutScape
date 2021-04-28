@@ -80,7 +80,7 @@ def main():
                                                help = textwrap.dedent("GI: Genome Interval\n"
                                                                       "CI: Caller Information\n"
                                                                       "TE: Tissue Expression\n"
-                                                                      "PF: Population Frequency\n"
+                                                                      "PAC: Population Allele Count\n"
                                                                       "HY: Hypermutation or Sample Exclusion\n\n"))
 
     args = parser.parse_args()
