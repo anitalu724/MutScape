@@ -67,9 +67,9 @@ def main():
     parser.add_argument('-f','--file', help='Input the tsv file.\n\n', required = True, metavar='tsv_file')
     parser.add_argument("-vf", "--vcf_filter", nargs='*', metavar='params',\
                                                help=textwrap.dedent("GI: Genome Interval\n"
-                                                                   "CI: Caller Information\n"
-                                                                   "PA: Keep or exclude non-PASS tag\n"
-                                                                   "AV: Artifact variant filter: FFPE filter (Only for caller = Mutect2)\n\n"))
+                                                                    "CI: Caller Information\n"
+                                                                    "PA: Keep or exclude non-PASS tag\n"
+                                                                    "AV: Artifact variant filter: FFPE filter (Only for caller = Mutect2)\n\n"))
     parser.add_argument("-c","--combine", action='store_true',help="Input the path for combination VCF files.\nThe path must end with a folder.\n\n")
     parser.add_argument("-v2m","--vcf2maf", nargs='*', help="The first value is the path for transformed MAF files. This path must end with a folder.\n"
                                                              "The second value is \"max_filter_ac\" which is an important parameter(int) when transforming files to MAF.\n\n")
