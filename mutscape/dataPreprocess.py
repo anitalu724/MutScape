@@ -99,7 +99,7 @@ def main():
         combine_filter_filelist = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
         combine_filter_filelist = all_combine(args.combine, category, category_caller, meta)
-        maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category, args.vcf2maf[0])
+        maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
     elif flag == 'maf':
         if args.vcf_filter or args.combine or args.vcf2maf:
