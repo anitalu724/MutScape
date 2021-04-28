@@ -1,14 +1,14 @@
-# MutScape: analytical toolkit for mutational landscape in cancer genomics
+# MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics
 
 ![](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/movie.gif?raw=true)
 
 ## Introduction
-MutScape provides a comprehensive pipeline of filtering, combination, transformation, analysis and visualization. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses, including driver gene detection, mutational signature, large-scale alteration identification, and actionable biomarker annotation simultaneously. Furthermore, MutScape supports both somatic variants in Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication-quality images are generated automatically. Herein, we demonstrate the performance of MutScape using breast cancer samples from The Cancer Genome Atlas (TCGA) that correctly reproduce known results. More significantly, it enables discovery of novel results for cancer genomics studies through the advanced features in MutScape.
+Cancer genomics has been evolving rapidly, fueled by the emergence of numerous studies and public databases through next-generation sequencing technologies. However, the downstream programs used to preprocess and analyze data on somatic mutations are scattered in different tools, most of which need a long time for computation and require specific input formats. Here, we developed a user-friendly Python toolkit, MutScape, which provides a comprehensive pipeline of filtering, combination, transformation, analysis, and visualization. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses simultaneously, including driver gene detection, mutational signature, large-scale alteration identification, and actionable biomarker annotation. Furthermore, MutScape supports somatic variant data in both Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication- quality images are generated automatically. Herein, we demonstrate the ability of MutScape to correctly reproduce known results using breast cancer samples from The Cancer Genome Atlas. More significantly, discovery of novel results in cancer genomics studies is enabled through the advanced features in MutScape.
 
 ## Prerequisite installation
 
 ### Requirements ####
-Latest tested version in parentheses:
+The latest tested version in parentheses:
 1. Using Miniconda (py37_4.9.2) to install:
 
     samtools (v1.10), ucsc-liftover (v377), bcftools (v1.10.2), ensembl-vep (v102.0)
@@ -85,7 +85,7 @@ MutScape accepts both VCF and MAF files as input data.
 For multiple VCF/MAF files will be implemented simultaneously, MutScape requires a limited-format TSV file as input. In the detailed format please refer to `examples/tsv/testData_vcf.tsv` and `examples/tsv/testData_maf.tsv`
 
 #### Quick start from VCFs
-For VCFs as input data, `-f`, `-c`, `-v2m`, `-o` and `-m` are required while `-vf` and `-mf` are optional. 
+For VCFs as input data, `-f`, `-o` and `-m` are required while `-vf`, `-v2m` and `-mf` are optional. 
 Some simple test commands are displayed below.
 
 ![S1](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/S1.gif?raw=true)
@@ -93,25 +93,32 @@ Some simple test commands are displayed below.
     
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
-    -vf GI [1,3] \
-    -v2m 8 \
-    -o examples/output \
-    -m examples/meta 
-    
-    
-    python3 dataPreprocess.py \
-    -f examples/tsv/testData_vcf.tsv \
-    -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9 \
-    -v2m 8 \
-    -o examples/output \
-    -m examples/meta
-    
-    
-    python3 dataPreprocess.py \
-    -f examples/tsv/testData_vcf.tsv \
-    -v2m 8 \
     -o examples/output \
     -m examples/meta \
+    -vf CI "*,*,*,6,*,*,*,*"
+
+
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_vcf.tsv \
+    -o examples/output \
+    -m examples/meta \
+    -vf GI [1,3] \
+    -v2m 8 
+    
+    
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_vcf.tsv \
+    -o examples/output \
+    -m examples/meta \
+    -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,6,0,0.05,8,8" PA 0 AV 0.9 \
+    -v2m 
+    
+    
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_vcf.tsv \
+    -o examples/output \
+    -m examples/meta \
+    -v2m 8 \
     -mf GI [1,3]
 
 
