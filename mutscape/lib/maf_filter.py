@@ -10,7 +10,7 @@ import csv
 from termcolor import colored
 import pandas as pd
 from tqdm import tqdm, trange
-import os
+import os, json
 
 def get_maf_filter_data(maf_flt, num = 5):
     '''Interpret the input filtering parameters.
