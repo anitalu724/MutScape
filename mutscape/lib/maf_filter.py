@@ -205,6 +205,8 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
         '''
         if tissue == False:
             return True
+        print(tissue)
+        os._exit()
         Hugo = data['Hugo_Symbol']
         PASS = True
         if Hugo in ALL_DICT:
@@ -349,12 +351,12 @@ def maf_all_filter_combine(input_params_list, category, meta, folder):
         maf_filtered_list = [meta+x[x.rfind("/")+1:-4]+"_filtered.maf" for x in maf_output_list]
         ALL_DICT = {}
         if maf_flt_list[2] != False:
-            if not os.path.isfile('src/auxiliary_file/rna_tissue_consensus.json'):
-                ALL_DICT = read_TSV("src/auxiliary_file/rna_tissue_consensus.tsv")
-                with open("src/auxiliary_file/rna_tissue_consensus.json", "w") as jsonfile:  
+            if not os.path.isfile('lib/auxiliary/rna_tissue_consensus.json'):
+                ALL_DICT = read_TSV("lib/auxiliary/rna_tissue_consensus.tsv")
+                with open("lib/auxiliary/rna_tissue_consensus.json", "w") as jsonfile:  
                     json.dump(ALL_DICT, jsonfile) 
             else:
-                with open("src/auxiliary_file/rna_tissue_consensus.json", "r") as jsonfile:  
+                with open("lib/auxiliary/rna_tissue_consensus.json", "r") as jsonfile:  
                     ALL_DICT = json.load(jsonfile)
         for idx, maf in enumerate(maf_output_list):
             maf_filter(maf, maf_flt_list, ALL_DICT, maf_filtered_list[idx])
