@@ -88,12 +88,13 @@ def main():
     flag, category, category_caller = loading_tsv(args.file)
     folder = args.output if args.output[-1:] == '/' else (args.output + '/')
     meta = args.meta if args.meta[-1:] == '/' else (args.meta + '/')
-    if len(args.vcf2maf) == 0:
-        args.vcf2maf.append('10')
+    
 
     if flag == 'vcf':
         if not args.combine or not args.vcf2maf:
             raise ValueError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
+        if len(args.vcf2maf) == 0:
+            args.vcf2maf.append('10')
         filter_list = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
         combine_filter_filelist = all_combine(category, category_caller, meta)
