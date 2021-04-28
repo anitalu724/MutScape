@@ -12,6 +12,7 @@ import os
 from termcolor import colored
 import multiprocessing
 import subprocess
+from .vcf_tool import *
 
 def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     ''' Write a .sh file to automatically implement vcf2maf utility.
@@ -41,14 +42,15 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     fork = str(multiprocessing.cpu_count())
     if isinstance(vcf_file_list, list) and isinstance(maf_file_list, list) and len(vcf_file_list) == len(maf_file_list):
         for index, vcf_file in enumerate(vcf_file_list):
+            vcf_read_samples = (read_vcf(vcf_file)).samples
             run_file.write("printf \"${YELLOW}\nStart transforming file:\nVCF: "+vcf_file+"\nMAF: "+maf_file_list[index]+"\n\n${NC}\"\n\n")
             run_file.write("printf \"VCF file's size: "+str(os.stat(vcf_file).st_size/10**6)+" MB\"\n\n")
             run_file.write("printf \"\n\"\n")
             run_file.write("perl "+perl_path+" \\\n"+ \
-                            "--tumor-id "+category[index][1]+" \\\n"+\
-                            "--normal-id "+category[index][0]+" \\\n"+\
-                            "--vcf-tumor-id "+category[index][1]+" \\\n"+\
-                            "--vcf-normal-id "+category[index][0]+" \\\n"+\
+                            "--tumor-id "+vcf_read_samples[1]+" \\\n"+\
+                            "--normal-id "+vcf_read_samples[0]+" \\\n"+\
+                            "--vcf-tumor-id "+vcf_read_samples[1]+" \\\n"+\
+                            "--vcf-normal-id "+vcf_read_samples[0]+" \\\n"+\
                             "--vep-path "+vep_path+" \\\n"+\
                             "--max-filter-ac "+max_filter_ac+" \\\n"+\
                             "--input-vcf "+vcf_file+" \\\n"+\
