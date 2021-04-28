@@ -359,6 +359,12 @@ def all_combine(if_combine, category, category_caller, meta):
             vcf_writer.close()
             print("NOTICE: "+str(del_cou)+" data have been removed from "+combine_output_list[idx])
         print("\n")
+        for idx, file in enumerate(combine_filter_filelist):
+            if idx == 0:
+                print(colored(("=> Final combined file: "+file), 'green'))
+            else:
+                print(colored(('\t\t\t'+file), 'green'))
+        print("\n")
         return combine_filter_filelist
     else:
         combine_filter_filelist = []
