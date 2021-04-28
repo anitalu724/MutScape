@@ -198,7 +198,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
         data : pandas.core.series.Series
         tissue : list
             A list with length = 2.
-            ex : ['breast', 5]
+            ex : ['BLCA', 5]
         ALL_DICT : dict
             data from `lib/auxiliary/rna_cancer_consensus.json`.
 
@@ -214,7 +214,6 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
                 tissue_dict[gene] = ALL_DICT[gene][tissue[0]]
         if data['Hugo_Symbol'] in tissue_dict:
             if float(tissue[1]) > tissue_dict[data['Hugo_Symbol']]:
-                print(data['Hugo_Symbol'], ' ', tissue_dict[data['Hugo_Symbol']])
                 return False
         return True
     
@@ -284,16 +283,18 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
             filtered_file.writelines(lines)
 
 def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
-    ''' Implement MAF filtering and combination
+    ''' Implement MAF filtering and combination if input format is 'VCF'
 
     Parameters
     ----------
     if_maf_filter : list
     maf_output_list : list
+    folder : str
 
     Returns
     -------
     '''
+    maf_combine_list = []
     if len(maf_output_list) == 0:
         return
     if if_maf_filter:
@@ -312,50 +313,39 @@ def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
         for idx, maf in enumerate(maf_output_list):
             maf_filter(maf, maf_flt_list, ALL_DICT, maf_filtered_list[idx])
             print(colored(("\n=> Finish filtering MAF file: "+maf_filtered_list[idx]+"\n"), 'green'))
-        # MAF combination
-        if len(maf_filtered_list) > 1:
-            print(colored("Start MAF combination....\n", "yellow"))
-            maf_df, head = pd.DataFrame(), ""
-            for maf_file in maf_filtered_list:
-                head, maf = fast_read_maf(maf_file)
-                maf_df = pd.concat([maf_df, maf])
-            maf_df.to_csv(folder+"maf_combination.maf", sep="\t", index= False, header = list(maf_df.columns.values))
-            if head != "":
-                with open(folder+"maf_combination.maf", "r+") as filtered_file:
-                    lines = filtered_file.readlines()
-                    filtered_file.seek(0)
-                    filtered_file.write(head)
-                    filtered_file.writelines(lines)
-            print(colored(("=> Finish combining MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
-    #     else:
-    #         if len(category) > 1:
-    #             print(colored("Start MAF combination....\n", "yellow"))
-    #             maf_df, head = pd.DataFrame(), ""
-    #             for maf_file in category:
-    #                 head, maf = fast_read_maf(maf_file)
-    #                 maf_df = pd.concat([maf_df, maf])
-    #             maf_df.to_csv(folder+"maf_combination.maf", sep="\t", index= False, header = list(maf_df.columns.values))
-    #             if head != "":
-    #                 with open(folder+"maf_combination.maf", "r+") as filtered_file:
-    #                     lines = filtered_file.readlines()
-    #                     filtered_file.seek(0)
-    #                     filtered_file.write(head)
-    #                     filtered_file.writelines(lines)
-    #             print(colored(("=> Finish combining MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
+        
+        maf_combine_list = maf_filtered_list
     else:
-        print(colored("Start MAF combination....\n", "yellow"))
-        maf_df, head = pd.DataFrame(), ""
-        for maf_file in maf_output_list:
-            head, maf = fast_read_maf(maf_file)
-            maf_df = pd.concat([maf_df, maf])
-        maf_df.to_csv(folder+"maf_combination.maf", sep="\t", index= False, header = list(maf_df.columns.values))
-        if head != "":
-            with open(folder+"maf_combination.maf", "r+") as filtered_file:
-                lines = filtered_file.readlines()
-                filtered_file.seek(0)
-                filtered_file.write(head)
-                filtered_file.writelines(lines)
-        print(colored(("=> Finish combining "+str(len(maf_output_list))+" MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
+        maf_combine_list = maf_output_list
+
+    # MAF combination
+    print(colored("Start MAF combination....\n", "yellow"))
+    maf_df, head = pd.DataFrame(), ""
+    for maf_file in maf_combine_list:
+        head, maf = fast_read_maf(maf_file)
+        maf_df = pd.concat([maf_df, maf])
+    maf_df.to_csv(folder+"maf_combination.maf", sep="\t", index= False, header = list(maf_df.columns.values))
+    if head != "":
+        with open(folder+"maf_combination.maf", "r+") as filtered_file:
+            lines = filtered_file.readlines()
+            filtered_file.seek(0)
+            filtered_file.write(head)
+            filtered_file.writelines(lines)
+    print(colored(("=> Finish combining "+str(len(maf_combine_list))+" MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
+    # else:
+    #     print(colored("Start MAF combination....\n", "yellow"))
+    #     maf_df, head = pd.DataFrame(), ""
+    #     for maf_file in maf_output_list:
+    #         head, maf = fast_read_maf(maf_file)
+    #         maf_df = pd.concat([maf_df, maf])
+    #     maf_df.to_csv(folder+"maf_combination.maf", sep="\t", index= False, header = list(maf_df.columns.values))
+    #     if head != "":
+    #         with open(folder+"maf_combination.maf", "r+") as filtered_file:
+    #             lines = filtered_file.readlines()
+    #             filtered_file.seek(0)
+    #             filtered_file.write(head)
+    #             filtered_file.writelines(lines)
+    #     print(colored(("=> Finish combining "+str(len(maf_output_list))+" MAF files to " + folder + "maf_combination.maf" + "\n"), 'green'))
         
 
 def maf_all_filter_combine(if_maf_filter, category, meta, folder):
