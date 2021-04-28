@@ -131,7 +131,7 @@ Some simple test commands are displayed below.
     
     python3 dataPreprocess.py \
     -f examples/tsv/testData_maf.tsv \
-    -mf GI [1:3] CI "15,15,0,0,0,0.05,8,8" TE [breast,5] PF 1 HY 500 \
+    -mf GI [1:3] CI "15,15,0,0,0,0.05,8,8" TE [breast,5] PAC 1 HY 500 \
     -o examples/output \
     -m examples/meta
     
@@ -237,7 +237,7 @@ Some simple test commands are displayed below.
       <td>PF</td>
       <td>0</td>
       <td>Filter ‘common_variant’, which annotated by vcf2maf (-v2m)</td>
-      <td>ex: -mf  PF 1  : exclude; -mf  PF 0  : keep</td>
+      <td>ex: -mf  PAC 1  : exclude; -mf  PF 0  : keep</td>
    </tr>
    <tr>
       <td>HY</td>
