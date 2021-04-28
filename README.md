@@ -128,7 +128,7 @@ Some simple test commands are displayed below.
     
     python3 dataPreprocess.py \
     -f examples/tsv/testData_maf.tsv \
-    -mf GI [1:3] CI "15,15,0,0,0,0.05,8,8" TE [breast,5] PAC 1 HY 500 \
+    -mf GI [1:3] CI "15,15,0,0,0,0.05,8,8" TE [BLCA,5] PAC 1 HY 500 \
     -o examples/output \
     -m examples/meta
     
