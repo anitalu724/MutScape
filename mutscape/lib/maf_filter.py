@@ -295,7 +295,6 @@ def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
     -------
     '''
     if len(maf_output_list) == 0:
-        print('NOTICE: No MAF combination!\n')
         return
     if if_maf_filter:
         print(colored("Start MAF filtering....\n", "yellow"))
