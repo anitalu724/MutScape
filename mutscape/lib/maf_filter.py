@@ -197,7 +197,10 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
         ----------
         data :
         tissue : list
+            A list with length = 2.
+            ex : ['breast', 5]
         ALL_DICT : dict
+            data from `lib/auxiliary/rna_tissue_consensus.json`.
 
         Returns
         -------
@@ -205,20 +208,15 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
         '''
         if tissue == False:
             return True
-        print(tissue)
-        os._exit()
-        Hugo = data['Hugo_Symbol']
-        PASS = True
-        if Hugo in ALL_DICT:
-            for item in tissue:
-                if item in ALL_DICT[Hugo]:
-                    if float(ALL_DICT[Hugo][item]) <= 0:
-                        PASS = False
-                else:
-                    PASS = False
-        else:
-            PASS = False
-        return PASS
+        tissue_dict = {}
+        for gene in ALL_DICT:
+            if tissue[0] in ALL_DICT[gene].keys():
+                tissue_dict[gene] = ALL_DICT[gene][tissue[0]]
+        if data['Hugo_Symbol'] in tissue_dict:
+            if float(tissue[1]) > tissue_dict[data['Hugo_Symbol']]:
+                print(data['Hugo_Symbol'], ' ', tissue_dict[data['Hugo_Symbol']])
+                return False
+        return True
     
     def population_frequency(data, info):
         '''Population Frequency (PF) filter
