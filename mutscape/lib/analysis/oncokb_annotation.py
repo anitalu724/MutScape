@@ -73,7 +73,7 @@ class OncoKBAnnotator:
             print(p.read())
             p.close()
         os.chdir("..")
-        os.system("rm -rf oncokb-annotator\n")
+        # os.system("rm -rf oncokb-annotator\n")
         print(colored("=> Generate analysis files: ", 'green'))
         print(colored(("   " + output_folder + "maf_oncokb_output.txt"), 'green'))
         print(colored(("   " + output_folder + "clinical_oncokb_output.txt"), 'green'))
@@ -164,7 +164,7 @@ class OncoKBAnnotator:
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax2.yaxis.set_major_formatter(mtick.PercentFormatter(xmax=1, decimals=0))
         ax2.set_yticks(np.arange(0, max(SUM)/sample_size*1.25, 0.2))
-        plt.xticks(color='#222222',rotation=90, fontsize=LABEL_SIZE-4,horizontalalignment='center',verticalalignment='top')#verticalalignment='bottom',
+        plt.xticks(color='#222222',rotation=60, fontsize=LABEL_SIZE-4,fontstyle='italic',horizontalalignment='center',verticalalignment='top')#verticalalignment='bottom',
         ax2.legend(labels=level_list, fontsize=LABEL_SIZE-4, edgecolor='white')
         plt.savefig(pic+"oncokb_freq_actionable_genes.pdf", dpi=300,bbox_inches='tight')
         print(colored(("=> Generate Bar Plot: " + pic + "oncokb_freq_actionable_genes.pdf\n"), 'green'))
