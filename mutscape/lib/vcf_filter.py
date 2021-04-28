@@ -331,13 +331,13 @@ def caller_info(call, record, para_list, nt_name):
             elif idx == 4 and para != '*':    # AF_N
                 for sample in record.samples:
                     if sample.sample == nt_name[0]:
-                        AF_N = round(sample['AD'][1]/sample['DP'],3)
+                        AF_N = round(sample['AD']/sample['DP'],3)
                         if AF_N > para:
                             return False
             elif idx == 5 and para != '*':    # AF_T
                 for sample in record.samples:
                     if sample.sample == nt_name[1]:
-                        AF_T = round(sample['AD'][1]/sample['DP'],3)
+                        AF_T = round(sample['AD']/sample['DP'],3)
                         if AF_T < para:
                             return False
     else:
