@@ -322,11 +322,11 @@ def caller_info(call, record, para_list, nt_name):
                         return False
             elif idx == 2 and para != '*':    # AD_N
                 for sample in record.samples:
-                    if sample.sample == nt_name[0] and sample['AD'][1] > para:
+                    if sample.sample == nt_name[0] and sample['AD'] > para:
                         return False
             elif idx == 3 and para != '*':    # AD_T
                 for sample in record.samples:
-                    if sample.sample == nt_name[1] and sample['AD'][1] < para:
+                    if sample.sample == nt_name[1] and sample['AD'] < para:
                         return False
             elif idx == 4 and para != '*':    # AF_N
                 for sample in record.samples:
