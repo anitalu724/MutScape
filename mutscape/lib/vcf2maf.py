@@ -22,7 +22,7 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     maf_file_list : list
     path : str
     category : list
-    max_filter_ac : int
+    max_filter_ac : str
     '''
     run_file = open(path+"run.sh", "w")
     run_file.write("YELLOW='\\033[0;33m'\n")
@@ -73,7 +73,7 @@ def vcf2maf(combine_filter_filelist, folder, category, num):
         The list of VCF files.
     folder : str
     category : list
-    num : int
+    num : str
         max_filter_ac
 
     Returns

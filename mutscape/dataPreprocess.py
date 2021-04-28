@@ -71,7 +71,7 @@ def main():
                                                                    "PA: Keep or exclude non-PASS tag\n"
                                                                    "AV: Artifact variant filter: FFPE filter (Only for caller = Mutect2)\n\n"))
     parser.add_argument("-c","--combine", action='store_true',help="Input the path for combination VCF files.\nThe path must end with a folder.\n\n")
-    parser.add_argument("-v2m","--vcf2maf", nargs=1, help="The first value is the path for transformed MAF files. This path must end with a folder.\n"
+    parser.add_argument("-v2m","--vcf2maf", nargs='*', help="The first value is the path for transformed MAF files. This path must end with a folder.\n"
                                                              "The second value is \"max_filter_ac\" which is an important parameter(int) when transforming files to MAF.\n\n")
     
     parser.add_argument("-o", "--output", required = True, help="The path for storing output files.\nThis path must end with a folder.\n\n", metavar='out_folder')
@@ -88,6 +88,8 @@ def main():
     flag, category, category_caller = loading_tsv(args.file)
     folder = args.output if args.output[-1:] == '/' else (args.output + '/')
     meta = args.meta if args.meta[-1:] == '/' else (args.meta + '/')
+    if len(args.vcf2maf) == 0:
+        args.vcf2maf.append('10')
 
     if flag == 'vcf':
         if not args.combine or not args.vcf2maf:
