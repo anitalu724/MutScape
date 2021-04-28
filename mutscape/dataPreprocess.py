@@ -70,7 +70,7 @@ def main():
                                                                     "CI: Caller Information\n"
                                                                     "PA: Keep or exclude non-PASS tag\n"
                                                                     "AV: Artifact variant filter: FFPE filter (Only for caller = Mutect2)\n\n"))
-    parser.add_argument("-c","--combine", action='store_true',help="Input the path for combination VCF files.\nThe path must end with a folder.\n\n")
+    # parser.add_argument("-c","--combine", action='store_true',help="Input the path for combination VCF files.\nThe path must end with a folder.\n\n")
     parser.add_argument("-v2m","--vcf2maf", nargs='*', help="The first value is the path for transformed MAF files. This path must end with a folder.\n"
                                                              "The second value is \"max_filter_ac\" which is an important parameter(int) when transforming files to MAF.\n\n")
     
@@ -98,11 +98,11 @@ def main():
                 args.vcf2maf.append('10')
         combine_filter_filelist = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
-        combine_filter_filelist = all_combine(args.combine, category, category_caller, meta)
+        combine_filter_filelist = all_combine(category, category_caller, meta)
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
     elif flag == 'maf':
-        if args.vcf_filter or args.combine or args.vcf2maf:
+        if args.vcf_filter or args.vcf2maf:
             raise ValueError('[MutScape] Command -vf, -c and -v2m must not required if inputs are MAFs.')
         maf_all_filter_combine(args.maf_filter, category, meta, folder)
 

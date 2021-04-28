@@ -333,48 +333,48 @@ def vcf_combination(sample_content_list, caller_list, output_file):
     vcf_writer.close()
     print(colored(("=> Finish combining file: "+output_file+'\n'), 'green'))
 
-def all_combine(if_combine, category, category_caller, meta):
-    if if_combine:
-        print(colored("\nStart VCF combination....\n", "yellow"))
-        combine_output_list = []
-        for idx in range(len(category)):
-            path_name = meta + category[idx][0] + '_' + category[idx][1] + '_combination.vcf'
-            combine_output_list.append(path_name)
+def all_combine(category, category_caller, meta):
+    # if if_combine:
+    print(colored("\nStart VCF combination....\n", "yellow"))
+    combine_output_list = []
+    for idx in range(len(category)):
+        path_name = meta + category[idx][0] + '_' + category[idx][1] + '_combination.vcf'
+        combine_output_list.append(path_name)
 
-        for idx, sample in enumerate(category):
-            vcf_combination(category[idx], category_caller[idx], combine_output_list[idx])
-        ## Deal with "At Least...." condition
-        combine_filter_filelist = [file[:-4]+"_f.vcf" for file in combine_output_list]
-        for idx, file in enumerate(combine_output_list):
-            del_cou = 0
-            vcf_read = read_vcf(file)
-            vcf_writer = vcf.Writer(open(combine_filter_filelist[idx],"w"), vcf_read)
-            for record in vcf_read:
-                calls = len(record.INFO['CALLS'].split('_')) if record.INFO['CALLS']!= None else 0
-                reject = len(record.INFO['REJECT'].split('_')) if record.INFO['REJECT'] != None else 0
-                if calls >= category[idx][3] and reject <= category[idx][4]:
-                    vcf_writer.write_record(record)
-                else:
-                    del_cou+=1
-            vcf_writer.close()
-            print("NOTICE: "+str(del_cou)+" data have been removed from "+combine_output_list[idx])
-        print("\n")
-        for idx, file in enumerate(combine_filter_filelist):
-            if idx == 0:
-                print(colored(("=> Final combined files: "+file), 'green'))
+    for idx, sample in enumerate(category):
+        vcf_combination(category[idx], category_caller[idx], combine_output_list[idx])
+    ## Deal with "At Least...." condition
+    combine_filter_filelist = [file[:-4]+"_f.vcf" for file in combine_output_list]
+    for idx, file in enumerate(combine_output_list):
+        del_cou = 0
+        vcf_read = read_vcf(file)
+        vcf_writer = vcf.Writer(open(combine_filter_filelist[idx],"w"), vcf_read)
+        for record in vcf_read:
+            calls = len(record.INFO['CALLS'].split('_')) if record.INFO['CALLS']!= None else 0
+            reject = len(record.INFO['REJECT'].split('_')) if record.INFO['REJECT'] != None else 0
+            if calls >= category[idx][3] and reject <= category[idx][4]:
+                vcf_writer.write_record(record)
             else:
-                print(colored(('\t\t\t'+file), 'green'))
-        print("\n")
-        return combine_filter_filelist
-    else:
-        combine_filter_filelist = []
-        for i in category:
-            combine_filter_filelist += i[2]
-        print("NOTICE: No VCF combination!\n")
-        for idx, file in enumerate(combine_filter_filelist):
-            if idx == 0:
-                print(colored(("=> All files: "+file), 'green'))
-            else:
-                print(colored(('\t'+file), 'green'))
-        print("\n")
-        return combine_filter_filelist
+                del_cou+=1
+        vcf_writer.close()
+        print("NOTICE: "+str(del_cou)+" data have been removed from "+combine_output_list[idx])
+    print("\n")
+    for idx, file in enumerate(combine_filter_filelist):
+        if idx == 0:
+            print(colored(("=> Final combined files: "+file), 'green'))
+        else:
+            print(colored(('\t\t\t'+file), 'green'))
+    print("\n")
+    return combine_filter_filelist
+    # else:
+    #     combine_filter_filelist = []
+    #     for i in category:
+    #         combine_filter_filelist += i[2]
+    #     print("NOTICE: No VCF combination!\n")
+    #     for idx, file in enumerate(combine_filter_filelist):
+    #         if idx == 0:
+    #             print(colored(("=> All files: "+file), 'green'))
+    #         else:
+    #             print(colored(('\t'+file), 'green'))
+    #     print("\n")
+    #     return combine_filter_filelist
