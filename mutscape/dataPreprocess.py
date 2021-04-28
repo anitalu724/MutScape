@@ -12,7 +12,7 @@ from lib.vcf_filter import *
 from lib.vcf_combination import all_combine
 from lib.vcf2maf import vcf2maf
 from lib.maf_filter import vcf_all_filter_combine, maf_all_filter_combine
-
+from termcolor import colored
 import argparse, textwrap
 
 def main():
@@ -101,6 +101,8 @@ def main():
         combine_filter_filelist = all_combine(category, category_caller, meta)
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
+        if args.vcf_filter == None and args.vcf2maf == None and args.maf_filter != None:
+            print(colored('Warning: No MAF files, so no implementation of MAF_filtering!\n','yellow'))
     elif flag == 'maf':
         if args.vcf_filter or args.vcf2maf:
             raise ValueError('[MutScape] Command -vf, -c and -v2m must not required if inputs are MAFs.')
