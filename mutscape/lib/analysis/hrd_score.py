@@ -1,7 +1,7 @@
 ############################################################################################
-# FileName     [ total_mutated_burden.py ]
+# FileName     [ hrd_score.py ]
 # PackageName  [ lib/analysis ]
-# Synopsis     [ Calculate TMB for each data. ]
+# Synopsis     [ Analysis of homologous recombination deficiency (HRD). ]
 # Author       [ Cheng-Hua Lu ]
 # Copyright    [ 2021 4 ]
 ############################################################################################
