@@ -64,7 +64,7 @@ def vcf2vep2maf(vcf_file_list, maf_file_list, path, category, max_filter_ac):
     os.system("sh "+path+"/run.sh\n")
     os.system("rm "+path+"/run.sh")
 
-def vcf2maf(combine_filter_filelist, folder, category, num):
+def vcf2maf(if_vcf2maf, combine_filter_filelist, folder, category, num):
     ''' Transform VCF file to MAF file using vcf2maf utility.
 
     Parameters
@@ -80,11 +80,14 @@ def vcf2maf(combine_filter_filelist, folder, category, num):
     -------
     maf_output_list
     '''
-    print(colored("Start transforming VCF to MAF....\n", "yellow"))
-    print("WARNING: This transformation tool must be implemented in the direction of \"mskcc-vcf2maf-bbe39fe\"!\n")
-    maf_output_list = []
-    for idx, file in enumerate(combine_filter_filelist):
-        fileName = file[:-4]+"_2maf.maf"
-        maf_output_list.append(fileName)
-    vcf2vep2maf(combine_filter_filelist, maf_output_list, folder, category, num)
-    return maf_output_list
+    if if_vcf2maf:
+        print(colored("Start transforming VCF to MAF....\n", "yellow"))
+        print("WARNING: This transformation tool must be implemented in the direction of \"mskcc-vcf2maf-bbe39fe\"!\n")
+        maf_output_list = []
+        for idx, file in enumerate(combine_filter_filelist):
+            fileName = file[:-4]+"_2maf.maf"
+            maf_output_list.append(fileName)
+        vcf2vep2maf(combine_filter_filelist, maf_output_list, folder, category, num)
+        return maf_output_list
+    else:
+        return []

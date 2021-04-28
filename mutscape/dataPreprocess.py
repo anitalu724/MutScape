@@ -91,14 +91,15 @@ def main():
     
 
     if flag == 'vcf':
-        if not args.combine or not args.vcf2maf:
-            raise ValueError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
-        if len(args.vcf2maf) == 0:
-            args.vcf2maf.append('10')
-        filter_list = []
+        # if not args.combine or not args.vcf2maf:
+        #     raise ValueError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
+        if args.vcf2maf:
+            if len(args.vcf2maf) == 0:
+                args.vcf2maf.append('10')
+        combine_filter_filelist = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
-        combine_filter_filelist = all_combine(category, category_caller, meta)
-        maf_output_list = vcf2maf(combine_filter_filelist, folder, category, args.vcf2maf[0])
+        combine_filter_filelist = all_combine(args.combine, category, category_caller, meta)
+        maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category, args.vcf2maf[0])
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
     elif flag == 'maf':
         if args.vcf_filter or args.combine or args.vcf2maf:
