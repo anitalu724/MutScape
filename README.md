@@ -172,7 +172,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 4. CoMut plot analysis
-    > Output figure is shown like **Fig. 2**.
+    > Output figure is shown like ![**Fig. 2**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig2.pdf).
 
     ```
     python3 mafAnalysis.py \
@@ -189,7 +189,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 5. Mutational signature
-   > Output figure is shown like **Fig. 3**.
+   > Output figure is shown like ![**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/ms.maf \
@@ -205,7 +205,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 6. HRD Score
-   > Output figure is shown like **Fig4.A, B**.
+   > Output figure is shown like ![**Fig4.A, B**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/hrd.maf \
@@ -214,7 +214,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
-   > Output figure is shown like **Fig4.C, D**.
+   > Output figure is shown like ![**Fig4.C, D**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/hrd.maf \
@@ -224,7 +224,7 @@ Some simple test commands are displayed below.
     ```
 8. Actionable mutation (drug) annotation
    `[your_oncokb_token]` is gotten from [OncoKB Website](https://www.oncokb.org/). You must create  your own account and get your personal API token.
-   > Output figure is shown like **Fig5**.
+   > Output figure is shown like ![**Fig5**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig5.pdf).
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
