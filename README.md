@@ -43,8 +43,9 @@ If you have already install Ensembl's VEP, you may skip this part and directly i
 ### Install vcf2maf
 For transforming the VCF into the MAF, this procedure is implemented by `vcf2maf` utility, which processes variant annotation and transcript prioritization. You can refer to  [this script]((https://github.com/mskcc/vcf2maf)) or just follow the commands below. (Before this step, you must be sure that you have installed [ Ensembl's VEP](https://gist.github.com/ckandoth/61c65ba96b011f286220fa4832ad2bc0))
 
-    export VCF2MAF_URL=`curl -sL https://api.github.com/repos/mskcc/vcf2maf/releases | grep -m1 tarball_url | cut -d\" -f4`
-    curl -L -o mskcc-vcf2maf.tar.gz $VCF2MAF_URL; tar -zxf mskcc-vcf2maf.tar.gz; cd mskcc-vcf2maf-*
+    wget https://github.com/mskcc/vcf2maf/archive/refs/tags/v1.6.20.tar.gz
+    tar -zxf v1.6.20.tar.gz
+    cd vcf2maf-1.6.20
     perl vcf2maf.pl --man
     perl maf2maf.pl --man
 
