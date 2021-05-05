@@ -236,3 +236,7 @@ Some simple test commands are displayed below.
     -o examples/output \
     -p examples/pic/
     ```
+
+## Reference
+### If you use MutScape in your work, please cite
+> Cheng-Hua Lu*, Chia-Shin Wu*, Mong-Hsun Tsai, Liang-Chuan Lai, Eric Y. Chuang

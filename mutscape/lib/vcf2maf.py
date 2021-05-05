@@ -84,7 +84,7 @@ def vcf2maf(if_vcf2maf, combine_filter_filelist, folder, category):
     '''
     if if_vcf2maf:
         print(colored("Start transforming VCF to MAF....\n", "yellow"))
-        print("WARNING: This transformation tool must be implemented in the direction of \"mskcc-vcf2maf-bbe39fe\"!\n")
+        print("WARNING: This transformation tool must be implemented in the direction of \"vcf2maf-1.6.20\"!\n")
         maf_output_list = []
         for idx, file in enumerate(combine_filter_filelist):
             fileName = file[:-4]+"_2maf.maf"
