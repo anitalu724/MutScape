@@ -189,7 +189,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 5. Mutational signature
-   > Output figure is shown like **Fig3**.
+   > Output figure is shown like **Fig. 3**.
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/ms.maf \
