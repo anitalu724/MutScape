@@ -1,3 +1,4 @@
+<img src="https://i.imgur.com/uuCGMHq.png" alt="drawing" width="50"/>
 # MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics
 
 ![all_figure](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/movie.gif?raw=true)
