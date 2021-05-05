@@ -50,6 +50,7 @@ For transforming the VCF into the MAF, this procedure is implemented by `vcf2maf
 
 Before we start to use vcf2maf, we need to download VEP cache data and the reference FASTA.<br/>
 ***:warning:  Since these files are quite large, it may take a long time to download them!*** <br/>
+***:warning:  Be sure that your available memory is at least 1TB!*** <br/>
 :information_source:  Here we recommended to download **102_GRCh37**
 
     mkdir -p $HOME/.vep/homo_sapiens/102_GRCh37/
