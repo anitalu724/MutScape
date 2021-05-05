@@ -205,7 +205,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 6. HRD Score
-   > Output figure is shown like [**Fig4.A, B**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
+   > Output figure is shown like [**Fig. 4A, B**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/hrd.maf \
@@ -214,7 +214,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
-   > Output figure is shown like [**Fig4.C, D**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
+   > Output figure is shown like [**Fig. 4C, D**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/hrd.maf \
@@ -224,7 +224,7 @@ Some simple test commands are displayed below.
     ```
 8. Actionable mutation (drug) annotation
    `[your_oncokb_token]` is gotten from [OncoKB Website](https://www.oncokb.org/). You must create  your own account and get your personal API token.
-   > Output figure is shown like [**Fig5**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig5.pdf).
+   > Output figure is shown like [**Fig. 5**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig5.pdf).
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
@@ -232,181 +232,3 @@ Some simple test commands are displayed below.
     -o examples/output \
     -p examples/pic/
     ```
-
-#### MutScape specific arguments for analysis and visualization
-<table>
-   <tr>
-      <td>Argument name(s)</td>
-      <td>Default value</td>
-      <td>Descriptions</td>
-      <td>Example</td>
-   </tr>
-   <tr>
-      <td>Required arguments</td>
-      <td></td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>--file, -f</td>
-      <td>NULL</td>
-      <td>The relative path of the input TSV file</td>
-      <td>ex: -f examples/test_data/maf/TCGA_test.maf</td>
-   </tr>
-   <tr>
-      <td>--output, -o</td>
-      <td>NULL</td>
-      <td>The path for storing output files. This path must end with a folder.</td>
-      <td>ex: -o examples/output</td>
-   </tr>
-   <tr>
-      <td>--picture, -p</td>
-      <td>NULL</td>
-      <td>The path for storing output images. This path must end with a folder.</td>
-      <td>ex: -p examples/pic</td>
-   </tr>
-   <tr>
-      <td>Optional arguments</td>
-      <td></td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>--significantly_mutated_gene, -smg</td>
-      <td>False </td>
-      <td>Implement significantly mutated gene detection for input cohort</td>
-      <td>ex: -smg</td>
-   </tr>
-   <tr>
-      <td>--known_cancer_gene_annotaiton, -kcga</td>
-      <td>False </td>
-      <td>Annotate known cancer gene in MAFs</td>
-      <td>ex: -kcga</td>
-   </tr>
-   <tr>
-      <td>--tumor_mutation_burden, -tmb</td>
-      <td>[]</td>
-      <td>Calculate tumor mutation burden for each sample and generate a summary table</td>
-      <td>ex: -tmb 60456963  ;  the value indicates the sequencing taget region</td>
-   </tr>
-   <tr>
-      <td>--comut_analysis, -cm</td>
-      <td>False </td>
-      <td>Summarize mutation counts and mutation types of genes for each sample</td>
-      <td>ex: -cm</td>
-   </tr>
-   <tr>
-      <td>--comut_plot, -cmp</td>
-      <td>[]</td>
-      <td>Generate CoMut plot for input cohort</td>
-      <td>ex: -cmp examples/tsv/comut.tsv examples/tsv/comut_info.tsv 0 comut.pdf  :  input of CoMut plot and ouput of the figure with selected format </td>
-   </tr>
-   <tr>
-      <td>--mutational_signature, -ms</td>
-      <td>[]</td>
-      <td>Estimate optimal number of sinatures, extract mutational signatures for input cohort, and perform visualization</td>
-      <td>ex: two steps;  -ms 1 "[2,9,10]"  :  (step 1) estimate optimal number of mutational signatures (2-9) with 10 epoch; -ms 2 "[3]"  : (step 2) Generate plots  according to extracted 3 mutational signatures</td>
-   </tr>
-   <tr>
-      <td>--hrd_score, -hrd :</td>
-      <td>[]</td>
-      <td>Calculate HRD score for each sample, generate a summary table,  and perform visualization</td>
-      <td>ex: -hrd examples/tsv/hrd.tsv grch37  : enter the summarized CNAs of input cohort with information of  genome reference that users employed</td>
-   </tr>
-   <tr>
-      <td>--wgd_cin, -wgdcin</td>
-      <td>NULL</td>
-      <td>Calculate CIN level for each sample, identify WGD cohort, generate a summary table,  and perform visualization</td>
-      <td>ex: -wgdcin examples/tsv/hrd.tsv  : enter the summarized CNAs of input cohort </td>
-   </tr>
-   <tr>
-      <td>--oncokb_annotator, -oncokb</td>
-      <td>[]</td>
-      <td>Annotate actionable mutation(drug) and perform visualization</td>
-      <td>ex: -oncokb ../oncokb-annotator/  [your_oncokb_token]   4   examples/test_data/oncokb/clinical_input.txt  : enter the path of oncokb-annotator, your personal API token of  OncoKB,  choose evidence levels (4 for Level 1-4, 3 for Level 1-3, etc.) for visualization, and the path of  clinical data of input cohort </td>
-   </tr>
-</table>
-
-
-#### Column information of input TSV file (for CoMut plot; -cmp command):
-##### Input 1
-<table>
-   <tr>
-      <td>Columns</td>
-      <td>Descriptions</td>
-      <td>Data preparation</td>
-      <td>In the detailed format please refer to examples below</td>
-   </tr>
-   <tr>
-      <td>Same Patient</td>
-      <td>The path of information for each paired sample</td>
-      <td>User-defined TSV file </td>
-      <td>examples/test_data/comut/sp.tsv</td>
-   </tr>
-   <tr>
-      <td>Copy Number Alteration </td>
-      <td>The path of CNA data for each sample</td>
-      <td>User-defined TSV file from the output of CNA calling</td>
-      <td>examples/test_data/comut/cna.tsv</td>
-   </tr>
-   <tr>
-      <td>Mutation Type</td>
-      <td>The path of mutation types of genes for each sample</td>
-      <td>Mutscape output of CoMut plot analysis (-cm)</td>
-      <td>examples/test_data/comut/mutation_data.tsv</td>
-   </tr>
-   <tr>
-      <td>Purity </td>
-      <td>The path of tumor purity for each sample</td>
-      <td>User-defined TSV file from the ouput of purity estimation </td>
-      <td>examples/test_data/comut/purity.tsv</td>
-   </tr>
-   <tr>
-      <td>Mutation Signature</td>
-      <td>The path of singature contributions for each sample</td>
-      <td>Mutscape output of mutational signature analysis (-ms)</td>
-      <td>examples/test_data/comut/sig_contribution.tsv</td>
-   </tr>
-   <tr>
-      <td>Mutation Classification</td>
-      <td>The path of mutation counts for each sample</td>
-      <td>Mutscape output of CoMut plot analysis (-cm)</td>
-      <td>examples/test_data/comut/mutation_count.tsv</td>
-   </tr>
-   <tr>
-      <td>Frequency</td>
-      <td>The path of mutation frequency of genes for each sample</td>
-      <td>User-defined TSV file </td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>Whole Genome Doubling</td>
-      <td>The path of information of identified WGD samples</td>
-      <td>Mutscape output of WGD analysis (-wgdcin)</td>
-      <td>examples/test_data/comut/wgd.tsv</td>
-   </tr>
-</table>
-
-##### Input 2
-<table>
-   <tr>
-      <td>Columns</td>
-      <td>Descriptions</td>
-      <td>Data preparation</td>
-   </tr>
-   <tr>
-      <td>Copy Number Alteration</td>
-      <td>Selected genes of CNAs for Visualization</td>
-      <td>Genes according to GISTIC2 or or known cancer gene annotation from other tools</td>
-   </tr>
-   <tr>
-      <td>Mutation Type</td>
-      <td>Selected genes of short variants for Visualization</td>
-      <td>Genes according to significantly mutated gene detection or known cancer gene annotation from MutScape</td>
-   </tr>
-   <tr>
-      <td>Mutation Signature</td>
-      <td>Name of signatures</td>
-      <td>User-defined names according to cosine similarity between identified signatures and COSMIC signatures</td>
-   </tr>
-</table>
