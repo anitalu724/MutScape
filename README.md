@@ -83,11 +83,12 @@ MutScape has simply separated into two main modules: data preprocessing and anal
 
 ### Data Preprocessing
 MutScape accepts both VCF and MAF files as input data. 
-For multiple VCF/MAF files will be implemented simultaneously, MutScape requires a limited-format TSV file as input. In the detailed format please refer to `examples/tsv/testData_vcf.tsv` and `examples/tsv/testData_maf.tsv`
+For multiple VCF/MAF files will be implemented simultaneously, MutScape requires a limited-format TSV file as input. For the detailed format please refer to example files such as `examples/tsv/testData_vcf.tsv` and `examples/tsv/testData_maf.tsv` or just see [Wiki](https://github.com/anitalu724/MutScape/wiki/Column-information-of-input-TSV-file).
 
 #### Quick start from VCFs
 For VCFs as input data, `-f`, `-o` and `-m` are required while `-vf`, `-v2m` and `-mf` are optional. 
 Some simple test commands are displayed below.
+See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-data-preprocessing) for detailed information.
 
 ![S1](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/S1.gif?raw=true)
 
@@ -143,6 +144,7 @@ Some simple test commands are displayed below.
 
 ### Analysis and Visualization
 MutScape provides 8 different analyses and some of them generate plots after analysis.
+See [Wiki](https://github.com/anitalu724/MutScape/wiki/Table-of-arguments-for-analysis-and-visualization) for detailed information.
 
 #### Quick start
 Some simple test commands are displayed below.
@@ -173,6 +175,7 @@ Some simple test commands are displayed below.
     ```
 4. CoMut plot analysis
     > Output figure is shown like [**Fig. 2**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig2.pdf).
+    > See [Wiki](https://github.com/anitalu724/MutScape/wiki/Column-information-of-input-TSV-file-for-CoMut-plot) for detailed information.
 
     ```
     python3 mafAnalysis.py \
