@@ -1,6 +1,6 @@
 # MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics
 
-![](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/movie.gif?raw=true)
+![all_figure](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/movie.gif?raw=true)
 
 ## Introduction
 Cancer genomics has been evolving rapidly, fueled by the emergence of numerous studies and public databases through next-generation sequencing technologies. However, the downstream programs used to preprocess and analyze data on somatic mutations are scattered in different tools, most of which need a long time for computation and require specific input formats. Here, we developed a user-friendly Python toolkit, MutScape, which provides a comprehensive pipeline of filtering, combination, transformation, analysis, and visualization. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses simultaneously, including driver gene detection, mutational signature, large-scale alteration identification, and actionable biomarker annotation. Furthermore, MutScape supports somatic variant data in both Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication- quality images are generated automatically. Herein, we demonstrate the ability of MutScape to correctly reproduce known results using breast cancer samples from The Cancer Genome Atlas. More significantly, discovery of novel results in cancer genomics studies is enabled through the advanced features in MutScape.
@@ -79,7 +79,7 @@ To make sure all code smoothly implement, you need to install several modules th
 
 ## Implementation
 
-MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. Detailed structure please refer to **Fig1**.
+MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. Detailed structure please refer to **Fig. 1**.
 
 ### Data Preprocessing
 MutScape accepts both VCF and MAF files as input data. 
@@ -140,64 +140,7 @@ Some simple test commands are displayed below.
     -o examples/output \
     -m examples/meta
     
-
-#### Column information of input TSV file (for VCFs):
-<table>
-   <tr>
-      <td>Columns</td>
-      <td>Descriptions</td>
-   </tr>
-   <tr>
-      <td>NORMAL </td>
-      <td>Each matched normal sample name </td>
-   </tr>
-   <tr>
-      <td>TUMOR</td>
-      <td>Each tumor sample name </td>
-   </tr>
-   <tr>
-      <td>MuSE </td>
-      <td>Paths of MuSE VCF for each sample </td>
-   </tr>
-   <tr>
-      <td>Mutect2</td>
-      <td>Paths of Mutect2 VCF for each sample </td>
-   </tr>
-   <tr>
-      <td>SomaticSniper</td>
-      <td>Paths of SomaticSniper VCF for each sample </td>
-   </tr>
-   <tr>
-      <td>Strelka2</td>
-      <td>Paths of Strelka2 VCF for each sample </td>
-   </tr>
-   <tr>
-      <td>VarScan2</td>
-      <td>Paths of VarScan2 VCF for each sample </td>
-   </tr>
-   <tr>
-      <td>At Least # CALLS</td>
-      <td>Self-defined criteria for further filtering (ex: Given that users enter 2 here, MutScape retains mutations that are identified by at least 2 variant callers) </td>
-   </tr>
-   <tr>
-      <td>At Most # REJECT</td>
-      <td>Self-defined criteria for further filtering (ex: Given that users enter 1 here, MutScape discards mutations that are rejected by at most 1 caller) </td>
-   </tr>
-</table>
-
-#### Column information of input TSV file (for MAFs):
-<table>
-   <tr>
-      <td>Columns</td>
-      <td>Descriptions</td>
-   </tr>
-   <tr>
-      <td>MAF</td>
-      <td>Paths of MAF for each sample</td>
-   </tr>
-</table>
-
-    
+        
 ### MAF Analysis and Visualization
 MutScape provides 8 different analyses and some of them generate plots after analysis.
 
