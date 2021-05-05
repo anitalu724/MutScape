@@ -87,7 +87,7 @@ For multiple VCF/MAF files will be implemented simultaneously, MutScape requires
 
 #### Quick start from VCFs
 For VCFs as input data, `-f`, `-o` and `-m` are required while `-vf`, `-v2m` and `-mf` are optional. 
-Some simple test commands are displayed below.
+Some simple test commands are displayed below.</br>
 See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-data-preprocessing) for detailed information.
 
 ![S1](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/S1.gif?raw=true)
@@ -143,7 +143,7 @@ Some simple test commands are displayed below.
 
 
 ### Analysis and Visualization
-MutScape provides 8 different analyses and some of them generate plots after analysis.
+MutScape provides 8 different analyses and some of them generate plots after analysis.</br>
 See [Wiki](https://github.com/anitalu724/MutScape/wiki/Table-of-arguments-for-analysis-and-visualization) for detailed information.
 
 #### Quick start
@@ -174,7 +174,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 4. CoMut plot analysis
-    > Output figure is shown like [**Fig. 2**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig2.pdf).
+    > Output figure is shown like [**Fig. 2**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig2.pdf).</br>
     > See [Wiki](https://github.com/anitalu724/MutScape/wiki/Column-information-of-input-TSV-file-for-CoMut-plot) for detailed information.
 
     ```
