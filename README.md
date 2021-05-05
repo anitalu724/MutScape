@@ -139,9 +139,9 @@ Some simple test commands are displayed below.
     -mf GI [1:3] CI "15,15,0,0,0,0.05,8,8" TE [BLCA,5] PAC 1 HY 500 \
     -o examples/output \
     -m examples/meta
-    
-        
-### MAF Analysis and Visualization
+
+
+### Analysis and Visualization
 MutScape provides 8 different analyses and some of them generate plots after analysis.
 
 #### Quick start
@@ -172,7 +172,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 4. CoMut plot analysis
-    > Output figure is shown like **Fig2**.
+    > Output figure is shown like **Fig. 2**.
 
     ```
     python3 mafAnalysis.py \
