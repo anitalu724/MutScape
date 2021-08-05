@@ -167,7 +167,7 @@ def caller_info(call, record, para_list, nt_name):
     ValueError if `call` is not in the list below.
         [MuSE / Mutect2 / SomaticSniper / Strelka2 / VarScan2]
     '''
-    if call == 'Mutect2':
+    if call == 'Mutect2' or call == 'Dragen':
         for idx, para in enumerate(para_list):
             if idx == 0 and para != '*':    # DP_N
                 for sample in record.samples:
@@ -343,116 +343,7 @@ def caller_info(call, record, para_list, nt_name):
     else:
         raise ValueError('[MutScape] The name for caller variant is not defined.')
     return True
-    # for idx, para in enumerate(para_list):
-    #     if para != '*':
-    #         if idx == 0:
-    #         elif idx == 1:
-    #         elif idx == 2:
-    #         elif idx == 3:
-    #         elif idx == 4:
-    #         elif idx == 5:
-    #         elif idx == 6:
-    # os._exit()
-    # PASS = True
-    # if call == "Mutect2":
-    #     if record.INFO['NLOD'][0] < NLOD or record.INFO['TLOD'][0] < TLOD:
-    #         return False
-    #     for sample in record.samples:
-    #         if "-N" in str(sample):
-    #             if sample['DP'] <= DP_N or sample['AD'][1] > AD_N or not(type(sample['AF']) is float and sample['AF'] > float(AF_N)):
-    #                 PASS = False
-    #             else:
-    #                 PASS = True
-    #         elif "-T" in str(sample):
-    #             if sample['DP'] <= DP_T or sample['AD'][1] < AD_T or not(type(sample['AF']) is float and sample['AF'] > float(AF_T)):
-    #                 PASS = False
-    #             else:
-    #                 PASS = True
-    # elif call == "MuSE":
-    #     for sample in record.samples:
-    #         if sample.sample == "NORMAL":
-    #             DP = (sample['DP'] <= DP_N)
-    #             AD = (sample['AD'][1] > AD_N)
-    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
-    #             if DP or AD or AF or len(sample['AD'])> 2:
-    #                 PASS = False
-    #         elif sample.sample == "TUMOR":
-    #             DP = (sample['DP'] <= DP_T)
-    #             AD = (sample['AD'][1] < AD_T)
-    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
-    #             if DP or AD or AF or len(sample['AD'])> 2:
-    #                 PASS = False
-    #         else:
-    #             PASS = False
-    # elif call == "SomaticSniper":
-    #     for sample in record.samples:
-    #         AD[0] = sample['DP4'][0]+sample['DP4'][1]
-    #         AD[1] = sample['DP4'][2]+sample['DP4'][3]
-    #         if "-N" in str(sample):
-    #             DP = (sample['DP'] <= DP_N)
-    #             AD = (sample['AD'][1] > AD_N)
-    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_N)
-    #             if DP or AD or AF:
-    #                 PASS = False
-    #         elif "-T" in str(sample):
-    #             DP = (sample['DP'] <= DP_T)
-    #             AD = (sample['AD'][1] < AD_T)
-    #             AF = (round(sample['AD'][1]/sample['DP'],3) < AF_T)
-    #             if DP or AD or AF:
-    #                 PASS = False
-    #         else:
-    #             PASS = False
-    # elif call == "VarScan2":
-    #     for sample in record.samples:
-    #         if sample.sample == "NORMAL":
-    #             DP = (sample['DP'] <= DP_N)
-    #             AD = (sample['AD'] > AD_N)
-    #             AF = (round(sample['AD']/sample['DP'],3) < AF_N)
-    #             if DP or AD or AF:
-    #                 PASS = False
-    #         elif sample.sample == "TUMOR":
-    #             DP = (sample['DP'] <= DP_T)
-    #             AD = (sample['AD'] < AD_T)
-    #             AF = (round(sample['AD']/sample['DP'],3) < AF_T)
-    #             if DP or AD or AF:
-    #                 PASS = False
-    #         else:
-    #             PASS = False
-    # elif call == "Strelka2":
-    #     for sample in record.samples:
-    #         _AD = []
-    #         if sample["AU"][0] > 0:
-    #             _AD.append(sample["AU"][0]) 
-    #         if sample["CU"][0] > 0:
-    #             _AD.append(sample["CU"][0]) 
-    #         if sample["GU"][0] > 0:
-    #             _AD.append(sample["GU"][0]) 
-    #         if sample["TU"][0] > 0:
-    #             _AD.append(sample["TU"][0])
-    #         if len(_AD) == 2:
-    #             if _AD[1] > _AD[0]:
-    #                 _AD = [_AD[1],_AD[0]]
-            
-    #         if sample['DP'] == 0 or len(_AD)!= 2:
-    #             return False
-    #         if sample.sample == "NORMAL":
-    #             DP = (sample['DP'] <= DP_N)
-    #             AD = (_AD[1] > AD_N)
-    #             AF = (round(_AD[1]/sample['DP'],3) < AF_N)
-    #             # print(round(_AD[1]/sample['DP'],3))
-    #             if DP or AD or AF:
-    #                 PASS = False
-    #         elif sample.sample == "TUMOR":
-    #             DP = (sample['DP'] <= DP_T)
-    #             AD = (_AD[1] < AD_T)
-    #             AF = (round(_AD[1]/sample['DP'],3) < AF_T)
-    #             if DP or AD or AF:
-    #                 PASS = False
-    #         else:
-    #             PASS = False
-    # else:
-    #     raise ValueError('[MutScape] The name for caller variant is not defined.')
-    # return PASS
+    
 
 def pass_filter(record):
     ''' PASS(PA) filter 
@@ -492,7 +383,7 @@ def artifact_variant(call,record,delta):
     ------
     ValueError if the name of variant caller is not defined.
     '''
-    if call == "Mutect2":
+    if call == 'Mutect2' or call == 'Dragen':
         F1R2 = record.samples[1]['F1R2'][1]
         F2R1 = record.samples[1]['F2R1'][1]
         d = abs((F1R2-F2R1)/(F1R2+F2R1))
@@ -532,7 +423,7 @@ def vcf_filter(if_filter, category, category_caller, meta):
         for vcf_idx, vcf_read in enumerate(vcf_read_set):
             new_filter_list = list(filter_list)
             if len(filter_list) != 0:
-                FFPE = (category_caller[s_idx][vcf_idx] != "Mutect2")
+                FFPE = (category_caller[s_idx][vcf_idx] != 'Mutect2' or category_caller[s_idx][vcf_idx] != 'Dragen')
                 if FFPE and new_filter_list[3]:
                     new_filter_list[3] = None
                     print(colored(("Warning: FFPE filter does not apply to variant = "+ category_caller[s_idx][vcf_idx]), 'yellow'))
@@ -573,7 +464,7 @@ def vcf_filter(if_filter, category, category_caller, meta):
                                     PASS = pass_filter(record)
                                 elif i == 3:
                                     call = category_caller[s_idx][vcf_idx]
-                                    PASS = True if call != 'Mutect2' else artifact_variant(call, record, new_filter_list[i])
+                                    PASS = True if call != 'Mutect2' or call != 'Dragen' else artifact_variant(call, record, new_filter_list[i])
                         else:
                             break
                     del_count = del_count + 1 if not PASS else del_count

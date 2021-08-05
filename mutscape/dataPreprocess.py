@@ -88,7 +88,6 @@ def main():
     flag, category, category_caller = loading_tsv(args.file)
     folder = args.output if args.output[-1:] == '/' else (args.output + '/')
     meta = args.meta if args.meta[-1:] == '/' else (args.meta + '/')
-    os._exit()
 
     if flag == 'vcf':
         # if not args.combine or not args.vcf2maf:
@@ -98,6 +97,7 @@ def main():
                 args.vcf2maf.append('10')
         combine_filter_filelist = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
+        os._exit(0)
         combine_filter_filelist = all_combine(category, category_caller, meta)
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)

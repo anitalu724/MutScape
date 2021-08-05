@@ -1,2 +1,2 @@
 NORMAL	TUMOR	MuSE	Mutect2	SomaticSniper	Strelka2	VarScan2	Dragen	At Least # CALLS	At Most # REJECT
-sample1-NORMAL	sample1-TUMOR	./examples/test_data/vcf/sample1_muse.vcf	./examples/test_data/vcf/sample1_mutect2.vcf			./examples/test_data/vcf/sample1_varscan2.vcf	./examples/test_data/vcf/Dragen_example_hg19.vcf	2	1
+sample1-NORMAL	sample1-TUMOR	./examples/test_data/vcf/sample1_muse.vcf					./examples/test_data/vcf/Dragen_example_hg19.vcf	2	1

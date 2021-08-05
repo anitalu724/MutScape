@@ -83,5 +83,4 @@ def read_tsv(tsv_file):
 
 def loading_tsv(tsv_file):
     print(colored("\nReading TSV file....", "yellow"))
-    os._exit()
     return read_tsv(tsv_file)
