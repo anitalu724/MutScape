@@ -2,5 +2,4 @@
 .vscode
 .DS_Store
 __pycache__
-examples/
 oncokb-annotator/
