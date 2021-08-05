@@ -88,7 +88,7 @@ def main():
     flag, category, category_caller = loading_tsv(args.file)
     folder = args.output if args.output[-1:] == '/' else (args.output + '/')
     meta = args.meta if args.meta[-1:] == '/' else (args.meta + '/')
-    
+    os._exit()
 
     if flag == 'vcf':
         # if not args.combine or not args.vcf2maf:

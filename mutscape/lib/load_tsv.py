@@ -6,6 +6,15 @@
 # Copyright    [ 2021 4 ]
 ############################################################################################
 
+''' 
+python3 dataPreprocess.py \
+-f examples/tsv/newTestData_vcf.tsv \
+-o examples/output \
+-m examples/meta \
+-vf CI "*,*,*,6,*,*,*,*"
+'''
+import os
+
 from termcolor import colored
 from tabulate import tabulate
 import pandas as pd
@@ -41,12 +50,12 @@ def read_tsv(tsv_file):
         print("\n")
         flag = "maf"
         
-    elif file.shape[1] == 9:    # VCF and MAF
+    elif file.shape[1] == 10:    # VCF and MAF
         for i in range(file.shape[0]):
             sample, vcf_file, caller_list = [], [], []
             sample.append(file.loc[i,'NORMAL'])
             sample.append(file.loc[i,'TUMOR'])
-            variant_list = ['MuSE', 'Mutect2', 'SomaticSniper', 'Strelka2', 'VarScan2']
+            variant_list = ['MuSE', 'Mutect2', 'SomaticSniper', 'Strelka2', 'VarScan2', 'Dragen']
             for j in variant_list:
                 if not isinstance(file.loc[i, j], float):
                     if file.loc[i, j][-3:] != "vcf":
@@ -74,4 +83,5 @@ def read_tsv(tsv_file):
 
 def loading_tsv(tsv_file):
     print(colored("\nReading TSV file....", "yellow"))
+    os._exit()
     return read_tsv(tsv_file)
