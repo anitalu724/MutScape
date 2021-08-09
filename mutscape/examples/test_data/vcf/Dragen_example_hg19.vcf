@@ -9,8 +9,8 @@
 ##FORMAT=<ID=PS,Number=1,Type=Integer,Description="Physical phasing ID information, where each unique ID within a given sample (but not across samples) connects records within a phasing group">
 ##FORMAT=<ID=SB,Number=4,Type=Integer,Description="Per-sample component statistics which comprise the Fisher's Exact Test to detect strand bias">
 ##FORMAT=<ID=SQ,Number=1,Type=Float,Description="Somatic quality">
-##DRAGENCommandLine=<ID=HashTableBuild,Version="SW: 01.003.044.3.5.7, HashTableVersion: 8",CommandLineOptions="dragen --build-hash-table true --ht-reference /work2/u00srx00/reference/GATK/human_g1k_v37/human_g1k_v37_decoy.fasta --output-dir /work2/u1067478/Dragen/Reference/v3.5.7/hg19/ --ht-num-threads=40 --enable-cnv=true --enable-rna=true">
-##DRAGENCommandLine=<ID=dragen,Version="SW: 07.021.510.3.5.7, HW: 07.021.510",Date="Fri Mar 13 12:20:30 CST 2020",CommandLineOptions="-f -r /work2/u1067478/DRAGEN/Reference/v3.5.7/hg19/ --output-directory /work2/u1067478/DRAGEN/Outputs/hg19/NHRI-SLY-AML-001_hg19 --output-file-prefix Dragen_NHRI-SLY-AML-001_hg19 --tumor-fastq1 /work2/u1067478/Rawdata/AML/NHRI-SLY-AML-001-F1_R1_001.fastq.gz --tumor-fastq2 /work2/u1067478/Rawdata/AML/NHRI-SLY-AML-001-F1_R2_001.fastq.gz --RGSM-tumor NHRI-SLY-AML-001_T --RGID-tumor NovaSeq_T -1 /work2/u1067478/Rawdata/AML/NHRI-SLY-AML-001-oral_R1_001.fastq.gz -2 /work2/u1067478/Rawdata/AML/NHRI-SLY-AML-001-oral_R2_001.fastq.gz --RGSM NHRI-SLY-AML-001_N --RGID NovaSeq_N --vc-enable-liquid-tumor-mode true --enable-variant-caller true">
+##DRAGENCommandLine=<ID=HashTableBuild,Version="",CommandLineOptions="">
+##DRAGENCommandLine=<ID=dragen,Version="",Date="",CommandLineOptions="">
 ##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (informative and non-informative); some reads may have been filtered based on mapq etc.">
 ##INFO=<ID=FractionInformativeReads,Number=1,Type=Float,Description="The fraction of informative reads out of the total reads">
 ##INFO=<ID=MQ,Number=1,Type=Float,Description="RMS Mapping Quality">
@@ -119,8 +119,8 @@
 ##contig=<ID=GL000192.1,length=547496>
 ##contig=<ID=NC_007605,length=171823>
 ##contig=<ID=hs37d5,length=35477943>
-##reference=file:///work2/u1067478/DRAGEN/Reference/v3.5.7/hg19/reference.bin
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NHRI-SLY-AML-001_N	NHRI-SLY-AML-001_T
+##reference=file:////DRAGEN/Reference/v3.5.7/hg19/reference.bin
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NORMAL	TUMOR
 1	10403	.	ACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAC	A	.	PASS	DP=908;MQ=32.58;TLOD=28.70;NLOD=41.15;FractionInformativeReads=0.222	GT:SQ:AD:AF:F1R2:F2R1:DP:SB:MB	0/0:41.15:63,4:0.060:33,1:30,3:67:.:.	0/1:28.70:98,37:0.274:39,14:59,23:135:48,50,26,11:55,43,19,18
 1	19942	.	G	C	.	mapping_quality;no_reliable_supporting_read;weak_evidence	DP=286;MQ=13.80;TLOD=4.33;NLOD=27.52;FractionInformativeReads=0.598	GT:SQ:AD:AF:F1R2:F2R1:DP:SB:MB	0/0:27.52:39,2:0.049:24,0:15,2:41:.:.	0/1:4.33:117,13:0.100:61,7:56,6:130:92,25,13,0:60,57,7,6
 1	39406	.	G	C	.	mapping_quality;weak_evidence	DP=134;MQ=14.37;TLOD=5.84;NLOD=-19.38;FractionInformativeReads=0.224	GT:SQ:AD:AF:F1R2:F2R1:DP:SB:MB	0/0:-19.38:3,1:0.250:3,1:0,0:4:.:.	0/1:5.84:6,20:0.769:5,8:1,12:26:0,6,0,20:1,5,12,8

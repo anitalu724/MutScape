@@ -65,6 +65,7 @@ def main():
     '''
     parser = argparse.ArgumentParser(description='Data preprocessing', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('-f','--file', help='Input the tsv file.\n\n', required = True, metavar='tsv_file')
+    parser.add_argument('-ra', '--reject&accept', help='This is an optional argument.\nThe user has to provide the reject list and accept list.')
     parser.add_argument("-vf", "--vcf_filter", nargs='*', metavar='params',\
                                                help=textwrap.dedent("GI: Genome Interval\n"
                                                                     "CI: Caller Information\n"
@@ -97,7 +98,6 @@ def main():
                 args.vcf2maf.append('10')
         combine_filter_filelist = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta)
-        os._exit(0)
         combine_filter_filelist = all_combine(category, category_caller, meta)
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
