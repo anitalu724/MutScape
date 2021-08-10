@@ -26,8 +26,8 @@ def main():
     --------
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
+    -ra 
     -vf GI [1,3] \
-    -c \
     -v2m 8 \
     -o examples/output \
     -m examples/meta 
@@ -36,7 +36,6 @@ def main():
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
     -vf GI "{1: [*,*], 2 : [1, 300000]}" CI "15,15,0,0,0,0.05,8,8" PA 0 AV 0.9 \
-    -c \
     -v2m 8 \
     -o examples/output \
     -m examples/meta
@@ -65,7 +64,8 @@ def main():
     '''
     parser = argparse.ArgumentParser(description='Data preprocessing', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('-f','--file', help='Input the tsv file.\n\n', required = True, metavar='tsv_file')
-    parser.add_argument('-ra', '--reject&accept', help='This is an optional argument.\nThe user has to provide the reject list and accept list.')
+    parser.add_argument('-ra', '--reject&accept', nargs='*', metavar='tsv_files', \
+                                                help='This is an optional argument.\nThe user has to provide the reject list and accept list.')
     parser.add_argument("-vf", "--vcf_filter", nargs='*', metavar='params',\
                                                help=textwrap.dedent("GI: Genome Interval\n"
                                                                     "CI: Caller Information\n"
@@ -93,6 +93,7 @@ def main():
     if flag == 'vcf':
         # if not args.combine or not args.vcf2maf:
         #     raise ValueError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
+        print(args.reject&accept)
         if args.vcf2maf != None:
             if len(args.vcf2maf) == 0:
                 args.vcf2maf.append('10')
