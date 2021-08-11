@@ -26,7 +26,13 @@ def main():
     --------
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
-    -ra 
+    -ra examples/tsv/reject.tsv examples/tsv/accept.tsv \
+    -o examples/output \
+    -m examples/meta \
+    -vf CI "*,*,*,6,*,*,*,*"
+
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_test.tsv \
     -vf GI [1,3] \
     -v2m 8 \
     -o examples/output \
@@ -64,7 +70,7 @@ def main():
     '''
     parser = argparse.ArgumentParser(description='Data preprocessing', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('-f','--file', help='Input the tsv file.\n\n', required = True, metavar='tsv_file')
-    parser.add_argument('-ra', '--reject&accept', nargs='*', metavar='tsv_files', \
+    parser.add_argument('-ra', '--reject_accept', nargs='*', metavar='tsv_files', \
                                                 help='This is an optional argument.\nThe user has to provide the reject list and accept list.')
     parser.add_argument("-vf", "--vcf_filter", nargs='*', metavar='params',\
                                                help=textwrap.dedent("GI: Genome Interval\n"
@@ -87,13 +93,22 @@ def main():
     args = parser.parse_args()
 
     flag, category, category_caller = loading_tsv(args.file)
+    rejectList, acceptList = [], []
     folder = args.output if args.output[-1:] == '/' else (args.output + '/')
     meta = args.meta if args.meta[-1:] == '/' else (args.meta + '/')
 
     if flag == 'vcf':
         # if not args.combine or not args.vcf2maf:
         #     raise ValueError('[MutScape] Command -c, -v2m must required if inputs are VCFs.')
-        print(args.reject&accept)
+        if args.reject_accept:
+            if len(args.reject_accept) != 2: 
+                raise ValueError('[MutScape] Command -ra needs two parameters (reject list and accept list).')
+            rejectList, acceptList = load_RA(args.reject_accept)
+            
+            
+
+        
+        os._exit(0)
         if args.vcf2maf != None:
             if len(args.vcf2maf) == 0:
                 args.vcf2maf.append('10')

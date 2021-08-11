@@ -19,6 +19,13 @@ from termcolor import colored
 from tabulate import tabulate
 import pandas as pd
 
+class raObject:
+    def __init__(self, chrom, pos, ref, alt):
+        self.chrom = chrom
+        self.pos = pos
+        self.ref = ref
+        self.alt = alt
+
 def read_tsv(tsv_file):
     """ Read TSV file to determine whether to implement VCF or MAF.
 
@@ -84,3 +91,22 @@ def read_tsv(tsv_file):
 def loading_tsv(tsv_file):
     print(colored("\nReading TSV file....", "yellow"))
     return read_tsv(tsv_file)
+
+
+def load_RA(ra):
+    rejectList, acceptList = [], []
+    for idx, fileName in enumerate(ra):
+        if fileName[-3:] == 'tsv':
+            file = pd.read_csv(fileName, sep='\t')
+            for row in range(file.shape[0]):
+                if idx == 0:
+                    # rejectList
+                    rejectList.append(raObject(file.iloc[row].CHROM, file.iloc[row].POS, file.iloc[row].REF, file.iloc[row].ALT))
+                elif idx == 1: 
+                    # acceptList
+                    acceptList.append(raObject(file.iloc[row].CHROM, file.iloc[row].POS, file.iloc[row].REF, file.iloc[row].ALT))
+        elif fileName[-3:] == 'vcf':
+            print("It is VCF\n")
+        else: 
+            raise ValueError('[MutScape] The reject list and accept list must be in VCF or TSV format.')
+    return rejectList, acceptList 
