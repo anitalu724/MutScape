@@ -26,6 +26,18 @@ class raObject:
         self.ref = ref
         self.alt = alt
 
+    def notIn(self, rejectList):
+        for idx, raObj in enumerate(rejectList) :
+            if raObj.chrom == self.chrom and raObj.pos == self.pos and raObj.ref == self.ref and raObj.alt == self.alt:
+                print(colored('Warning: Duplicate object(CHROM: '+str(self.chrom)+', POS: '+str(self.pos)+', REF: '+str(self.ref)+', ALT: '+str(self.alt)+') is found in both reject and accept list.\n         Object is removed from both two lists!', 'yellow'))
+                return idx, False
+        return -1, True
+
+    def printObj(self):
+        print('CHROM: '+str(self.chrom)+', POS: '+str(self.pos)+', REF: '+str(self.ref)+', ALT: '+str(self.alt))
+
+    
+
 def read_tsv(tsv_file):
     """ Read TSV file to determine whether to implement VCF or MAF.
 
@@ -104,9 +116,18 @@ def load_RA(ra):
                     rejectList.append(raObject(file.iloc[row].CHROM, file.iloc[row].POS, file.iloc[row].REF, file.iloc[row].ALT))
                 elif idx == 1: 
                     # acceptList
-                    acceptList.append(raObject(file.iloc[row].CHROM, file.iloc[row].POS, file.iloc[row].REF, file.iloc[row].ALT))
+                    acceptObj = raObject(file.iloc[row].CHROM, file.iloc[row].POS, file.iloc[row].REF, file.iloc[row].ALT)
+                    repeatID, notIn = acceptObj.notIn(rejectList)
+                    if notIn:
+                        acceptList.append(acceptObj)
+                    else:
+                        if repeatID != -1:
+                            rejectList.pop(repeatID)
+                else:
+                    raise ValueError('[MutScape] Only two parameters are available.')
         elif fileName[-3:] == 'vcf':
             print("It is VCF\n")
         else: 
             raise ValueError('[MutScape] The reject list and accept list must be in VCF or TSV format.')
+    
     return rejectList, acceptList 
