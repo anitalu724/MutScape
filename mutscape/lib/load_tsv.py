@@ -18,6 +18,7 @@ import os
 from termcolor import colored
 from tabulate import tabulate
 import pandas as pd
+from .vcf_tool import *
 
 class raObject:
     def __init__(self, chrom, pos, ref, alt):
@@ -36,7 +37,6 @@ class raObject:
     def printObj(self):
         print('CHROM: '+str(self.chrom)+', POS: '+str(self.pos)+', REF: '+str(self.ref)+', ALT: '+str(self.alt))
 
-    
 
 def read_tsv(tsv_file):
     """ Read TSV file to determine whether to implement VCF or MAF.
@@ -126,8 +126,23 @@ def load_RA(ra):
                 else:
                     raise ValueError('[MutScape] Only two parameters are available.')
         elif fileName[-3:] == 'vcf':
-            print("It is VCF\n")
+            file = read_vcf(fileName)
+            for record in file:
+                if idx == 0:
+                    # rejectList
+                    rejectList.append(raObject(record.CHROM, record.POS, record.REF, record.ALT))
+                elif idx == 1: 
+                    # acceptList
+                    acceptObj = raObject(record.CHROM, record.POS, record.REF, record.ALT)
+                    repeatID, notIn = acceptObj.notIn(rejectList)
+                    if notIn:
+                        acceptList.append(acceptObj)
+                    else:
+                        if repeatID != -1:
+                            rejectList.pop(repeatID)
+                else:
+                    raise ValueError('[MutScape] Only two parameters are available.')
         else: 
             raise ValueError('[MutScape] The reject list and accept list must be in VCF or TSV format.')
-    
+    print(colored('\n# Reject Objs: '+str(len(rejectList))+', accept objs: '+str(len(acceptList)),'green'))
     return rejectList, acceptList 
