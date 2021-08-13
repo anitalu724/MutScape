@@ -30,12 +30,15 @@ class raObject:
         print('CHROM: '+str(self.chrom)+', POS: '+str(self.pos)+', REF: '+str(self.ref)+', ALT: '+str(self.alt))
     
     def sameAs(self, record):
-        print(type(record))
         if 'chr' in record.CHROM:
             record.CHROM = record.CHROM[3:]
         if self.chrom == record.CHROM and self.pos == record.POS and self.alt == record.ALT and self.ref == record.REF:
             return True
         return False
+    
+    def sameAsDf(self, df):
+        print(df['Chromosome'], df['Start_Position'], df['Reference_Allele'], df['Tumor_Seq_Allele2'])
+        os._exit(0)
 
 
 

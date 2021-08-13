@@ -267,7 +267,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList):
         # Accept List
         accept = False
         for acceptObj in acceptList:
-            if acceptObj.sameAs(df.iloc[i]):
+            if acceptObj.sameAsDf(df.iloc[i]):
                 accept = True
                 break
         if accept:
