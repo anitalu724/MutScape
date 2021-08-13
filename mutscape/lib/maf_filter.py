@@ -125,7 +125,7 @@ def fast_read_maf(maf_file):
             head = ""
         return head, df
 
-def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
+def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList):
     ''' Write a new MAF file to output_file
 
     Parameters
@@ -259,10 +259,13 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
         df = df.drop(df.index([rm_list]))
         return df
 
+
     head, df = fast_read_maf(maf_file)
     rm_list = []
     pbar = tqdm(total = df.shape[0])
     for i in range(df.shape[0]):
+        print(df.iloc[i])
+        os._exit(0)
         pbar.update(1)
         GI = genome_interval(df.iloc[i], flt_list[0])
         CI = caller_info(df.iloc[i], flt_list[1])
@@ -282,7 +285,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file):
             filtered_file.write(head)
             filtered_file.writelines(lines)
 
-def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
+def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder, acceptList):
     ''' Implement MAF filtering and combination if input format is 'VCF'
 
     Parameters
@@ -311,7 +314,7 @@ def vcf_all_filter_combine(if_maf_filter, maf_output_list, folder):
                 with open("lib/auxiliary/rna_cancer_consensus.json", "r") as jsonfile:  
                     ALL_DICT = json.load(jsonfile)
         for idx, maf in enumerate(maf_output_list):
-            maf_filter(maf, maf_flt_list, ALL_DICT, maf_filtered_list[idx])
+            maf_filter(maf, maf_flt_list, ALL_DICT, maf_filtered_list[idx], acceptList)
             print(colored(("\n=> Finish filtering MAF file: "+maf_filtered_list[idx]+"\n"), 'green'))
         
         maf_combine_list = maf_filtered_list

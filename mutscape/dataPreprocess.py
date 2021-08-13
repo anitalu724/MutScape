@@ -14,6 +14,14 @@ from lib.vcf2maf import vcf2maf
 from lib.maf_filter import vcf_all_filter_combine, maf_all_filter_combine
 from termcolor import colored
 import argparse, textwrap
+'''
+python3 dataPreprocess.py \
+-f examples/tsv/testData_vcf.tsv \
+-ra examples/test_data/vcf/reject.vcf examples/test_data/vcf/accept.vcf \
+-o examples/output \
+-m examples/meta \
+-vf CI "*,*,*,6,*,*,*,*"
+'''
 
 def main():
     ''' Implement data preprocessing in one single command.
@@ -112,7 +120,7 @@ def main():
         category = vcf_filter(args.vcf_filter, category, category_caller, meta, rejectList, acceptList)
         combine_filter_filelist = all_combine(category, category_caller, meta, acceptList)
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
-        vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
+        vcf_all_filter_combine(args.maf_filter, maf_output_list, folder, acceptList)
         if args.vcf2maf == None and args.maf_filter != None:
             print(colored('Warning: No MAF files, so no implementation of MAF filtering!\n','yellow'))
     elif flag == 'maf':
