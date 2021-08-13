@@ -333,7 +333,7 @@ def vcf_combination(sample_content_list, caller_list, output_file):
     vcf_writer.close()
     print(colored(("=> Finish combining file: "+output_file+'\n'), 'green'))
 
-def all_combine(category, category_caller, meta):
+def all_combine(category, category_caller, meta, acceptList):
     # if if_combine:
     print(colored("\nStart VCF combination....\n", "yellow"))
     combine_output_list = []
@@ -350,8 +350,18 @@ def all_combine(category, category_caller, meta):
         vcf_read = read_vcf(file)
         vcf_writer = vcf.Writer(open(combine_filter_filelist[idx],"w"), vcf_read)
         for record in vcf_read:
+            accept = False
             calls = len(record.INFO['CALLS'].split('_')) if record.INFO['CALLS']!= None else 0
             reject = len(record.INFO['REJECT'].split('_')) if record.INFO['REJECT'] != None else 0
+            # Accept List 
+            for acceptObj in acceptList:
+                if acceptObj.sameAs(record):
+                    accept = True
+                    break
+            if accept:
+                vcf_writer.write_record(record)
+                continue
+
             if calls >= category[idx][3] and reject <= category[idx][4]:
                 vcf_writer.write_record(record)
             else:

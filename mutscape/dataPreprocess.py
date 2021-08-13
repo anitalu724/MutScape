@@ -110,7 +110,7 @@ def main():
                 args.vcf2maf.append('10')
         combine_filter_filelist = []
         category = vcf_filter(args.vcf_filter, category, category_caller, meta, rejectList, acceptList)
-        combine_filter_filelist = all_combine(category, category_caller, meta)
+        combine_filter_filelist = all_combine(category, category_caller, meta, acceptList)
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)
         if args.vcf2maf == None and args.maf_filter != None:
