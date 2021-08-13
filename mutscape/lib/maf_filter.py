@@ -233,7 +233,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList):
             return True
         return data['FILTER'] == 'PASS'
     
-    def Hypermutator(df, COUNT):
+    def Hypermutator(df, COUNT, acceptList):
         '''Hypermutator (HY) filter
 
         Parameters
@@ -249,6 +249,14 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList):
         rm_list = []
         for i in range(df.shape[0]):
             data = df.iloc[i]
+            accept = False
+            # Accept List 
+            for acceptObj in acceptList:
+                if acceptObj.sameAsDf(data):
+                    accept = True
+                    break
+            if accept == True:
+                continue
             if data['Tumor_Sample_Barcode'] not in sample_dict:
                 sample_dict[data['Tumor_Sample_Barcode']] = [i]
             else:
@@ -283,7 +291,7 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList):
     pbar.close()
     df = df.drop(df.index[rm_list])
     if flt_list[4] != False:
-        df  = Hypermutator(df, flt_list[4])
+        df  = Hypermutator(df, flt_list[4], acceptList)
     df.to_csv(output_file, sep="\t", index= False, header = list(df.columns.values))
     if head != "":
         with open(output_file, "r+") as filtered_file:

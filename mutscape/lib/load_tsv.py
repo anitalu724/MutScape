@@ -37,8 +37,10 @@ class raObject:
         return False
     
     def sameAsDf(self, df):
-        print(df['Chromosome'], df['Start_Position'], df['Reference_Allele'], df['Tumor_Seq_Allele2'])
-        os._exit(0)
+        # print(df['Chromosome'], df['Start_Position'], df['Reference_Allele'], df['Tumor_Seq_Allele2'])
+        if self.chrom == df['Chromosome'] and self.pos == df['Start_Position'] and self.ref == df['Reference_Allele'] and self.alt == df['Tumor_Seq_Allele2']:
+            return True
+        return False
 
 
 
