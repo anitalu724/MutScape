@@ -104,16 +104,12 @@ def main():
             if len(args.reject_accept) != 2: 
                 raise ValueError('[MutScape] Command -ra needs two parameters (reject list and accept list).')
             rejectList, acceptList = load_RA(args.reject_accept)
-            
-            
-
-        
-        os._exit(0)
+    
         if args.vcf2maf != None:
             if len(args.vcf2maf) == 0:
                 args.vcf2maf.append('10')
         combine_filter_filelist = []
-        category = vcf_filter(args.vcf_filter, category, category_caller, meta)
+        category = vcf_filter(args.vcf_filter, category, category_caller, meta, rejectList, acceptList)
         combine_filter_filelist = all_combine(category, category_caller, meta)
         maf_output_list = vcf2maf(args.vcf2maf, combine_filter_filelist, folder, category)
         vcf_all_filter_combine(args.maf_filter, maf_output_list, folder)

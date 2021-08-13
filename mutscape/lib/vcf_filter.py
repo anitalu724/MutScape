@@ -5,6 +5,8 @@
 # Author       [ Cheng-Hua Lu ]
 # Copyright    [ 2021 4 ]
 ############################################################################################
+import os
+from typing import Coroutine
 
 import vcf
 import numpy as np
@@ -391,7 +393,7 @@ def artifact_variant(call,record,delta):
     else:
         raise ValueError('[MutScape] The name of variant caller is not defined.')
 
-def vcf_filter(if_filter, category, category_caller, meta):
+def vcf_filter(if_filter, category, category_caller, meta, rejectList, acceptList):
     '''Implement VCF formalizing and filtering simultaneously.
 
     Parameters
@@ -436,20 +438,39 @@ def vcf_filter(if_filter, category, category_caller, meta):
             vcf_read = read_vcf(sample[2][vcf_idx])
             vcf_read.samples = [sample[0], sample[1]] if len(vcf_read.samples) == 2 else [sample[1]]
             vcf_writer = vcf.Writer(open(output_path,"w"), vcf_read)
+            acceptRecordList = []
             for record in vcf_read:
-                PASS = True
-                if change and PASS:
+                if change:
                     x = record.samples[0]
                     record.samples[0] = record.samples[1]
                     record.samples[1] = x
-                if "chr" in record.CHROM and PASS:
+                if "chr" in record.CHROM:
                     record.CHROM = record.CHROM[3:]
+
+                PASS = True
+                # Reject List and Accept list
+                for acceptObj in acceptList:
+                    if acceptObj.sameAs(record) and record not in acceptRecordList:
+                        PASS = 'ACCEPT'
+                        break
+                for rejectObj in rejectList:
+                    if rejectObj.sameAs(record):
+                        PASS = False
+                        break
+                if PASS == False:
+                    del_count += 1
+                    continue
+                elif PASS == 'ACCEPT':
+                    vcf_writer.write_record(record)
+                    continue
+
                 if len(record.ALT) != 1 and PASS:
                     del_count += 1
                     PASS = False
+                    continue
                 
                 if len(filter_list) != 0 and PASS:
-                    filter_score = np.zeros(4, dtype = bool)
+                    # filter_score = np.zeros(4, dtype = bool)
                     for i in range(len(new_filter_list)):
                         nt_name = [category[0][0], category[0][1]]
                         if PASS:

@@ -6,19 +6,11 @@
 # Copyright    [ 2021 4 ]
 ############################################################################################
 
-''' 
-python3 dataPreprocess.py \
--f examples/tsv/newTestData_vcf.tsv \
--o examples/output \
--m examples/meta \
--vf CI "*,*,*,6,*,*,*,*"
-'''
-import os
-
 from termcolor import colored
 from tabulate import tabulate
 import pandas as pd
 from .vcf_tool import *
+import os
 
 class raObject:
     def __init__(self, chrom, pos, ref, alt):
@@ -36,6 +28,15 @@ class raObject:
 
     def printObj(self):
         print('CHROM: '+str(self.chrom)+', POS: '+str(self.pos)+', REF: '+str(self.ref)+', ALT: '+str(self.alt))
+    
+    def sameAs(self, record):
+        if 'chr' in record.CHROM:
+            record.CHROM = record.CHROM[3:]
+        if self.chrom == record.CHROM and self.pos == record.POS and self.alt == record.ALT and self.ref == record.REF:
+            return True
+        return False
+
+
 
 
 def read_tsv(tsv_file):
