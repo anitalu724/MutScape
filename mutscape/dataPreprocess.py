@@ -20,7 +20,9 @@ python3 dataPreprocess.py \
 -ra examples/test_data/vcf/reject.vcf examples/test_data/vcf/accept.vcf \
 -o examples/output \
 -m examples/meta \
--vf CI "*,*,*,6,*,*,*,*"
+-vf CI "*,*,*,6,*,*,*,*" \
+-v2m 8 \
+-mf GI [1,3]
 '''
 
 def main():
