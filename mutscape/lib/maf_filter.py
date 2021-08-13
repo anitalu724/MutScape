@@ -264,8 +264,15 @@ def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList):
     rm_list = []
     pbar = tqdm(total = df.shape[0])
     for i in range(df.shape[0]):
-        print(df.iloc[i])
-        os._exit(0)
+        # Accept List
+        accept = False
+        for acceptObj in acceptList:
+            if acceptObj.sameAs(df.iloc[i]):
+                accept = True
+                break
+        if accept:
+            continue
+
         pbar.update(1)
         GI = genome_interval(df.iloc[i], flt_list[0])
         CI = caller_info(df.iloc[i], flt_list[1])

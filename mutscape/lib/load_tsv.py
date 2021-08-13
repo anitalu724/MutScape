@@ -30,6 +30,7 @@ class raObject:
         print('CHROM: '+str(self.chrom)+', POS: '+str(self.pos)+', REF: '+str(self.ref)+', ALT: '+str(self.alt))
     
     def sameAs(self, record):
+        print(type(record))
         if 'chr' in record.CHROM:
             record.CHROM = record.CHROM[3:]
         if self.chrom == record.CHROM and self.pos == record.POS and self.alt == record.ALT and self.ref == record.REF:
