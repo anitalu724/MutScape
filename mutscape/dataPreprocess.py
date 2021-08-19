@@ -16,10 +16,10 @@ from termcolor import colored
 import argparse, textwrap
 '''
 python3 dataPreprocess.py \
--f examples/tsv/testData_vcf.tsv \
--ra examples/test_data/vcf/reject.vcf examples/test_data/vcf/accept.vcf \
--o examples/output \
--m examples/meta \
+-f ../../../examples/tsv/testData_vcf.tsv \
+-ra ../../../examples/test_data/vcf/reject.vcf ../../../examples/test_data/vcf/accept.vcf \
+-o ../../../examples/output \
+-m ../../../examples/meta \
 -vf CI "*,*,*,6,*,*,*,*" \
 -v2m 8 \
 -mf GI [1,3]

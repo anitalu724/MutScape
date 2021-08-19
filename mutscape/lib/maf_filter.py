@@ -125,7 +125,7 @@ def fast_read_maf(maf_file):
             head = ""
         return head, df
 
-def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList):
+def maf_filter(maf_file, flt_list, ALL_DICT, output_file, acceptList=[]):
     ''' Write a new MAF file to output_file
 
     Parameters

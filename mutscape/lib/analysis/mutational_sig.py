@@ -180,6 +180,7 @@ class MutationalSignature:
         def nmf():
             print(colored(('\nStart NMF....'), 'yellow'))
             from sklearn.decomposition import NMF
+            
             df = (pd.read_csv(output_folder+'ms_input.tsv', sep='\t')).T
             sample_list = df.index[1:]
             index_96 = df.to_numpy()[0]
