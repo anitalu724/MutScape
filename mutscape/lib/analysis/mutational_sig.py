@@ -180,7 +180,7 @@ class MutationalSignature:
         def nmf():
             print(colored(('\nStart NMF....'), 'yellow'))
             from sklearn.decomposition import NMF
-            if os.path.isfile(output_folder+'ms_input.tsv'):
+            if not os.path.isfile(output_folder+'ms_input.tsv'):
                 raise ValueError('[MutScape] Mutational Signature: Step 1 must be done before step 2.')
             df = (pd.read_csv(output_folder+'ms_input.tsv', sep='\t')).T
             sample_list = df.index[1:]
