@@ -429,9 +429,8 @@ class MutationalSignature:
         for i in range(mut_matrix.shape[1]):
             y = mut_matrix.iloc[:,i]
             lsq = lsqnonneg(y, signatures)
-        
             lsq_contribution[:, i] = lsq[0]
-            lsq_reconstructed[:, i] = np.dot(signatures, lsq[0])
+            # lsq_reconstructed[:, i] = np.dot(signatures, lsq[0])
         
         print(lsq_contribution)
         print("\n")
