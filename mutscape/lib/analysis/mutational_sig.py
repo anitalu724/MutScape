@@ -371,9 +371,12 @@ class MutationalSignature:
 
         for i in range(mut_matrix.shape[1]):
             d, C = mut_matrix.iloc[:,i], signatures
-            m = C.shape[0]
-            # , n = d.shape[1]
-            print(m)
+            m, n = C.shape[0], C.shape[1]
+            import sys
+            print(sys.float_info.epsilon)
+
+            
+            
             
 
             
