@@ -369,8 +369,9 @@ class MutationalSignature:
         mut_matrix = pd.read_csv(input, sep = '\t', index_col = 0)
         signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
 
-        print(mut_matrix)
-        print(signatures)
+        for i in range(mut_matrix.shape[1]):
+            print(mut_matrix[:i])
+            os._exit(0)
         
 
 
