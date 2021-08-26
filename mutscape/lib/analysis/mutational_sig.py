@@ -388,10 +388,13 @@ class MutationalSignature:
             outeriter, it = 0, 0
             itmax, exitFlag = 3*n, 1
 
-            print(w[Z])
+            while(any(Z) and any(w[Z]) > tol){
+                print("hi")
+                os._exit(0)
+            }
 
             
-            os._exit(0)
+            
 
             
             
