@@ -373,7 +373,10 @@ class MutationalSignature:
             d, C = mut_matrix.iloc[:,i], signatures
             m, n = C.shape[0], C.shape[1]
             import sys
+            from scipy import linalg
             print(sys.float_info.epsilon)
+            tol = 10 * sys.float_info.epsilon * linalg.norm(C, ord=2) * (max(n, m)+1)
+            print(tol)
 
             
             
