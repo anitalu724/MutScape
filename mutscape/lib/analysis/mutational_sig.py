@@ -429,7 +429,7 @@ class MutationalSignature:
         for i in range(mut_matrix.shape[1]):
             y = mut_matrix.iloc[:,i]
             lsq = lsqnonneg(y, signatures)
-            print(lsq[0], lsq[1] lsq[2])
+            print(lsq[0], lsq[1], lsq[2])
             os._exit(0)
             lsq_contribution[:, i] = lsq[0]
         
