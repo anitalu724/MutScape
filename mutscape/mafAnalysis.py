@@ -93,9 +93,9 @@ def main():
     if args.mutational_signature:
         df = MutationalSignature(args.file[0])
         params = ast.literal_eval(args.mutational_signature[1])
-        print(df)
-        print(params)
-        os._exit(0);
+        # print(df)
+        # print(params)
+        # os._exit(0);
         if args.mutational_signature[0] == '1':
             df.data_analysis(folder, pic, params[0], params[1], params[2])
         elif args.mutational_signature[0] == '2':
