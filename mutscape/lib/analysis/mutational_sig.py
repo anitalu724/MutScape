@@ -386,7 +386,6 @@ class MutationalSignature:
             
             tol = 10 * sys.float_info.epsilon * linalg.norm(C, ord=2) * (max(n, m)+1)
             
-            
             P, Z = np.zeros(n), np.arange(1, n+1)
             x = np.zeros(n)
 
@@ -396,7 +395,7 @@ class MutationalSignature:
             w = np.dot(C.T, resid)
 
             outeriter, it = 0, 0
-            itmax, exitFlag = 3*n, 1
+            itmax = 3*n
 
             while np.any(Z) and np.any(w[ZZ-1] > tol):
                 outeriter += 1
@@ -409,6 +408,9 @@ class MutationalSignature:
                 ZZ = np.where(Z != 0)[0]+1
 
                 CP = np.zeros(C.shape)
+                print(CP)
+                print(PP)
+                os._exit(0)
                 CP[:, PP-1] = C[:, PP-1]
                 CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
 
