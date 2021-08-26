@@ -366,9 +366,12 @@ class MutationalSignature:
 
     def lsqnonneg(self, input):
         print(input)
-        mut_matrix = pd.read_csv(input, sep='\t', index_col=0)
+        mut_matrix = pd.read_csv(input, sep = '\t', index_col = 0)
+        signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
+
         print(mut_matrix)
-        print(mut_matrix.shape)
+        print(signatures)
+        
 
 
         
