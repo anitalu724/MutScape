@@ -378,7 +378,8 @@ class MutationalSignature:
             tol = 10 * sys.float_info.epsilon * linalg.norm(C, ord=2) * (max(n, m)+1)
             
             x = [0]*n
-            print(x)
+            P, Z = [False]*n, [True]*n
+            print(P,Z)
             os._exit(0)
 
             
