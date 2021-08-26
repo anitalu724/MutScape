@@ -383,7 +383,7 @@ class MutationalSignature:
 
             resid = d - np.matmul(C, x)
             w = np.matmul(C.T, resid)
-            wz = n
+            wz = [0]*n
 
             # iteration params
             outeriter, it = 0, 0
@@ -391,11 +391,10 @@ class MutationalSignature:
 
             while pd.Series(Z).any() and (w[Z]>tol).any():
                 outeriter += 1
-                z = n
+                z = [0]*n
                 wz = [-np.inf]*n
-                print(wz[Z])
-                # wz[Z] = w[Z]
-                # print(wz)
+                wz = w
+                print(wz)
                 os._exit(0)
             
             
