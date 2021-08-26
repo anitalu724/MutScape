@@ -102,7 +102,7 @@ def main():
         elif args.mutational_signature[0] == '2':
             df.plotting(folder, pic, params[0])
         elif args.mutational_signature[0] == '0':
-            df.lsqnonneg(args.mutational_signature[1])
+            df.lsqnonneg()
     if args.hrd_score:
         df = HRDScore(args.hrd_score[0])
         df.data_analysis(folder, args.hrd_score[1])

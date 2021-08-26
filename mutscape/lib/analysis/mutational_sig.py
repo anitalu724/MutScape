@@ -364,8 +364,9 @@ class MutationalSignature:
 
 
 
-    def lsqnonneg(self, input):
-        print(input)
+    def lsqnonneg(self):
+        print(self.df)
+        print(self.df.shape)
 
 
         
