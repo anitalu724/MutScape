@@ -424,7 +424,8 @@ class MutationalSignature:
         n_signatures = signatures.shape[1]
         lsq_contribution = pd.DataFrame(index=range(n_signatures),columns=range(n_samples))
         lsq_reconstructed = pd.DataFrame(index=range(n_feature),columns=range(n_samples))
-
+        print(lsq_contribution.shape)
+        os._exit(0)
 
         for i in range(mut_matrix.shape[1]):
             y = mut_matrix.iloc[:,i]
