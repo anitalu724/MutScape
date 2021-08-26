@@ -374,9 +374,12 @@ class MutationalSignature:
             m, n = C.shape[0], C.shape[1]
             import sys
             from scipy import linalg
-            print(sys.float_info.epsilon)
+            
             tol = 10 * sys.float_info.epsilon * linalg.norm(C, ord=2) * (max(n, m)+1)
-            print(tol)
+            
+            x = [0]*n
+            print(x)
+            os._exit(0)
 
             
             
