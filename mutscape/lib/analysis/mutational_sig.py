@@ -388,11 +388,10 @@ class MutationalSignature:
             outeriter, it = 0, 0
             itmax, exitFlag = 3*n, 1
 
-            while(pd.Series(Z).any()){
+            while pd.Series(Z).any():
                 print("hi")
                 os._exit(0)
-            }
-
+            
             
             
 
