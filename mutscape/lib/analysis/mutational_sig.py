@@ -363,97 +363,94 @@ class MutationalSignature:
         CosineSimilarity()
         SigDistribution()
 
+    def sig_refitting(self, input):
+        def lsqnonneg(self, mut_matrix, signatures):
+            def msize(x, dim):
+                s = x.shape
+                if dim >= len(s):
+                    return 1
+                else:
+                    return s[dim]
 
+            for i in range(mut_matrix.shape[1]):
+                d, C = mut_matrix.iloc[:,i], signatures
+                colName = list(C.columns)
+                (m, n) = C.shape
 
-    def lsqnonneg(self, input):
-        def msize(x, dim):
-            s = x.shape
-            if dim >= len(s):
-                return 1
-            else:
-                return s[dim]
-        
-        mut_matrix = pd.read_csv(input, sep = '\t', index_col = 0)
-        signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
+                import sys
+                from scipy import linalg
 
-        for i in range(mut_matrix.shape[1]):
-            d, C = mut_matrix.iloc[:,i], signatures
-            colName = list(C.columns)
-            (m, n) = C.shape
-            
-            import sys
-            from scipy import linalg
-            
-            tol = 10 * sys.float_info.epsilon * linalg.norm(C, ord=2) * (max(n, m)+1)
-            
-            P, Z = np.zeros(n), np.arange(1, n+1)
-            x = np.zeros(n)
+                tol = 10 * sys.float_info.epsilon * linalg.norm(C, ord=2) * (max(n, m)+1)
 
-            ZZ = Z
+                P, Z = np.zeros(n), np.arange(1, n+1)
+                x = np.zeros(n)
 
-            resid = d - np.dot(C, x)
-            w = np.dot(C.T, resid)
+                ZZ = Z
 
-            outeriter, it = 0, 0
-            itmax = 3*n
+                resid = d - np.dot(C, x)
+                w = np.dot(C.T, resid)
 
-            while np.any(Z) and np.any(w[ZZ-1] > tol):
-                outeriter += 1
-                t = w[ZZ-1].argmax()
-                t = ZZ[t]
+                outeriter, it = 0, 0
+                itmax = 3*n
 
-                P[t-1], Z[t-1] = t, 0
+                while np.any(Z) and np.any(w[ZZ-1] > tol):
+                    outeriter += 1
+                    t = w[ZZ-1].argmax()
+                    t = ZZ[t]
 
-                PP = np.where(P != 0)[0]+1
-                # Pn = [colName[x-1] for x in PP]
-                ZZ = np.where(Z != 0)[0]+1
-
-                CP = np.zeros(C.shape)
-                CP[:, PP-1] = C.iloc[:, PP-1]
-                
-                CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
-
-                z = np.dot(np.linalg.pinv(CP), d)
-                z[ZZ-1] = np.zeros((msize(ZZ,1), msize(ZZ,0)))
-
-                while np.any(z[PP-1] <= tol):
-                    it += 1
-                    if it >= itmax:
-                        max_error = z[PP-1].max()
-                        raise Exception('Exiting: Iteration count (=%d) exceeded\n Try raising the tolerance tol. (max_error=%d)' % (it, max_error))
-
-                    QQ = np.where((z <= tol) & (P != 0))[0]
-                    alpha = min(x[QQ]/(x[QQ] - z[QQ]))
-                    x = x + alpha*(z-x)
-
-                    ij = np.where((abs(x) < tol) & (P != 0))[0]+1
-                    Z[ij-1] = ij
-                    P[ij-1] = np.zeros(max(ij.shape))
+                    P[t-1], Z[t-1] = t, 0
 
                     PP = np.where(P != 0)[0]+1
-                    Pn = [colName[x-1] for x in PP]
+                    # Pn = [colName[x-1] for x in PP]
                     ZZ = np.where(Z != 0)[0]+1
 
+                    CP = np.zeros(C.shape)
                     CP[:, PP-1] = C.iloc[:, PP-1]
+
                     CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
 
                     z = np.dot(np.linalg.pinv(CP), d)
                     z[ZZ-1] = np.zeros((msize(ZZ,1), msize(ZZ,0)))
-                x = z
-                resid = d - np.dot(C, x)
-                w = np.dot(C.T, resid)
-        print(x)
-        print("\n\n")
-        print(sum(resid * resid))
-        print("\n\n")
-        print(resid)
+
+                    while np.any(z[PP-1] <= tol):
+                        it += 1
+                        if it >= itmax:
+                            max_error = z[PP-1].max()
+                            raise Exception('Exiting: Iteration count (=%d) exceeded\n Try raising the tolerance tol. (max_error=%d)' % (it, max_error))
+
+                        QQ = np.where((z <= tol) & (P != 0))[0]
+                        alpha = min(x[QQ]/(x[QQ] - z[QQ]))
+                        x = x + alpha*(z-x)
+
+                        ij = np.where((abs(x) < tol) & (P != 0))[0]+1
+                        Z[ij-1] = ij
+                        P[ij-1] = np.zeros(max(ij.shape))
+
+                        PP = np.where(P != 0)[0]+1
+                        Pn = [colName[x-1] for x in PP]
+                        ZZ = np.where(Z != 0)[0]+1
+
+                        CP[:, PP-1] = C.iloc[:, PP-1]
+                        CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
+
+                        z = np.dot(np.linalg.pinv(CP), d)
+                        z[ZZ-1] = np.zeros((msize(ZZ,1), msize(ZZ,0)))
+                    x = z
+                    resid = d - np.dot(C, x)
+                    w = np.dot(C.T, resid)
+            return(x, sum(resid * resid), resid)
+            
         
+        mut_matrix = pd.read_csv(input, sep = '\t', index_col = 0)
+        signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
+        a = lsqnonneg(mut_matrix, signatures)
+        print(a)
 
 
 
 
-            
-            
+
+    
 
             
             
