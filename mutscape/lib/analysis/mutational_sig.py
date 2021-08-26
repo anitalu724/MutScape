@@ -424,23 +424,18 @@ class MutationalSignature:
         n_signatures = signatures.shape[1]
         lsq_contribution = pd.DataFrame(index=range(n_signatures),columns=range(n_samples))
         lsq_reconstructed = pd.DataFrame(index=range(n_feature),columns=range(n_samples))
-        print(lsq_contribution.shape)
-        print(lsq_contribution)
-        print(lsq_contribution.iloc[:, 0])
-        os._exit(0)
+        
 
         for i in range(n_samples):
             y = mut_matrix.iloc[:,i]
             lsq = lsqnonneg(y, signatures)
-            print(lsq[0].shape)
-            print(lsq_contribution[:, i].shape)
-            os._exit(0)
-            # lsq_contribution[:, i] = lsq[0]
-            # lsq_reconstructed[:, i] = np.dot(signatures, lsq[0])
+            
+            lsq_contribution.iloc[:, i] = lsq[0]
+            lsq_reconstructed.iloc[:, i] = np.dot(signatures, lsq[0])
         
-        # print(lsq_contribution)
-        # print("\n")
-        # print(lsq_reconstructed)
+        print(lsq_contribution)
+        print("\n")
+        print(lsq_reconstructed)
 
         
 
