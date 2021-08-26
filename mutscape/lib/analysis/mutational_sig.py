@@ -393,8 +393,9 @@ class MutationalSignature:
                 outeriter += 1
                 z = n
                 wz = [-np.inf]*n
-                wz[Z] = w[Z]
-                print(wz)
+                print(wz[Z])
+                # wz[Z] = w[Z]
+                # print(wz)
                 os._exit(0)
             
             
