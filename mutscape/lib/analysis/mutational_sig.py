@@ -396,7 +396,8 @@ class MutationalSignature:
                 wz = [-np.inf]*n
                 wz = w
                 im = colName.index(wz.idxmax())
-                print(im)
+                P[im], Z[im] = True, False
+                print(z[P])
                 
                 os._exit(0)
             
