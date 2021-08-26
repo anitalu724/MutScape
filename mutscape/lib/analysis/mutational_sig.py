@@ -409,7 +409,7 @@ class MutationalSignature:
 
                 CP = np.zeros(C.shape)
                 print(CP)
-                print(PP)
+                print(PP-1)
                 os._exit(0)
                 CP[:, PP-1] = C[:, PP-1]
                 CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
