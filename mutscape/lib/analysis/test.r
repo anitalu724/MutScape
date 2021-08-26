@@ -46,3 +46,86 @@ lsqnonneg <- function(C, d) {
     }
     return(list(x = x, resid.norm = sum(resid*resid)))
 }
+
+
+
+
+
+if tol is None:
+        tol = 10*eps*norm1(C)*(max(C.shape)+1)
+
+    C = numpy.asarray(C)
+
+    (m,n) = C.shape
+    P = numpy.zeros(n)
+    Z = numpy.arange(1, n+1)
+
+    if x0 is None:
+        x=P
+    else:
+        if any(x0 < 0):
+            x=P
+        else:
+            x=x0
+
+    ZZ=Z
+
+    resid = d - numpy.dot(C, x)
+    w = numpy.dot(C.T, resid)
+
+    outeriter=0
+    it=0
+    itmax=itmax_factor*n
+    exitflag=1
+
+    # outer loop to put variables into set to hold positive coefficients
+    while numpy.any(Z) and numpy.any(w[ZZ-1] > tol):
+        outeriter += 1
+
+        t = w[ZZ-1].argmax()
+        t = ZZ[t]
+
+        P[t-1]=t
+        Z[t-1]=0
+
+        PP = numpy.where(P <> 0)[0]+1
+        ZZ = numpy.where(Z <> 0)[0]+1
+
+        CP = numpy.zeros(C.shape)
+
+        CP[:, PP-1] = C[:, PP-1]
+        CP[:, ZZ-1] = numpy.zeros((m, msize(ZZ, 1)))
+
+        z=numpy.dot(numpy.linalg.pinv(CP), d)
+
+        z[ZZ-1] = numpy.zeros((msize(ZZ,1), msize(ZZ,0)))
+
+        # inner loop to remove elements from the positve set which no longer belong
+        while numpy.any(z[PP-1] <= tol):
+            it += 1
+
+            if it > itmax:
+                max_error = z[PP-1].max()
+                raise Exception('Exiting: Iteration count (=%d) exceeded\n Try raising the tolerance tol. (max_error=%d)' % (it, max_error))
+
+            QQ = numpy.where((z <= tol) & (P <> 0))[0]
+            alpha = min(x[QQ]/(x[QQ] - z[QQ]))
+            x = x + alpha*(z-x)
+
+            ij = numpy.where((abs(x) < tol) & (P <> 0))[0]+1
+            Z[ij-1] = ij
+            P[ij-1] = numpy.zeros(max(ij.shape))
+            PP = numpy.where(P <> 0)[0]+1
+            ZZ = numpy.where(Z <> 0)[0]+1
+
+            CP[:, PP-1] = C[:, PP-1]
+            CP[:, ZZ-1] = numpy.zeros((m, msize(ZZ, 1)))
+
+            z=numpy.dot(numpy.linalg.pinv(CP), d)
+            z[ZZ-1] = numpy.zeros((msize(ZZ,1), msize(ZZ,0)))
+
+        x = z
+        resid = d - numpy.dot(C, x)
+        w = numpy.dot(C.T, resid)
+
+    return (x, sum(resid * resid), resid)

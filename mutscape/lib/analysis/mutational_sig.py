@@ -366,40 +366,86 @@ class MutationalSignature:
 
 
     def lsqnonneg(self, input):
-        print(input)
+        def msize(x, dim):
+            s = x.shape
+            if dim >= len(s):
+                return 1
+            else:
+                return s[dim]
+        
         mut_matrix = pd.read_csv(input, sep = '\t', index_col = 0)
         signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
 
         for i in range(mut_matrix.shape[1]):
             d, C = mut_matrix.iloc[:,i], signatures
             colName = list(C.columns)
-            m, n = C.shape[0], C.shape[1]
+            (m, n) = C.shape
+            
             import sys
             from scipy import linalg
             
             tol = 10 * sys.float_info.epsilon * linalg.norm(C, ord=2) * (max(n, m)+1)
             
-            x = [0]*n
-            P, Z = [False]*n, [True]*n
+            
+            P, Z = np.zeros(n), np.arange(1, n+1)
+            x = np.zeros(n)
 
-            resid = d - np.matmul(C, x)
-            w = np.matmul(C.T, resid)
-            wz = [0]*n
+            ZZ = Z
 
-            # iteration params
+            resid = d - np.dot(C, x)
+            w = np.dot(C.T, resid)
+
             outeriter, it = 0, 0
             itmax, exitFlag = 3*n, 1
 
-            while pd.Series(Z).any() and (w[Z]>tol).any():
+            while np.any(Z) and np.any(w[ZZ-1] > tol):
                 outeriter += 1
-                z = [0]*n
-                wz = [-np.inf]*n
-                wz = w
-                im = colName.index(wz.idxmax())
-                P[im], Z[im] = True, False
-                print(z[P])
-                
-                os._exit(0)
+                t = w[ZZ-1].argmax()
+                t = ZZ[t]
+
+                P[t-1], Z[t-1] = t, 0
+
+                PP = np.where(P != 0)[0]+1
+                ZZ = np.where(Z != 0)[0]+1
+
+                CP = np.zeros(C.shape)
+                CP[:, PP-1] = C[:, PP-1]
+                CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
+
+                z = np.dot(np.linalg.pinv(CP), d)
+                z[ZZ-1] = np.zeros((msize(ZZ,1), msize(ZZ,0)))
+
+                while np.any(z[PP-1] <= tol):
+                    it += 1
+                    if it >= itmax:
+                        max_error = z[PP-1].max()
+                        raise Exception('Exiting: Iteration count (=%d) exceeded\n Try raising the tolerance tol. (max_error=%d)' % (it, max_error))
+
+                    QQ = np.where((z <= tol) & (P != 0))[0]
+                    alpha = min(x[QQ]/(x[QQ] - z[QQ]))
+                    x = x + alpha*(z-x)
+
+                    ij = np.where((abs(x) < tol) & (P != 0))[0]+1
+                    Z[ij-1] = ij
+                    P[ij-1] = np.zeros(max(ij.shape))
+
+                    PP = np.where(P != 0)[0]+1
+                    ZZ = np.where(Z != 0)[0]+1
+
+                    CP[:, PP-1] = C[:, PP-1]
+                    CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
+
+                    z = np.dot(np.linalg.pinv(CP), d)
+                    z[ZZ-1] = np.zeros((msize(ZZ,1), msize(ZZ,0)))
+                x = z
+                resid = d - np.dot(C, x)
+                w = np.dot(C.T, resid)
+        print(x, sum(resid * resid), resid)
+        
+
+
+
+
             
             
 
@@ -410,6 +456,13 @@ class MutationalSignature:
             
             
         
+
+
+
+
+
+
+    
 
 
         
