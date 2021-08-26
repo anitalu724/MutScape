@@ -364,7 +364,7 @@ class MutationalSignature:
         SigDistribution()
 
     def sig_refitting(self, input):
-        def lsqnonneg(self, mut_matrix, signatures):
+        def lsqnonneg(mut_matrix, signatures):
             def msize(x, dim):
                 s = x.shape
                 if dim >= len(s):
