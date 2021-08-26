@@ -433,9 +433,8 @@ class MutationalSignature:
             lsq_contribution.iloc[:, i] = lsq[0]
             lsq_reconstructed.iloc[:, i] = np.dot(signatures, lsq[0])
         
-        print(lsq_contribution)
-        print("\n")
-        print(lsq_reconstructed)
+        lsq_contribution.columns = mut_matrix.columns
+        print(lsq_contribution.columns)
 
         
 
