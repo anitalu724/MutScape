@@ -364,9 +364,11 @@ class MutationalSignature:
 
 
 
-    def lsqnonneg(self):
-        print(self.df)
-        print(self.df.shape)
+    def lsqnonneg(self, input):
+        print(input)
+        mut_matrix = pd.read_csv(input, sep='\t')
+        print(mut_matrix)
+        print(mut_matrix.shape)
 
 
         
