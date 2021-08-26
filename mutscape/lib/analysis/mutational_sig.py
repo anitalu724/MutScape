@@ -388,7 +388,7 @@ class MutationalSignature:
             outeriter, it = 0, 0
             itmax, exitFlag = 3*n, 1
 
-            while(any(Z) and any(w[Z]) > tol){
+            while(pd.Series(Z).any()){
                 print("hi")
                 os._exit(0)
             }
