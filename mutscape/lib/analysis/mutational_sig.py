@@ -405,10 +405,11 @@ class MutationalSignature:
                 P[t-1], Z[t-1] = t, 0
 
                 PP = np.where(P != 0)[0]+1
+                PP = colName[PP]
                 ZZ = np.where(Z != 0)[0]+1
 
                 CP = np.zeros(C.shape)
-                print(C)
+                print(PP)
                 
                 os._exit(0)
                 CP[:, PP-1] = C[:, PP-1]
