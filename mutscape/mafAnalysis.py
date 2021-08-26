@@ -92,7 +92,8 @@ def main():
         plot1.plot(pic, args.comut_plot[2], args.comut_plot[3])
     if args.mutational_signature:
         df = MutationalSignature(args.file[0])
-        params = ast.literal_eval(args.mutational_signature[1])
+        if args.mutational_signature[0] != '0':
+            params = ast.literal_eval(args.mutational_signature[1])
         # print(df)
         # print(params)
         # os._exit(0);
@@ -101,7 +102,7 @@ def main():
         elif args.mutational_signature[0] == '2':
             df.plotting(folder, pic, params[0])
         elif args.mutational_signature[0] == '0':
-            df.lsqnonneg(params[0])
+            df.lsqnonneg(args.mutational_signature[1])
     if args.hrd_score:
         df = HRDScore(args.hrd_score[0])
         df.data_analysis(folder, args.hrd_score[1])
