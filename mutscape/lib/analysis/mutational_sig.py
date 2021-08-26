@@ -361,3 +361,11 @@ class MutationalSignature:
         DonutPlot()
         CosineSimilarity()
         SigDistribution()
+
+
+
+    def lsqnonneg(self, input):
+        print(input)
+
+
+        
