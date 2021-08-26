@@ -405,14 +405,11 @@ class MutationalSignature:
                 P[t-1], Z[t-1] = t, 0
 
                 PP = np.where(P != 0)[0]+1
-                PP = [colName[x] for x in PP]
+                Pn = [colName[x-1] for x in PP]
                 ZZ = np.where(Z != 0)[0]+1
 
                 CP = np.zeros(C.shape)
-                print(PP)
-                
-                os._exit(0)
-                CP[:, PP-1] = C[:, PP-1]
+                CP[:, PP-1] = C[:, Pn]
                 
                 CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
 
@@ -434,9 +431,10 @@ class MutationalSignature:
                     P[ij-1] = np.zeros(max(ij.shape))
 
                     PP = np.where(P != 0)[0]+1
+                    Pn = [colName[x-1] for x in PP]
                     ZZ = np.where(Z != 0)[0]+1
 
-                    CP[:, PP-1] = C[:, PP-1]
+                    CP[:, PP-1] = C[:, Pn]
                     CP[:, ZZ-1] = np.zeros((m, msize(ZZ, 1)))
 
                     z = np.dot(np.linalg.pinv(CP), d)
