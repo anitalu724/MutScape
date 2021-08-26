@@ -372,7 +372,7 @@ class MutationalSignature:
 
         for i in range(mut_matrix.shape[1]):
             d, C = mut_matrix.iloc[:,i], signatures
-            print(C.columns)
+            colName = list(C.columns)
             m, n = C.shape[0], C.shape[1]
             import sys
             from scipy import linalg
@@ -395,7 +395,8 @@ class MutationalSignature:
                 z = [0]*n
                 wz = [-np.inf]*n
                 wz = w
-                im = wz.idxmax()
+                im = colName.idx(wz.idxmax())
+                print(im)
                 
                 os._exit(0)
             
