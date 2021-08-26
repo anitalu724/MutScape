@@ -382,7 +382,13 @@ class MutationalSignature:
 
             resid = d - np.matmul(C, x)
             w = np.matmul(C.T, resid)
-            print(w)
+            wz = n
+
+            # iteration params
+            outeriter, it = 0, 0
+            itmax, exitFlag = 3*n, 1
+
+            print(w[Z])
 
             
             os._exit(0)
