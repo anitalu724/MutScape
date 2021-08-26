@@ -435,7 +435,12 @@ class MutationalSignature:
         
         lsq_contribution.columns = mut_matrix.columns
         lsq_contribution.index = signatures.columns
+        lsq_reconstructed.columns = mut_matrix.columns
+        lsq_reconstructed.index = signatures.index
+
+
         print(lsq_contribution)
+        print(lsq_reconstructed)
 
         
 
