@@ -6,6 +6,7 @@
 # Copyright    [ 2021 4 ]
 ############################################################################################
 
+from numpy.core.numeric import outer
 from ..maf_filter import fast_read_maf
 from termcolor import colored
 import pandas as pd
@@ -389,9 +390,12 @@ class MutationalSignature:
             itmax, exitFlag = 3*n, 1
 
             while pd.Series(Z).any() and (w[Z]>tol).any():
-                print("hi")
+                outeriter += 1
+                z = n
+                wz = [-np.inf]*n
+                wz[Z] = w[Z]
+                print(wz)
                 os._exit(0)
-            
             
             
 
