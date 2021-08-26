@@ -379,7 +379,8 @@ class MutationalSignature:
             
             x = [0]*n
             P, Z = [False]*n, [True]*n
-            print(P,Z)
+            resid = d - np.matmul(C, x)
+            print(resid)
             os._exit(0)
 
             
