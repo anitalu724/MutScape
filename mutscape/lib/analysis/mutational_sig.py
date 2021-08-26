@@ -442,7 +442,11 @@ class MutationalSignature:
                 x = z
                 resid = d - np.dot(C, x)
                 w = np.dot(C.T, resid)
-        print(x, sum(resid * resid), resid)
+        print(x)
+        print("\n\n")
+        print(sum(resid * resid))
+        print("\n\n")
+        print(resid)
         
 
 
