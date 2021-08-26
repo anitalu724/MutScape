@@ -394,7 +394,7 @@ class MutationalSignature:
                 z = [0]*n
                 wz = [-np.inf]*n
                 wz = w
-                print(wz)
+                print(wz.max())
                 os._exit(0)
             
             
