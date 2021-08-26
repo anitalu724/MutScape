@@ -370,10 +370,11 @@ class MutationalSignature:
         signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
 
         for i in range(mut_matrix.shape[1]):
-            y = mut_matrix.iloc[:,i].transpose()
-            print(y.shape)
-            print(signatures.shape)
-            os._exit(0)
+            d, C = mut_matrix.iloc[:,i], signatures
+            m = C.shape[0], n = d.shape[1]
+            print(m, n)
+
+            
             
         
 
