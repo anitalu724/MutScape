@@ -444,6 +444,8 @@ class MutationalSignature:
         self.contribution = lsq_contribution
         self.reconstructed = lsq_reconstructed
 
+        
+
     def SBSplot(self, input, output_folder, pic, params):
         
         df = input
