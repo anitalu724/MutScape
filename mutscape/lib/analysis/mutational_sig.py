@@ -429,7 +429,6 @@ class MutationalSignature:
         lsq_reconstructed = pd.DataFrame(index=range(n_feature),columns=range(n_samples))
         
         for i in range(n_samples):
-            print(i)
             y = mut_matrix.iloc[:,i]
             lsq = lsqnonneg(y, self.cosmic)
             
@@ -449,7 +448,7 @@ class MutationalSignature:
         
         df = input
         if params != "":
-            params.replace('[', '').replace(']', '').replace(' ', '').split(',')
+            params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
             print(params)
         os._exit(0)
         
