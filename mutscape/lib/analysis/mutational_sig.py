@@ -450,8 +450,7 @@ class MutationalSignature:
         if params != "":
             params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
             df = df[params]
-            print(df)
-        os._exit(0)
+            
         
         fig_x = tuple([ ' '+i[0]+' '+i[6] for i in list(df.index)])
         
