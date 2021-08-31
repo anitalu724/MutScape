@@ -97,9 +97,9 @@ def main():
         if args.mutational_signature[0] != '2':
             df.get_input_file(folder)
         if args.mutational_signature[0] == '0':
-            print('in')
+        
             df.sig_refitting()
-            print('out')
+          
             print(df.contribution)
             print(df.reconstructed)
 
