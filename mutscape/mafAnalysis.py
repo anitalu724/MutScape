@@ -93,7 +93,7 @@ def main():
     if args.mutational_signature:
         df = MutationalSignature(args.file[0])
         # if args.mutational_signature[0] != '0':
-        params = ast.literal_eval(args.mutational_signature[1])
+        # params = ast.literal_eval(args.mutational_signature[1])
         if args.mutational_signature[0] != '2':
             df.get_input_file(folder)
         os._exit(0)
