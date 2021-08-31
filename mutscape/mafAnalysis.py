@@ -45,7 +45,7 @@ def main():
                                                               2. TSV file which contain all information for image.\n\
                                                               3. plot color theme(0: cold, 1: warm)\n\
                                                               4. CoMut_plot picture file name")
-    parser.add_argument("-ms", "--mutational_signature", nargs=2, metavar=('step_#', 'list_of_params'),
+    parser.add_argument("-ms", "--mutational_signature", nargs='*', metavar=('step_#', 'list_of_params'),
                         help=textwrap.dedent('''\
                         Two steps are included: Estimation(0) and Plotting(1).
                         For each step, two values are required:
