@@ -422,7 +422,6 @@ class MutationalSignature:
             return(x, sum(resid * resid), resid)
 
         mut_matrix = pd.read_csv(self.input, sep = '\t', index_col = 0)
-        # signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
 
         n_feature, n_samples = mut_matrix.shape[0], mut_matrix.shape[1]
         n_signatures = (self.cosmic).shape[1]
@@ -446,11 +445,12 @@ class MutationalSignature:
 
         
 
-    def SBSplot(self, input, output_folder, pic, params):
+    def SBSplot(self, input, pic, params = ""):
         
         df = input
+        print(df)
         print(params)
-        os._exit(0)
+        
 
         fig_x = tuple([ ' '+i[0]+' '+i[6] for i in list(df.index)])
         y_pos = np.arange(len(fig_x))
