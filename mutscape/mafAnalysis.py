@@ -94,15 +94,14 @@ def main():
         df = MutationalSignature(args.file[0])
         if args.mutational_signature[0] != '0':
             params = ast.literal_eval(args.mutational_signature[1])
-        # print(df)
-        # print(params)
-        # os._exit(0);
+
         if args.mutational_signature[0] == '1':
             df.data_analysis(folder, pic, params[0], params[1], params[2])
         elif args.mutational_signature[0] == '2':
             df.plotting(folder, pic, params[0])
         elif args.mutational_signature[0] == '0':
             df.sig_refitting(args.mutational_signature[1])
+            df.SBSplot(folder, pic)
     if args.hrd_score:
         df = HRDScore(args.hrd_score[0])
         df.data_analysis(folder, args.hrd_score[1])
