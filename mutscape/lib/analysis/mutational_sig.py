@@ -62,65 +62,69 @@ class MutationalSignature:
     def __init__(self, maf_file):
         print(colored(('\nStart Mutational_Signature....'), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
+        self.cosmic = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
+        self.contribution, self.reconstructed = pd.DataFrame(), pd.DataFrame()
+    def get_input_file(self, output_folder):
+        output_file = output_folder+'ms_input.tsv'
+        selected_col = self.df[['Tumor_Sample_Barcode','flanking_bps', 'Reference_Allele', 'Tumor_Seq_Allele2']]
+        selected_col.columns = ['SampleID', 'Three_Allele', 'Ref', 'Mut']
+        sample_list = selected_col.SampleID.unique()
+        grouped = selected_col.groupby(selected_col['SampleID'])
+        df_list = [grouped.get_group(sample).reset_index(drop=True) for sample in sample_list]
+        final_dict = {}
+        for d, df in enumerate(df_list):
+            # order: 'C>A','C>G','C>T','T>A','T>C','T>G'
+            cata_list = [[],[],[],[],[],[]]
+            for i in range(len(df)):
+                item = df.loc[i]
+                if (item['Ref'] == 'C' and item['Mut'] == 'A') or (item['Ref'] == 'G' and item['Mut'] == 'T'):
+                    cata_list[0].append(item)
+                elif (item['Ref'] == 'C' and item['Mut'] == 'G') or (item['Ref'] == 'G' and item['Mut'] == 'C'):
+                    cata_list[1].append(item)
+                elif (item['Ref'] == 'C' and item['Mut'] == 'T') or (item['Ref'] == 'G' and item['Mut'] == 'A'):
+                    cata_list[2].append(item)
+                elif (item['Ref'] == 'T' and item['Mut'] == 'A') or (item['Ref'] == 'A' and item['Mut'] == 'T'):
+                    cata_list[3].append(item)
+                elif (item['Ref'] == 'T' and item['Mut'] == 'C') or (item['Ref'] == 'A' and item['Mut'] == 'G'):                       
+                    cata_list[4].append(item)
+                elif (item['Ref'] == 'T' and item['Mut'] == 'G') or (item['Ref'] == 'A' and item['Mut'] == 'C'):
+                    cata_list[5].append(item)
+            list_96 = []
+            for cata in range(len(cata_list)):
+                cata_sum_list = [int(0)]*16
+                if cata in [0,1,2]:
+                    three_allele_dict={'ACA':0,     'TGT':0,    'ACC':1,    'GGT':1,    'ACG':2,    'CGT':2,    'ACT':3,    'AGT':3, \
+                                       'CCA':4,     'TGG':4,    'CCC':5,    'GGG':5,    'CCG':6,    'CGG':6,    'CCT':7,    'AGG':7, \
+                                       'GCA':8,     'TGC':8,    'GCC':9,    'GGC':9,    'GCG':10,   'CGC':10,   'GCT':11,   'AGC':11,\
+                                       'TCA':12,    'TGA':12,   'TCC':13,   'GGA':13,   'TCG':14,   'CGA':14,   'TCT':15,   'AGA':15 }   
+                elif cata in [3,4,5]:
+                    three_allele_dict={'ATA':0,     'TAT':0,    'ATC':1,    'GAT':1,    'ATG':2,    'CAT':2,    'ATT':3,    'AAT':3, \
+                                       'CTA':4,     'TAG':4,    'CTC':5,    'GAG':5,    'CTG':6,    'CAG':6,    'CTT':7,    'AAG':7, \
+                                       'GTA':8,     'TAC':8,    'GTC':9,    'GAC':9,    'GTG':10,   'CAC':10,   'GTT':11,   'AAC':11,\
+                                       'TTA':12,    'TAA':12,   'TTC':13,   'GAA':13,   'TTG':14,   'CAA':14,   'TTT':15,   'AAA':15 }  
+
+                for j in range(len(cata_list[cata])):
+                    if (cata_list[cata][j])['Three_Allele'] in three_allele_dict:
+                        cata_sum_list[three_allele_dict[(cata_list[cata][j])['Three_Allele']]] += 1;
+                list_96 += cata_sum_list
+            final_dict[sample_list[d]] = list_96
+
+        new_df = pd.DataFrame.from_dict(final_dict)
+        list_a = ['A.A', 'A.C', 'A.G', 'A.T', 'C.A', 'C.C', 'C.G', 'C.T',\
+                  'G.A', 'G.C', 'G.G', 'G.T', 'T.A', 'T.C', 'T.G', 'T.T']
+        list_b = ['C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G']
+        new_row_name = []
+        for item in list_b:
+            for allele in list_a:
+                new_str = allele[0]+'['+item+']'+allele[2]
+                new_row_name.append(new_str)
+        new_df.index = new_row_name
+        new_df.to_csv(output_file, sep = '\t', index = True)
+        print(colored('=> Generate input file: ', 'green'))
+        print(colored(('   '+output_file), 'green'))
+        
     def data_analysis(self, output_folder, pic, rank1, rank2, epoch):
-        def get_input_file():
-            output_file = output_folder+'ms_input.tsv'
-            selected_col = self.df[['Tumor_Sample_Barcode','flanking_bps', 'Reference_Allele', 'Tumor_Seq_Allele2']]
-            selected_col.columns = ['SampleID', 'Three_Allele', 'Ref', 'Mut']
-            sample_list = selected_col.SampleID.unique()
-            grouped = selected_col.groupby(selected_col['SampleID'])
-            df_list = [grouped.get_group(sample).reset_index(drop=True) for sample in sample_list]
-            final_dict = {}
-            for d, df in enumerate(df_list):
-                # order: 'C>A','C>G','C>T','T>A','T>C','T>G'
-                cata_list = [[],[],[],[],[],[]]
-                for i in range(len(df)):
-                    item = df.loc[i]
-                    if (item['Ref'] == 'C' and item['Mut'] == 'A') or (item['Ref'] == 'G' and item['Mut'] == 'T'):
-                        cata_list[0].append(item)
-                    elif (item['Ref'] == 'C' and item['Mut'] == 'G') or (item['Ref'] == 'G' and item['Mut'] == 'C'):
-                        cata_list[1].append(item)
-                    elif (item['Ref'] == 'C' and item['Mut'] == 'T') or (item['Ref'] == 'G' and item['Mut'] == 'A'):
-                        cata_list[2].append(item)
-                    elif (item['Ref'] == 'T' and item['Mut'] == 'A') or (item['Ref'] == 'A' and item['Mut'] == 'T'):
-                        cata_list[3].append(item)
-                    elif (item['Ref'] == 'T' and item['Mut'] == 'C') or (item['Ref'] == 'A' and item['Mut'] == 'G'):                       
-                        cata_list[4].append(item)
-                    elif (item['Ref'] == 'T' and item['Mut'] == 'G') or (item['Ref'] == 'A' and item['Mut'] == 'C'):
-                        cata_list[5].append(item)
-                list_96 = []
-                for cata in range(len(cata_list)):
-                    cata_sum_list = [int(0)]*16
-                    if cata in [0,1,2]:
-                        three_allele_dict={'ACA':0,     'TGT':0,    'ACC':1,    'GGT':1,    'ACG':2,    'CGT':2,    'ACT':3,    'AGT':3, \
-                                           'CCA':4,     'TGG':4,    'CCC':5,    'GGG':5,    'CCG':6,    'CGG':6,    'CCT':7,    'AGG':7, \
-                                           'GCA':8,     'TGC':8,    'GCC':9,    'GGC':9,    'GCG':10,   'CGC':10,   'GCT':11,   'AGC':11,\
-                                           'TCA':12,    'TGA':12,   'TCC':13,   'GGA':13,   'TCG':14,   'CGA':14,   'TCT':15,   'AGA':15 }   
-                    elif cata in [3,4,5]:
-                        three_allele_dict={'ATA':0,     'TAT':0,    'ATC':1,    'GAT':1,    'ATG':2,    'CAT':2,    'ATT':3,    'AAT':3, \
-                                           'CTA':4,     'TAG':4,    'CTC':5,    'GAG':5,    'CTG':6,    'CAG':6,    'CTT':7,    'AAG':7, \
-                                           'GTA':8,     'TAC':8,    'GTC':9,    'GAC':9,    'GTG':10,   'CAC':10,   'GTT':11,   'AAC':11,\
-                                           'TTA':12,    'TAA':12,   'TTC':13,   'GAA':13,   'TTG':14,   'CAA':14,   'TTT':15,   'AAA':15 }  
-
-                    for j in range(len(cata_list[cata])):
-                        if (cata_list[cata][j])['Three_Allele'] in three_allele_dict:
-                            cata_sum_list[three_allele_dict[(cata_list[cata][j])['Three_Allele']]] += 1;
-                    list_96 += cata_sum_list
-                final_dict[sample_list[d]] = list_96
-
-            new_df = pd.DataFrame.from_dict(final_dict)
-            list_a = ['A.A', 'A.C', 'A.G', 'A.T', 'C.A', 'C.C', 'C.G', 'C.T',\
-                      'G.A', 'G.C', 'G.G', 'G.T', 'T.A', 'T.C', 'T.G', 'T.T']
-            list_b = ['C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G']
-            new_row_name = []
-            for item in list_b:
-                for allele in list_a:
-                    new_str = allele[0]+'['+item+']'+allele[2]
-                    new_row_name.append(new_str)
-            new_df.index = new_row_name
-            new_df.to_csv(output_file, sep = '\t', index = True)
-            print(colored('=> Generate input file: ', 'green'))
-            print(colored(('   '+output_file), 'green'))
+        
         def estimation():
             os.system('git clone https://github.com/mims-harvard/nimfa.git\n')
             os.chdir('nimfa')
@@ -175,7 +179,7 @@ class MutationalSignature:
             print(colored(('   '+pic+'Estimation.pdf\n'), 'green'))
             os.chdir('..')
             os.system('rm -rf nimfa\n')
-        get_input_file()
+        # get_input_file()
         estimation()  
     def plotting(self, output_folder, pic, sig):
         LABEL_SIZE, TITLE_SIZE = 24,30
