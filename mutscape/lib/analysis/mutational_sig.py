@@ -449,11 +449,12 @@ class MutationalSignature:
         df = input
         if params != "":
             params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
-            print(params)
+            df = df.loc[params]
+            print(df)
+        os._exit(0)
         
         fig_x = tuple([ ' '+i[0]+' '+i[6] for i in list(df.index)])
-        print(fig_x)
-        os._exit(0)
+        
         y_pos = np.arange(len(fig_x))
         fig_name = list(df.columns)
         fig, axes = plt.subplots(df.shape[1], 1, figsize=(12,2*df.shape[1]))#
