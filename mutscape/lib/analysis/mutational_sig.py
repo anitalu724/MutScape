@@ -416,7 +416,6 @@ class MutationalSignature:
                 w = np.dot(C.T, resid)
             return(x, sum(resid * resid), resid)
         
-
         mut_matrix = pd.read_csv(input, sep = '\t', index_col = 0)
         signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
         
@@ -438,32 +437,13 @@ class MutationalSignature:
         lsq_reconstructed.columns = mut_matrix.columns
         lsq_reconstructed.index = signatures.index
 
-
         print(lsq_contribution)
-        print(lsq_reconstructed)
-
-        
 
 
 
 
 
-    
-
-            
-            
-            
-
-            
-            
-        
-
-
-
-
-
-
-    
 
 
         
+
