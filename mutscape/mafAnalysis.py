@@ -100,7 +100,7 @@ def main():
         elif args.mutational_signature[0] == '2':
             df.plotting(folder, pic, params[0])
         elif args.mutational_signature[0] == '0':
-            df.sig_refitting(args.mutational_signature[1])
+            df.sig_refitting(args.mutational_signature[2])
             df.SBSplot(df.cosmic ,folder, pic, params[0])
     if args.hrd_score:
         df = HRDScore(args.hrd_score[0])
