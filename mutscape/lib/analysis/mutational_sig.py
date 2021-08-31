@@ -64,8 +64,10 @@ class MutationalSignature:
         self.head, self.df = fast_read_maf(maf_file)
         self.cosmic = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
         self.contribution, self.reconstructed = pd.DataFrame(), pd.DataFrame()
+        self.input = ""
     def get_input_file(self, output_folder):
         output_file = output_folder+'ms_input.tsv'
+        self.input = output_file
         selected_col = self.df[['Tumor_Sample_Barcode','flanking_bps', 'Reference_Allele', 'Tumor_Seq_Allele2']]
         selected_col.columns = ['SampleID', 'Three_Allele', 'Ref', 'Mut']
         sample_list = selected_col.SampleID.unique()
@@ -124,7 +126,6 @@ class MutationalSignature:
         print(colored(('   '+output_file), 'green'))
         
     def data_analysis(self, output_folder, pic, rank1, rank2, epoch):
-        
         def estimation():
             os.system('git clone https://github.com/mims-harvard/nimfa.git\n')
             os.chdir('nimfa')
@@ -369,7 +370,7 @@ class MutationalSignature:
         CosineSimilarity()
         SigDistribution()
 
-    def sig_refitting(self, input):
+    def sig_refitting(self):
         def lsqnonneg(y, signatures):
             def msize(x, dim):
                 s = x.shape
@@ -420,27 +421,26 @@ class MutationalSignature:
                 w = np.dot(C.T, resid)
             return(x, sum(resid * resid), resid)
         
-        mut_matrix = pd.read_csv(input, sep = '\t', index_col = 0)
+        mut_matrix = pd.read_csv(self.input, sep = '\t', index_col = 0)
         signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
-        self.cosmic = signatures
         
         n_feature, n_samples = mut_matrix.shape[0], mut_matrix.shape[1]
-        n_signatures = signatures.shape[1]
+        n_signatures = self.cosmic.shape[1]
         lsq_contribution = pd.DataFrame(index=range(n_signatures),columns=range(n_samples))
         lsq_reconstructed = pd.DataFrame(index=range(n_feature),columns=range(n_samples))
         
 
         for i in range(n_samples):
             y = mut_matrix.iloc[:,i]
-            lsq = lsqnonneg(y, signatures)
+            lsq = lsqnonneg(y, self.cosmic)
             
             lsq_contribution.iloc[:, i] = lsq[0]
-            lsq_reconstructed.iloc[:, i] = np.dot(signatures, lsq[0])
+            lsq_reconstructed.iloc[:, i] = np.dot(self.cosmic, lsq[0])
         
         lsq_contribution.columns = mut_matrix.columns
-        lsq_contribution.index = signatures.columns
+        lsq_contribution.index = self.cosmic.columns
         lsq_reconstructed.columns = mut_matrix.columns
-        lsq_reconstructed.index = signatures.index
+        lsq_reconstructed.index = self.cosmic.index
         self.contribution = lsq_contribution
         self.reconstructed = lsq_reconstructed
 
