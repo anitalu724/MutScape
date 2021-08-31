@@ -97,8 +97,8 @@ def main():
         if args.mutational_signature[0] != '2':
             df.get_input_file(folder)
         if args.mutational_signature[0] == '0':
-            params = ast.literal_eval(args.mutational_signature[1])
-            print(params)
+            print(args.mutational_signature[1])
+            print(df.cosmic.columns)
 
         os._exit(0)
         if args.mutational_signature[0] == '1':
