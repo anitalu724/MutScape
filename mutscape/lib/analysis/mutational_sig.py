@@ -438,8 +438,8 @@ class MutationalSignature:
         lsq_reconstructed.index = signatures.index
 
     def SBSplot(self, output_folder, pic):
-        df = (pd.read_csv(output_folder+'96_sig.csv'))
-        print(df)
+        
+        print(self.df)
         os._exit(0)
         df = df.set_index(list(df.columns[[0]]))
         fig_x = tuple([ ' '+i[0]+' '+i[6] for i in list(df.index)])
