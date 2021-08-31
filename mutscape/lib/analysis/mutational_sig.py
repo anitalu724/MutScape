@@ -432,7 +432,7 @@ class MutationalSignature:
 
         for i in range(n_samples):
             y = mut_matrix.iloc[:,i]
-            lsq = lsqnonneg(y, self.cosmic)
+            lsq = lsqnonneg(y, signatures)
             
             lsq_contribution.iloc[:, i] = lsq[0]
             lsq_reconstructed.iloc[:, i] = np.dot(self.cosmic, lsq[0])
