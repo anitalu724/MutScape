@@ -440,12 +440,12 @@ class MutationalSignature:
         self.contribution = lsq_contribution
         self.reconstructed = lsq_reconstructed
 
-    def SBSplot(self, input, output_folder, pic):
+    def SBSplot(self, input, output_folder, pic, params):
         
         df = input
-        print(df)
+        print(params)
         os._exit(0)
-        df = df.set_index(list(df.columns[[0]]))
+
         fig_x = tuple([ ' '+i[0]+' '+i[6] for i in list(df.index)])
         y_pos = np.arange(len(fig_x))
         fig_name = list(df.columns)
