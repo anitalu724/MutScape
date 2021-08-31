@@ -422,25 +422,25 @@ class MutationalSignature:
             return(x, sum(resid * resid), resid)
 
         mut_matrix = pd.read_csv(self.input, sep = '\t', index_col = 0)
-        signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
+        # signatures = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
 
         n_feature, n_samples = mut_matrix.shape[0], mut_matrix.shape[1]
-        n_signatures = signatures.shape[1]
+        n_signatures = (self.cosmic).shape[1]
         lsq_contribution = pd.DataFrame(index=range(n_signatures),columns=range(n_samples))
         lsq_reconstructed = pd.DataFrame(index=range(n_feature),columns=range(n_samples))
         
         for i in range(n_samples):
             print(i)
             y = mut_matrix.iloc[:,i]
-            lsq = lsqnonneg(y, signatures)
+            lsq = lsqnonneg(y, self.cosmic)
             
             lsq_contribution.iloc[:, i] = lsq[0]
-            lsq_reconstructed.iloc[:, i] = np.dot(signatures, lsq[0])
+            lsq_reconstructed.iloc[:, i] = np.dot(self.cosmic, lsq[0])
 
         lsq_contribution.columns = mut_matrix.columns
-        lsq_contribution.index = signatures.columns
+        lsq_contribution.index = (self.cosmic).columns
         lsq_reconstructed.columns = mut_matrix.columns
-        lsq_reconstructed.index = signatures.index
+        lsq_reconstructed.index = (self.cosmic).index
         self.contribution = lsq_contribution
         self.reconstructed = lsq_reconstructed
 
