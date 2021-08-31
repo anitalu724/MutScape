@@ -449,7 +449,7 @@ class MutationalSignature:
         df = input
         if params != "":
             params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
-            df = df.loc[params]
+            df = df[params]
             print(df)
         os._exit(0)
         
