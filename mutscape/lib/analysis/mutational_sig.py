@@ -449,7 +449,7 @@ class MutationalSignature:
     def SBSplot(self, input, pic, params = ""):
         
         df = input
-        if len(params) != 0:
+        if len(self.params) != 0:
             df = df[self.params]
             
         fig_x = tuple([ ' '+i[0]+' '+i[6] for i in list(df.index)])
