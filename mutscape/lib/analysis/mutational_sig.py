@@ -443,7 +443,7 @@ class MutationalSignature:
         self.contribution = lsq_contribution
         self.reconstructed = lsq_reconstructed
 
-    def params(self, params):
+    def getParams(self, params):
         self.params = params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
 
     def SBSplot(self, input, pic, params = ""):
