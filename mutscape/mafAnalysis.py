@@ -98,7 +98,9 @@ def main():
             df.get_input_file(folder)
         if args.mutational_signature[0] == '0':
             df.sig_refitting()
+            df.params(args.mutational_signature[1])
             df.SBSplot(df.cosmic, pic, args.mutational_signature[1])
+            df.CosineSimilarity(folder, pic)
 
         os._exit(0)
         if args.mutational_signature[0] == '1':

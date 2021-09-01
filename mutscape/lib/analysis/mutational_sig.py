@@ -65,6 +65,7 @@ class MutationalSignature:
         self.cosmic = pd.read_csv('lib/auxiliary/COSMIC_72.tsv', sep = '\t', index_col = 0)
         self.contribution, self.reconstructed = pd.DataFrame(), pd.DataFrame()
         self.input = ""
+        self.params = list()
     def get_input_file(self, output_folder):
         output_file = output_folder+'ms_input.tsv'
         self.input = output_file
@@ -442,18 +443,16 @@ class MutationalSignature:
         self.contribution = lsq_contribution
         self.reconstructed = lsq_reconstructed
 
-        
+    def params(self, params):
+        self.params = params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
 
     def SBSplot(self, input, pic, params = ""):
         
         df = input
-        if params != "":
-            params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
-            df = df[params]
+        if len(params) != 0:
+            df = df[self.params]
             
-        
         fig_x = tuple([ ' '+i[0]+' '+i[6] for i in list(df.index)])
-        
         y_pos = np.arange(len(fig_x))
         fig_name = list(df.columns)
         fig, axes = plt.subplots(df.shape[1], 1, figsize=(12,2*df.shape[1]))#
@@ -501,6 +500,36 @@ class MutationalSignature:
         plt.savefig(pic+'SBS_96_plots.pdf',dpi=300, bbox_inches='tight')
         print(colored(('=> Generate SBS Plot: '+pic+'SBS_96_plots.pdf'), 'green'))
 
+
+    def CosineSimilarity(self, output_folder, pic):
+        from sklearn.metrics.pairwise import cosine_similarity
+        my_file, aux_file = output_folder+'96_sig.csv', 'lib/auxiliary/COSMIC_72.tsv'
+        my_df, aux_df = pd.read_csv(my_file, index_col=0), pd.read_csv(aux_file, sep='\t',index_col=0)
+        my_list, aux_list = my_df.columns, aux_df.columns
+        X = np.array(my_df.T.to_numpy())
+        Y = np.array(aux_df.T.to_numpy())
+        M = cosine_similarity(X, Y, dense_output=True)
+        Mdf= pd.DataFrame(M)
+        Mdf.index, Mdf.columns = my_list, aux_list
+        Mdf.to_csv(output_folder+'SBS.tsv', sep='\t')
+        print(colored('=> Generate file: ', 'green'))
+        print(colored(('   '+output_folder+'SBS.tsv'), 'green'))
+        
+        height, length = len(my_list), len(aux_list)
+        sns.set(font_scale=2)
+        sns.set_style('white')
+        grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
+        f, (ax, cbar_ax) = plt.subplots(2,figsize=(20,6), gridspec_kw=grid_kws)
+        ax = sns.heatmap(M, vmin=0, vmax=1, xticklabels =aux_list, yticklabels = my_list, square=False, linewidth=1, cbar_ax=cbar_ax,ax=ax,
+                            cmap='Blues',cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
+        # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
+        ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=LABEL_SIZE-6, color='#222222')
+        ax.tick_params(axis='both',length=0)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=LABEL_SIZE-6,color='#222222',verticalalignment='center')
+        plt.ylim(bottom=0, top=height+0.5)
+        plt.savefig(pic+'S2S.pdf',dpi=300,bbox_inches='tight')
+        plt.clf()
+        print(colored(('=> Generate Cosine Similarity Plot: '+pic+'S2S.pdf'), 'green'))  
 
 
 
