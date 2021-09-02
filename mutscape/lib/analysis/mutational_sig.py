@@ -535,7 +535,7 @@ class MutationalSignature:
 
 
     def SigDistribution(self, output_folder, pic):
-        print(self.contribution)
+        print(self.contribution.index)
         if len(self.params) != 0:
             print(self.contribution.loc[self.params,:])
         os._exit(0)
