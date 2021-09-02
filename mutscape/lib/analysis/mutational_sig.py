@@ -536,6 +536,8 @@ class MutationalSignature:
 
     def SigDistribution(self, output_folder, pic):
         print(self.contribution)
+        if len(self.params) != 0:
+            print(self.contribution.loc[self.params,:])
         os._exit(0)
         df = pd.read_csv(output_folder+'sig_sample.csv', index_col=0)
         sample_list, sig_list = list(df.columns),list(df.index)
