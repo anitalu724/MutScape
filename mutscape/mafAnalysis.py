@@ -101,6 +101,7 @@ def main():
             df.getParams(args.mutational_signature[1])
             df.SBSplot(df.cosmic, pic, args.mutational_signature[1])
             df.SigDistribution(folder, pic)
+            df.DonutPlot(pic)
 
         params = ast.literal_eval(args.mutational_signature[1])
         if args.mutational_signature[0] == '1':

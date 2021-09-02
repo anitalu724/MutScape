@@ -534,7 +534,6 @@ class MutationalSignature:
         print(colored(('=> Generate Cosine Similarity Plot: '+pic+'S2S.pdf'), 'green'))  
 
 
-
     def SigDistribution(self, output_folder, pic):
         df = self.contribution.loc[self.params,:] if len(self.params) != 0 else self.contribution
         
@@ -553,8 +552,6 @@ class MutationalSignature:
         fig = plt.figure(figsize=(10, 5))
         ax = fig.add_axes([0,0,1,1])
         
-        
-
         for i in range(len(data)):
             if i == 0:
                 ax.bar(ind, data[i], 0.8, color = COLOR_MAP[i])
@@ -593,6 +590,31 @@ class MutationalSignature:
         print(colored(('=> Generate Heatmap: '+pic+'SigSamHeatmap.pdf\n'), 'green'))
         
 
+    def DonutPlot(self, pic):
+        df = self.contribution.loc[self.params,:] if len(self.params) != 0 else self.contribution
+        
+        raw_data = df.sum(axis=1)/df.shape[1]
+        SUM = raw_data.sum(axis=0)
+        raw_data = raw_data/SUM
+        names, sizes = list(raw_data.index), list(raw_data.iloc[:])
+        names = [names[i]+': '+'{:.1%}'.format(sizes[i]) for i in range(len(sizes))]
+        fig, ax = plt.subplots(figsize=(6, 8), subplot_kw=dict(aspect='equal'))
+        wedges, texts = ax.pie(sizes, colors=COLOR_MAP[:len(names)],wedgeprops=dict(width=0.6,edgecolor='w',linewidth=2), startangle=-40) #,normalize=False
+
+        bbox_props = dict(boxstyle='square,pad=0.3', fc='w', ec='k', lw=0)
+        kw = dict(arrowprops=dict(arrowstyle='-'),bbox=bbox_props, zorder=0, va='center')
+
+        for i, p in enumerate(wedges):
+            ang = (p.theta2 - p.theta1)/2. + p.theta1
+            y = np.sin(np.deg2rad(ang))
+            x = np.cos(np.deg2rad(ang))
+            horizontalalignment = {-1: 'right', 1: 'left'}[int(np.sign(x))]
+            connectionstyle = 'angle,angleA=0,angleB={}'.format(ang)
+            kw['arrowprops'].update({'connectionstyle': connectionstyle})
+            ax.annotate(names[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),horizontalalignment=horizontalalignment, **kw, fontsize=LABEL_SIZE)
+        plt.savefig(pic+'Donut_plot.pdf', dpi=300, bbox_inches='tight')
+        print(colored(('=> Generate Donut Plot: '+pic+'Donut_plot.pdf'), 'green'))
+        
 
 
 
