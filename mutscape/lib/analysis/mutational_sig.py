@@ -23,6 +23,7 @@ import sys
 from scipy import linalg
 
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
+LABEL_SIZE, TITLE_SIZE = 24,30
 
 class MutationalSignature:
     '''MAF analysis: Mutational signature
