@@ -100,7 +100,7 @@ def main():
             df.sig_refitting()
             df.getParams(args.mutational_signature[1])
             df.SBSplot(df.cosmic, pic, args.mutational_signature[1])
-            df.CosineSimilarity(folder, pic)
+            df.SigDistribution(folder, pic)
 
         params = ast.literal_eval(args.mutational_signature[1])
         if args.mutational_signature[0] == '1':

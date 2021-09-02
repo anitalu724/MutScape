@@ -502,9 +502,7 @@ class MutationalSignature:
 
 
     def CosineSimilarity(self, output_folder, pic):
-        print(self.contribution)
-        print(self.reconstructed)
-        os._exit(0)
+        
         from sklearn.metrics.pairwise import cosine_similarity
         my_file, aux_file = output_folder+'96_sig.csv', 'lib/auxiliary/COSMIC_72.tsv'
         my_df, aux_df = pd.read_csv(my_file, index_col=0), pd.read_csv(aux_file, sep='\t',index_col=0)
@@ -535,6 +533,65 @@ class MutationalSignature:
         print(colored(('=> Generate Cosine Similarity Plot: '+pic+'S2S.pdf'), 'green'))  
 
 
+
+    def SigDistribution(self, output_folder, pic):
+        print(self.contribution)
+        os._exit(0)
+        df = pd.read_csv(output_folder+'sig_sample.csv', index_col=0)
+        sample_list, sig_list = list(df.columns),list(df.index)
+        SUM = (df.sum(axis = 0, skipna = True)).tolist()
+        df = df/SUM
+        dft = df.T
+        # dft.columns = ['sample']+dft.columns
+        dft.to_csv(output_folder+'SigContribution.tsv',index_label='sample', sep='\t')
+        print(colored(('   '+output_folder+'SigContribution.tsv'), 'green'))
+        ind = np.arange(df.shape[1])
+        data = []
+        for i in range(df.shape[0]):
+            d = tuple(df.iloc[i].tolist())
+            data.append(d)
+        fig = plt.figure(figsize=(10, 5))
+        ax = fig.add_axes([0,0,1,1])
+        
+        
+
+        for i in range(len(data)):
+            if i == 0:
+                ax.bar(ind, data[i], 0.8, color = COLOR_MAP[i])
+            else:
+                b = np.array(data[0])
+                for k in range(1,i):
+                    b = b+np.array(data[k])
+                ax.bar(ind, data[i], 0.8, bottom=b,color = COLOR_MAP[i])
+        # ax.set_title('Relative Contribution',fontsize=TITLE_SIZE, fontweight='bold')
+        ax.spines['bottom'].set_color('#cac9c9')
+        ax.spines['top'].set_color('#FFFFFF') 
+        ax.spines['right'].set_color('#FFFFFF')
+        ax.spines['left'].set_color('#cac9c9')
+        ax.set_xlim([-1,len(ind)])
+        ax.tick_params(axis='y',direction='in', color='#cac9c9', labelsize=LABEL_SIZE-4)
+        ax.tick_params(axis='x',direction='in', length=0)
+        ax.xaxis.set_visible(False)
+        ax.set_yticks(np.arange(0, 1+0.1, 0.25))
+        ax.legend(title='',labels=sig_list,loc='lower center',ncol=3, fontsize=LABEL_SIZE-4, edgecolor='white',
+                  labelspacing=0.5, bbox_to_anchor=(0.5, (-0.1-(math.ceil(len(sig_list)/3)*0.065))))
+        plt.savefig(pic+'SigContribution.pdf', dpi=300,bbox_inches='tight')
+        print(colored(('=> Generate Bar Plot: ' + pic+'SigContribution.pdf'), 'green')) 
+        
+        height, length = len(sig_list), len(sample_list)  
+        h_data = np.array(df.to_numpy())
+        sns.set(font_scale=2)
+        f,ax = plt.subplots(figsize=(9+length/20,2+height*0.3))
+        ax = sns.heatmap(data, vmin=0, vmax=1, yticklabels = sig_list, linewidths=1,
+                         square=False, cmap='Blues',cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':50})
+        # ax.set_title('Signature Sample Heatmap', fontsize=TITLE_SIZE,weight='bold',va='bottom')
+        ax.xaxis.set_visible(False)
+        ax.set_xticklabels([])
+        ax.tick_params(axis='both',length=0)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=LABEL_SIZE-4,color='#222222')
+        plt.savefig(pic+'SigSamHeatmap.pdf',dpi=300,bbox_inches='tight')
+        print(colored(('=> Generate Heatmap: '+pic+'SigSamHeatmap.pdf\n'), 'green'))
+        
 
 
 
