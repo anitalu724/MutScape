@@ -502,6 +502,9 @@ class MutationalSignature:
 
 
     def CosineSimilarity(self, output_folder, pic):
+        print(self.contribution)
+        print(self.reconstructed)
+        os._exit(0)
         from sklearn.metrics.pairwise import cosine_similarity
         my_file, aux_file = output_folder+'96_sig.csv', 'lib/auxiliary/COSMIC_72.tsv'
         my_df, aux_df = pd.read_csv(my_file, index_col=0), pd.read_csv(aux_file, sep='\t',index_col=0)
