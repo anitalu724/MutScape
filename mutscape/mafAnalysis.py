@@ -97,7 +97,7 @@ def main():
         if args.mutational_signature[0] != '2':
             df.get_input_file(folder)
         if args.mutational_signature[0] == '0':
-            # df.sig_refitting()
+            df.sig_refitting()
             df.getParams(args.mutational_signature[1])
             df.SBSplot(df.cosmic, pic, args.mutational_signature[1])
             df.SigDistribution(folder, pic)
