@@ -484,11 +484,11 @@ class MutationalSignature:
         print(colored(('=> Generate SBS Plot: '+pic+'SBS_96_plots.pdf'), 'green'))
 
 
-    def CosineSimilarity(self, output_folder, pic):
+    def CosineSimilarity(self, input, output_folder, pic):
         
         from sklearn.metrics.pairwise import cosine_similarity
-        my_file, aux_file = output_folder+'96_sig.csv', 'lib/auxiliary/COSMIC_72.tsv'
-        my_df, aux_df = pd.read_csv(my_file, index_col=0), pd.read_csv(aux_file, sep='\t',index_col=0)
+        # my_file, aux_file = output_folder+'96_sig.csv', 'lib/auxiliary/COSMIC_72.tsv'
+        my_df, aux_df = input, self.cosmic
         my_list, aux_list = my_df.columns, aux_df.columns
         X = np.array(my_df.T.to_numpy())
         Y = np.array(aux_df.T.to_numpy())
@@ -572,8 +572,8 @@ class MutationalSignature:
         print(colored(('=> Generate Heatmap: '+pic+'SigSamHeatmap.pdf'), 'green'))
         
 
-    def DonutPlot(self, pic):
-        df = self.contribution.loc[self.params,:] if len(self.params) != 0 else self.contribution
+    def DonutPlot(self, input, pic):
+        df = input.loc[self.params,:] if len(self.params) != 0 else input
         
         raw_data = df.sum(axis=1)/df.shape[1]
         SUM = raw_data.sum(axis=0)
@@ -626,7 +626,12 @@ class MutationalSignature:
         LABEL_SIZE, TITLE_SIZE = 24,30
         print(colored(('\nStart Mutational_Signature Plotting(signature number must be in the range of 2 to 9)....'), 'yellow'))
         self.nmf(output_folder, sig)
-        os._exit(0)
+        df = (pd.read_csv(output_folder+'96_sig.csv'))
+        self.SBSplot(df, pic)
+        self.CosineSimilarity(df, output_folder, pic)
+        df1 = pd.read_csv(output_folder+'sig_sample.csv', index_col=0)
+        self.SigDistribution(df1, output_folder, pic)
+        self.DonutPlot(df1, pic)
 
     
 
