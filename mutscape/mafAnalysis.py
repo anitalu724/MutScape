@@ -96,22 +96,23 @@ def main():
         # params = ast.literal_eval(args.mutational_signature[1])
         if args.mutational_signature[0] != '2':
             df.get_input_file(folder)
+        if args.mutational_signature[0] != '0':
+            params = ast.literal_eval(args.mutational_signature[1])
+
         if args.mutational_signature[0] == '0':
             df.sig_refitting()
             df.getParams(args.mutational_signature[1])
             df.SBSplot(df.cosmic, pic)
             df.SigDistribution(df.contribution, folder, pic)
             df.DonutPlot(pic)
-        os._exit(0)
-
-        params = ast.literal_eval(args.mutational_signature[1])
-        if args.mutational_signature[0] == '1':
-            df.data_analysis(folder, pic, params[0], params[1], params[2])
+        
+        elif args.mutational_signature[0] == '1':
+            df.estimation(folder, pic, params[0], params[1], params[2])
         elif args.mutational_signature[0] == '2':
             df.plotting(folder, pic, params[0])
-        elif args.mutational_signature[0] == '0':
-            df.sig_refitting(args.mutational_signature[2])
-            df.SBSplot(df.cosmic ,folder, pic, params[0])
+        else:
+            raise ValueError('[MutScape] Command -ms only support 0/1/2 parameters.')
+        
     if args.hrd_score:
         df = HRDScore(args.hrd_score[0])
         df.data_analysis(folder, args.hrd_score[1])

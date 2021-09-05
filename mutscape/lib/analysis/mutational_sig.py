@@ -127,63 +127,10 @@ class MutationalSignature:
         print(colored('=> Generate input file: ', 'green'))
         print(colored(('   '+output_file), 'green'))
         
-    def data_analysis(self, output_folder, pic, rank1, rank2, epoch):
-        def estimation():
-            os.system('git clone https://github.com/mims-harvard/nimfa.git\n')
-            os.chdir('nimfa')
-            os.system('python3 setup.py install --user')
-            code = open('nimfa.py', 'w')
-            code.write("import nimfa\nfrom collections import defaultdict, Counter\nimport urllib\nimport numpy as np\nfrom matplotlib import pyplot as plt\nimport matplotlib.gridspec as gridspec\nfrom sklearn import preprocessing\nimport scipy.cluster.hierarchy as sch\nimport pandas as pd\n")
-            code.write("df = (pd.read_csv(\"../" + output_folder + "ms_input.tsv\", sep=\"\t\")).T\n")
-            code.write("data = (df.to_numpy())[1:]\n")
-            code.write("rank_cands = range("+str(rank1)+","+ str(rank2)+", 1)\n")
-            code.write("snmf = nimfa.Snmf(data, seed='random_vcol', max_iter=100)\n")
-            code.write("summary = snmf.estimate_rank(rank_range=rank_cands, n_run="+str(epoch)+", what='all')\n")
-            code.write("rss = [summary[rank]['rss'] for rank in rank_cands]\n")
-            code.write("coph = [summary[rank]['cophenetic'] for rank in rank_cands]\n")
-            code.write("disp = [summary[rank]['dispersion'] for rank in rank_cands]\n")
-            code.write("spar = [summary[rank]['sparseness'] for rank in rank_cands]\n")
-            code.write("spar_w, spar_h = zip(*spar)\n")
-            code.write("evar = [summary[rank]['evar'] for rank in rank_cands]\n")
-            code.write("fig, axs = plt.subplots(2, 3, figsize=(12,8))\n")
-            code.write("axs[0,0].plot(rank_cands, rss, 'o-', color='#266199', label='RSS', linewidth=3)\n")
-            code.write("axs[0,0].set_title('RSS', fontsize=16,fontweight='bold')\n")
-            code.write("axs[0,0].tick_params(axis='both', labelsize=12)\n")
-            code.write("axs[0,0].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
-            code.write("axs[0,1].plot(rank_cands, coph, 'o-', color='#695D73', label='Cophenetic correlation', linewidth=3)\n")
-            code.write("axs[0,1].set_title('Cophenetic', fontsize=16,fontweight='bold')\n")
-            code.write("axs[0,1].tick_params(axis='both', labelsize=12)\n")
-            code.write("axs[0,1].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
-            code.write("axs[0,2].plot(rank_cands, disp,'o-', color='#71a0a5', label='Dispersion', linewidth=3)\n")
-            code.write("axs[0,2].set_title('Dispersion', fontsize=16,fontweight='bold')\n")
-            code.write("axs[0,2].tick_params(axis='both', labelsize=12)\n")
-            code.write("axs[0,2].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
-            code.write("axs[1,0].plot(rank_cands, spar_w, 'o-', color='#B88655', label='Sparsity (Basis)', linewidth=3)\n")
-            code.write("axs[1,0].set_title('Sparsity (Basis)', fontsize=16,fontweight='bold')\n")
-            code.write("axs[1,0].tick_params(axis='both', labelsize=12)\n")
-            code.write("axs[1,0].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
-            code.write("axs[1,1].plot(rank_cands, spar_h, 'o-', color='#E08B69', label='Sparsity (Mixture)', linewidth=3)\n")
-            code.write("axs[1,1].set_title('Sparsity (Mixture)', fontsize=16,fontweight='bold')\n")
-            code.write("axs[1,1].tick_params(axis='both', labelsize=12)\n")
-            code.write("axs[1,1].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
-            code.write("axs[1,2].plot(rank_cands, evar,  'o-', color='#841D22', label='Explained variance', linewidth=3)\n")
-            code.write("axs[1,2].set_title('Explained variance', fontsize=16,fontweight='bold')\n")
-            code.write("axs[1,2].tick_params(axis='both', labelsize=12)\n")
-            code.write("axs[1,2].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
-            code.write("fig.tight_layout(pad=1.0)\n")
-            code.write("plt.savefig(\"../"+pic+"Estimation.pdf\",dpi=300,bbox_inches = 'tight')\n")
-            code.close()
-            print(colored(('\nStart Estimation (may need a few minutes)....'), 'yellow'))
-            p = os.popen('python3 nimfa.py\n')
-            x = p.read()
-            print(x)
-            p.close()
-            print(colored('=> Generate estimation figure: ', 'green'))
-            print(colored(('   '+pic+'Estimation.pdf\n'), 'green'))
-            os.chdir('..')
-            os.system('rm -rf nimfa\n')
-        # get_input_file()
-        estimation()  
+    # def data_analysis(self, output_folder, pic, rank1, rank2, epoch):
+        
+    #     # get_input_file()
+        # estimation()  
     def plotting(self, output_folder, pic, sig):
         LABEL_SIZE, TITLE_SIZE = 24,30
         print(colored(('\nStart Mutational_Signature Plotting(signature number must be in the range of 2 to 9)....'), 'yellow'))
@@ -372,6 +319,7 @@ class MutationalSignature:
         CosineSimilarity()
         SigDistribution()
 
+# 0
     def sig_refitting(self):
         print(colored('# Signature refitting...', 'yellow'))
         def lsqnonneg(y, signatures):
@@ -444,6 +392,64 @@ class MutationalSignature:
         lsq_reconstructed.index = (self.cosmic).index
         self.contribution = lsq_contribution
         self.reconstructed = lsq_reconstructed
+
+# 1
+    def estimation(self, output_folder, pic, rank1, rank2, epoch):
+        os.system('git clone https://github.com/mims-harvard/nimfa.git\n')
+        os.chdir('nimfa')
+        os.system('python3 setup.py install --user')
+        code = open('nimfa.py', 'w')
+        code.write("import nimfa\nfrom collections import defaultdict, Counter\nimport urllib\nimport numpy as np\nfrom matplotlib import pyplot as plt\nimport matplotlib.gridspec as gridspec\nfrom sklearn import preprocessing\nimport scipy.cluster.hierarchy as sch\nimport pandas as pd\n")
+        code.write("df = (pd.read_csv(\"../" + output_folder + "ms_input.tsv\", sep=\"\t\")).T\n")
+        code.write("data = (df.to_numpy())[1:]\n")
+        code.write("rank_cands = range("+str(rank1)+","+ str(rank2)+", 1)\n")
+        code.write("snmf = nimfa.Snmf(data, seed='random_vcol', max_iter=100)\n")
+        code.write("summary = snmf.estimate_rank(rank_range=rank_cands, n_run="+str(epoch)+", what='all')\n")
+        code.write("rss = [summary[rank]['rss'] for rank in rank_cands]\n")
+        code.write("coph = [summary[rank]['cophenetic'] for rank in rank_cands]\n")
+        code.write("disp = [summary[rank]['dispersion'] for rank in rank_cands]\n")
+        code.write("spar = [summary[rank]['sparseness'] for rank in rank_cands]\n")
+        code.write("spar_w, spar_h = zip(*spar)\n")
+        code.write("evar = [summary[rank]['evar'] for rank in rank_cands]\n")
+        code.write("fig, axs = plt.subplots(2, 3, figsize=(12,8))\n")
+        code.write("axs[0,0].plot(rank_cands, rss, 'o-', color='#266199', label='RSS', linewidth=3)\n")
+        code.write("axs[0,0].set_title('RSS', fontsize=16,fontweight='bold')\n")
+        code.write("axs[0,0].tick_params(axis='both', labelsize=12)\n")
+        code.write("axs[0,0].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
+        code.write("axs[0,1].plot(rank_cands, coph, 'o-', color='#695D73', label='Cophenetic correlation', linewidth=3)\n")
+        code.write("axs[0,1].set_title('Cophenetic', fontsize=16,fontweight='bold')\n")
+        code.write("axs[0,1].tick_params(axis='both', labelsize=12)\n")
+        code.write("axs[0,1].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
+        code.write("axs[0,2].plot(rank_cands, disp,'o-', color='#71a0a5', label='Dispersion', linewidth=3)\n")
+        code.write("axs[0,2].set_title('Dispersion', fontsize=16,fontweight='bold')\n")
+        code.write("axs[0,2].tick_params(axis='both', labelsize=12)\n")
+        code.write("axs[0,2].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
+        code.write("axs[1,0].plot(rank_cands, spar_w, 'o-', color='#B88655', label='Sparsity (Basis)', linewidth=3)\n")
+        code.write("axs[1,0].set_title('Sparsity (Basis)', fontsize=16,fontweight='bold')\n")
+        code.write("axs[1,0].tick_params(axis='both', labelsize=12)\n")
+        code.write("axs[1,0].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
+        code.write("axs[1,1].plot(rank_cands, spar_h, 'o-', color='#E08B69', label='Sparsity (Mixture)', linewidth=3)\n")
+        code.write("axs[1,1].set_title('Sparsity (Mixture)', fontsize=16,fontweight='bold')\n")
+        code.write("axs[1,1].tick_params(axis='both', labelsize=12)\n")
+        code.write("axs[1,1].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
+        code.write("axs[1,2].plot(rank_cands, evar,  'o-', color='#841D22', label='Explained variance', linewidth=3)\n")
+        code.write("axs[1,2].set_title('Explained variance', fontsize=16,fontweight='bold')\n")
+        code.write("axs[1,2].tick_params(axis='both', labelsize=12)\n")
+        code.write("axs[1,2].set_xticks(np.arange("+str(rank1)+", "+str(rank2)+", 1))\n")
+        code.write("fig.tight_layout(pad=1.0)\n")
+        code.write("plt.savefig(\"../"+pic+"Estimation.pdf\",dpi=300,bbox_inches = 'tight')\n")
+        code.close()
+        print(colored(('\nStart Estimation (may need a few minutes)....'), 'yellow'))
+        p = os.popen('python3 nimfa.py\n')
+        x = p.read()
+        print(x)
+        p.close()
+        print(colored('=> Generate estimation figure: ', 'green'))
+        print(colored(('   '+pic+'Estimation.pdf\n'), 'green'))
+        os.chdir('..')
+        os.system('rm -rf nimfa\n')    
+
+
 
     def getParams(self, params):
         self.params = params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
@@ -614,9 +620,9 @@ class MutationalSignature:
             ax.annotate(names[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),horizontalalignment=horizontalalignment, **kw, fontsize=LABEL_SIZE)
         plt.savefig(pic+'Donut_plot.pdf', dpi=300, bbox_inches='tight')
         print(colored(('=> Generate Donut Plot: '+pic+'Donut_plot.pdf'), 'green'))
-        
 
 
+    
 
 
         
