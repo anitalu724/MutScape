@@ -99,7 +99,7 @@ def main():
         if args.mutational_signature[0] == '0':
             df.sig_refitting()
             df.getParams(args.mutational_signature[1])
-            df.SBSplot(df.cosmic, pic, args.mutational_signature[1])
+            df.SBSplot(df.cosmic, pic)
             df.SigDistribution(df.contribution, folder, pic)
             df.DonutPlot(pic)
         os._exit(0)

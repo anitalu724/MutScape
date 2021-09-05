@@ -373,6 +373,7 @@ class MutationalSignature:
         SigDistribution()
 
     def sig_refitting(self):
+        print(colored('# Signature refitting...', 'yellow'))
         def lsqnonneg(y, signatures):
             def msize(x, dim):
                 s = x.shape
@@ -447,7 +448,7 @@ class MutationalSignature:
     def getParams(self, params):
         self.params = params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
 
-    def SBSplot(self, input, pic, params = ""):
+    def SBSplot(self, input, pic):
         
         df = input
         if len(self.params) != 0:
