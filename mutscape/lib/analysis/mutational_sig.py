@@ -627,6 +627,7 @@ class MutationalSignature:
         print(colored(('\nStart Mutational_Signature Plotting(signature number must be in the range of 2 to 9)....'), 'yellow'))
         self.nmf(output_folder, sig)
         df = (pd.read_csv(output_folder+'96_sig.csv'))
+        df = df.set_index(list(df.columns[[0]]))
         self.SBSplot(df, pic)
         self.CosineSimilarity(df, output_folder, pic)
         df1 = pd.read_csv(output_folder+'sig_sample.csv', index_col=0)
