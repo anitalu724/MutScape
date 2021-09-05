@@ -534,8 +534,8 @@ class MutationalSignature:
         print(colored(('=> Generate Cosine Similarity Plot: '+pic+'S2S.pdf'), 'green'))  
 
 
-    def SigDistribution(self, output_folder, pic):
-        df = self.contribution.loc[self.params,:] if len(self.params) != 0 else self.contribution
+    def SigDistribution(self, input, output_folder, pic):
+        df = input.loc[self.params,:] if len(self.params) != 0 else input
         
         sample_list, sig_list = list(df.columns),list(df.index)
         SUM = (df.sum(axis = 0, skipna = True)).tolist()
@@ -587,7 +587,7 @@ class MutationalSignature:
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=LABEL_SIZE-4,color='#222222')
         plt.savefig(pic+'SigSamHeatmap.pdf',dpi=300,bbox_inches='tight')
-        print(colored(('=> Generate Heatmap: '+pic+'SigSamHeatmap.pdf\n'), 'green'))
+        print(colored(('=> Generate Heatmap: '+pic+'SigSamHeatmap.pdf'), 'green'))
         
 
     def DonutPlot(self, pic):
