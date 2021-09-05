@@ -449,7 +449,8 @@ class MutationalSignature:
         self.params = params = params.replace('[', '').replace(']', '').replace(' ', '').split(',')
 
     def SBSplot(self, input, pic):
-        
+        print(self.params)
+        os._exit(0)
         df = input
         if len(self.params) != 0:
             df = df[self.params]
