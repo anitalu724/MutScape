@@ -1,0 +1,9 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio03_posttumour	chr7	55749856	76686020	4	2	2	NaN
+trio03_posttumour	chr7	97838201	105653459	4	2	2	NaN
+trio03_posttumour	chr16	61753	2286567	1	1	0	NaN
+trio03_posttumour	chr16	2287250	31477795	3	2	1	NaN
+trio03_posttumour	chr16	67701856	85123148	3	2	1	NaN
+trio03_posttumour	chr16	85123556	90291115	2	2	0	NaN
+trio03_posttumour	chr19	110557	59110682	3	2	1	NaN
+trio03_posttumour	chr20	56090808	62926284	1	1	0	NaN

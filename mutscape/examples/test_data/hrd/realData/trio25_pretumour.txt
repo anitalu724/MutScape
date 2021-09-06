@@ -1,0 +1,16 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio25_pretumour	chr1	151811651	153601024	3	2	1	NaN
+trio25_pretumour	chr3	167525121	171178112	4	3	1	NaN
+trio25_pretumour	chr4	22913	2172544	3	2	1	NaN
+trio25_pretumour	chr5	39719318	44815360	4	3	1	NaN
+trio25_pretumour	chr5	140105857	140784895	3	2	1	NaN
+trio25_pretumour	chr5	149274753	180475136	3	2	1	NaN
+trio25_pretumour	chr9	97050209	141070125	1	1	0	NaN
+trio25_pretumour	chr11	48346625	55340544	3	2	1	NaN
+trio25_pretumour	chr14	31583412	81025680	2	2	0	NaN
+trio25_pretumour	chr15	67292545	102517248	2	2	0	NaN
+trio25_pretumour	chr16	7382881	10032000	3	2	1	NaN
+trio25_pretumour	chr16	10032257	25465725	2	2	0	NaN
+trio25_pretumour	chr16	25465824	31366656	3	3	0	NaN
+trio25_pretumour	chr17	25419905	53045760	2	2	0	NaN
+trio25_pretumour	chr17	57752193	61555467	3	2	1	NaN

@@ -1,0 +1,6 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio14_posttumour	chr1	32952852	45486365	3	2	1	NaN
+trio14_posttumour	chr7	48943249	64391645	4	2	2	NaN
+trio14_posttumour	chr12	14577051	26208140	6	5	1	NaN
+trio14_posttumour	chr17	36214789	37995740	4	2	2	NaN
+trio14_posttumour	chr19	49206622	59114250	3	2	1	NaN

@@ -1,0 +1,2 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio26_posttumour	chr19	20989164	23837011	3	2	1	NaN

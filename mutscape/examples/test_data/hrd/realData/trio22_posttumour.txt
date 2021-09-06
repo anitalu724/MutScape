@@ -1,0 +1,17 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio22_posttumour	chr1	12937	6183926	1	1	0	NaN
+trio22_posttumour	chr3	238701	46783637	1	1	0	NaN
+trio22_posttumour	chr3	46783960	53880246	0	0	0	NaN
+trio22_posttumour	chr3	53880597	197949598	1	1	0	NaN
+trio22_posttumour	chr4	190945525	191024377	1	1	0	NaN
+trio22_posttumour	chr8	11817	143545556	1	1	0	NaN
+trio22_posttumour	chr8	143545711	145758536	0	0	0	NaN
+trio22_posttumour	chr8	145758691	146280315	1	1	0	NaN
+trio22_posttumour	chr9	12034	138585419	1	1	0	NaN
+trio22_posttumour	chr9	138585618	140438005	1	1	0	NaN
+trio22_posttumour	chr9	140441207	141135302	1	1	0	NaN
+trio22_posttumour	chr11	280222	2930566	1	1	0	NaN
+trio22_posttumour	chr16	61672	2892370	1	1	0	NaN
+trio22_posttumour	chr16	87902328	90291278	1	1	0	NaN
+trio22_posttumour	chr18	12207	77960652	1	1	0	NaN
+trio22_posttumour	chr20	60449005	62606765	1	1	0	NaN

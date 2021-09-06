@@ -1,0 +1,13 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio30_pretumour	chr1	16848042	17215520	4	2	2	NaN
+trio30_pretumour	chr1	120336877	149856952	3	2	1	NaN
+trio30_pretumour	chr3	286315	197949619	3	2	1	NaN
+trio30_pretumour	chr5	139851895	140799519	3	2	1	NaN
+trio30_pretumour	chr8	11880	11861206	4	3	1	NaN
+trio30_pretumour	chr8	11872465	12293855	5	3	2	NaN
+trio30_pretumour	chr8	12406715	146280316	4	3	1	NaN
+trio30_pretumour	chr9	72912995	141034291	2	2	0	NaN
+trio30_pretumour	chr16	66900	32036907	2	2	0	NaN
+trio30_pretumour	chr16	32037041	33941600	3	2	1	NaN
+trio30_pretumour	chr16	33941867	90291306	2	2	0	NaN
+trio30_pretumour	chrX	2700028	154842590	1	1	0	NaN

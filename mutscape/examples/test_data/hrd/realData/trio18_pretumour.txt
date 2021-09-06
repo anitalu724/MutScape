@@ -1,0 +1,4 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio18_pretumour	chr8	163250	146280315	4	2	2	NaN
+trio18_pretumour	chr9	116887	33401458	2	2	0	NaN
+trio18_pretumour	chr16	53635934	90291115	2	2	0	NaN

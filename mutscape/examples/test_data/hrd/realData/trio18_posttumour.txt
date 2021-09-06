@@ -1,0 +1,6 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio18_posttumour	chr2	70505582	71044076	1	1	0	NaN
+trio18_posttumour	chr5	140166555	140783115	3	2	1	NaN
+trio18_posttumour	chr8	163250	146280299	4	2	2	NaN
+trio18_posttumour	chr9	117372	33402667	2	2	0	NaN
+trio18_posttumour	chr16	53671755	90291115	2	2	0	NaN

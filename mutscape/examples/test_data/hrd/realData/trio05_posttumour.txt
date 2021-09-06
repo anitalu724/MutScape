@@ -1,0 +1,14 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio05_posttumour	chr1	153392241	156883617	0	0	0	NaN
+trio05_posttumour	chr3	45785784	53319497	0	0	0	NaN
+trio05_posttumour	chr4	23024	9377221	0	0	0	NaN
+trio05_posttumour	chr6	30435289	44269781	0	0	0	NaN
+trio05_posttumour	chr8	163371	2037915	0	0	0	NaN
+trio05_posttumour	chr8	141541289	146280315	0	0	0	NaN
+trio05_posttumour	chr9	126118578	140682305	0	0	0	NaN
+trio05_posttumour	chr11	123971	2985147	0	0	0	NaN
+trio05_posttumour	chr11	60238036	70803568	0	0	0	NaN
+trio05_posttumour	chr16	61733	2834359	0	0	0	NaN
+trio05_posttumour	chr16	88552371	90291146	0	0	0	NaN
+trio05_posttumour	chr19	66287	19946637	0	0	0	NaN
+trio05_posttumour	chrX	2700195	154580217	1	1	0	NaN

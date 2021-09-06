@@ -1,0 +1,3 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio28_posttumour	chr10	39006433	42644736	1	1	0	NaN
+trio28_posttumour	chrX	2700195	154842480	1	1	0	NaN

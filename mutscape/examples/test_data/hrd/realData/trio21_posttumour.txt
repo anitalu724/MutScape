@@ -1,0 +1,13 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio21_posttumour	chr1	144676862	145369913	4	2	2	NaN
+trio21_posttumour	chr1	145370063	147908426	5	4	1	NaN
+trio21_posttumour	chr1	148000211	149882128	4	2	2	NaN
+trio21_posttumour	chr1	149882422	158144096	5	3	2	NaN
+trio21_posttumour	chr1	158144394	223178756	2	2	0	NaN
+trio21_posttumour	chr1	223179003	249234833	5	3	2	NaN
+trio21_posttumour	chr10	65381946	135437573	2	2	0	NaN
+trio21_posttumour	chr15	20083804	102517215	3	2	1	NaN
+trio21_posttumour	chr20	54987486	57034807	30	29	1	NaN
+trio21_posttumour	chr20	60639483	60991357	32	31	1	NaN
+trio21_posttumour	chr20	60991854	61569333	27	26	1	NaN
+trio21_posttumour	chr20	62219123	62795901	8	7	1	NaN

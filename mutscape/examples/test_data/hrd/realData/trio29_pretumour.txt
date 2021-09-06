@@ -1,0 +1,2 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio29_pretumour	chrX	2700127	154842545	1	1	0	NaN

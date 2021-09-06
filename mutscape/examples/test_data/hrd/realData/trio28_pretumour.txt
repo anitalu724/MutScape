@@ -1,0 +1,7 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio28_pretumour	chr4	145627654	160281072	3	2	1	NaN
+trio28_pretumour	chr7	4900465	84702384	3	2	1	NaN
+trio28_pretumour	chr7	84710798	115579832	3	2	1	NaN
+trio28_pretumour	chr13	32057222	40239394	3	2	1	NaN
+trio28_pretumour	chr13	40251601	45008694	4	3	1	NaN
+trio28_pretumour	chr20	68397	62926272	3	2	1	NaN

@@ -1,0 +1,4 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio06_posttumour	chr8	139895507	146103312	4	2	2	NaN
+trio06_posttumour	chr9	12034	35079361	2	2	0	NaN
+trio06_posttumour	chr11	294682	2604888	4	2	2	NaN

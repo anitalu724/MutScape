@@ -1,0 +1,5 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio11_pretumour	chr5	189765	45695848	3	2	1	NaN
+trio11_pretumour	chr6	38783383	44929544	3	2	1	NaN
+trio11_pretumour	chr6	50683010	52529904	3	2	1	NaN
+trio11_pretumour	chrX	2726300	154736571	1	1	0	NaN

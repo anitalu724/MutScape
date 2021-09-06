@@ -1,0 +1,2 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio27_pretumour	chr9	21695894	22065654	0	0	0	NaN

@@ -1,0 +1,10 @@
+SampleID	Chromosome	Start_position	End_position	total_cn	A_cn	B_cn	ploidy
+trio20_pretumour	chr6	30638832	31675283	3	2	1	NaN
+trio20_pretumour	chr6	31911037	34574480	3	2	1	NaN
+trio20_pretumour	chr16	553117	9009380	2	2	0	NaN
+trio20_pretumour	chr17	55197983	57062370	3	2	1	NaN
+trio20_pretumour	chr17	72260295	73843896	3	3	0	NaN
+trio20_pretumour	chr19	110491	619252	3	2	1	NaN
+trio20_pretumour	chr19	20003517	35739702	3	2	1	NaN
+trio20_pretumour	chr19	35741376	49983673	3	2	1	NaN
+trio20_pretumour	chr19	49983899	59114182	3	2	1	NaN
