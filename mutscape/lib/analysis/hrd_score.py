@@ -125,7 +125,7 @@ class HRDCompare:
             chry = tmp_df.loc[tmp_df['Chromosome'] == 'chrY']
             total2 = tmp_df.loc[tmp_df['total_cn'] == 2].loc[tmp_df['A_cn'] == 1].loc[tmp_df['B_cn'] == 1]
             delete = pd.concat([chrx, chry, total2]).drop_duplicates().reset_index(drop=True)
-            if delete != 0:
+            if delete.shape[0] != 0:
                 print(delete)
                 os._exit(0)
             
