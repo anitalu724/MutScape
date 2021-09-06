@@ -117,29 +117,25 @@ class HRDCompare:
         scar_r = open(folder + "scar.r", "a")
         scar_r.write("library(\"scarHRD\")\n")
         meta_list = []
+        delete_list = []
         for i in self.list:
             # check if chrx,y exists or total=2&A_cn=1&B_cn=1
             tmp_df = pd.read_csv(i, sep = '\t')
-            
             
             chrx = tmp_df.loc[tmp_df['Chromosome'] == 'chrX']
             chry = tmp_df.loc[tmp_df['Chromosome'] == 'chrY']
             total2 = tmp_df.loc[tmp_df['total_cn'] == 2].loc[tmp_df['A_cn'] == 1].loc[tmp_df['B_cn'] == 1]
             delete = pd.concat([chrx, chry, total2]).drop_duplicates().reset_index(drop=True)
             if delete.shape[0] != 0:
+                tmp_df = tmp_df.drop(chrx.index).drop(chry.index).drop(total2.index)
                 
-                print(tmp_df.shape, delete.shape)
-                tmp_df = tmp_df.drop(chrx.index)
-                print(tmp_df)
-                os._exit(0)
-                tmp_df = tmp_df[~tmp_df.isin(delete)].dropna()
-                
-                print(tmp_df)
-                os._exit(0)
-            
-            
-            scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
+                print(tmp_df.shape)
+            if tmp_df.shape[0] != 0:
+                scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
+            else:
+                delete_list.append(i)
         scar_r.close()
+        print(delete_list)
         os._exit(0)
         os.system("Rscript " + folder + "scar.r\n")
 
