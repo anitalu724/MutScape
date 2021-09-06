@@ -35,8 +35,7 @@ class HRDScore:
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Score...."), 'yellow'))
         self.list = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
-        print(self.list)
-        os._exit(0)
+        
     def data_analysis(self, folder, ref):
         scar_r = open(folder + "scar.r", "a")
         scar_r.write("library(\"scarHRD\")\n")
@@ -106,3 +105,37 @@ class HRDScore:
         # plt.title("Propotion of Samples with HRD Phenotype", fontsize=TITLE_SIZE, fontweight='bold')
         plt.savefig(pic+"high_HRD_pie.pdf", dpi=300, bbox_inches='tight')
         print(colored(("=> Generate Pie Plot: " + pic + "high_HRD_pie.pdf"), 'green'))
+
+
+
+class HRDCompare:
+    def __init__(self, file):
+        print(colored(("\nStart analysing HRD Score...."), 'yellow'))
+        self.list = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
+        
+    def data_analysis(self, folder, ref):
+        scar_r = open(folder + "scar.r", "a")
+        scar_r.write("library(\"scarHRD\")\n")
+        meta_list = []
+        for i in self.list:
+            print(i)
+            scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
+        scar_r.close()
+        os._exit(0)
+        os.system("Rscript " + folder + "scar.r\n")
+
+        os.system("rm "+ folder + "scar.r\n")
+        
+        for file in os.listdir(folder):
+            if file.endswith("_HRDresults.txt"):
+                meta_list.append(file)
+        meta_list.sort(reverse = True)
+        final_df = pd.DataFrame()
+        for meta in meta_list:
+            df = pd.read_csv(folder+meta, sep="\t", index_col=False)
+            final_df = pd.concat([df, final_df]) if not final_df.empty else df
+            os.system("rm " + folder + meta + "\n")
+        final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
+        final_df.to_csv(folder + "all_HRDresults.csv",  index=False)
+        print(colored("=> Generate analysis files: ", 'green'))
+        print(colored(("   " + folder + "all_HRDresults.csv"), 'green'))

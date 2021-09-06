@@ -12,7 +12,7 @@ from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
 from lib.analysis.tumor_mutated_burden import TumorMutationBurden
 from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 from lib.analysis.mutational_sig import MutationalSignature
-from lib.analysis.hrd_score import HRDScore
+from lib.analysis.hrd_score import HRDScore, HRDCompare
 from lib.analysis.wgd_cin import WGDnCIN
 from lib.analysis.oncokb_annotation import OncoKBAnnotator
 
@@ -112,10 +112,15 @@ def main():
         else:
             raise ValueError('[MutScape] Command -ms only support 0/1/2 parameters.')
         
+    # if args.hrd_score:
+    #     df = HRDScore(args.hrd_score[0])
+    #     df.data_analysis(folder, args.hrd_score[1])
+    #     df.plotting(folder, pic)
+
     if args.hrd_score:
-        df = HRDScore(args.hrd_score[0])
+        df = HRDCompare(args.hrd_score[0])
         df.data_analysis(folder, args.hrd_score[1])
-        df.plotting(folder, pic)
+        
     if args.wgd_cin:
         df = WGDnCIN(args.wgd_cin[0])
         df.data_analysis(folder)
