@@ -127,7 +127,7 @@ class HRDCompare:
             delete = pd.concat([chrx, chry, total2]).drop_duplicates().reset_index(drop=True)
             if delete.shape[0] != 0:
                 print(tmp_df.shape, delete.shape)
-                tmp_df[~tmp_df.isin(delete)].dropna()
+                tmp_df = tmp_df[~tmp_df.isin(delete)].dropna()
                 
                 print(tmp_df)
                 os._exit(0)
