@@ -35,6 +35,8 @@ class HRDScore:
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Score...."), 'yellow'))
         self.list = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
+        print(self.list)
+        os._exit(0)
     def data_analysis(self, folder, ref):
         scar_r = open(folder + "scar.r", "a")
         scar_r.write("library(\"scarHRD\")\n")
@@ -43,6 +45,7 @@ class HRDScore:
             scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
         scar_r.close()
         os.system("Rscript " + folder + "scar.r\n")
+
         os.system("rm "+ folder + "scar.r\n")
         
         for file in os.listdir(folder):
