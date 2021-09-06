@@ -120,6 +120,7 @@ class HRDCompare:
         for i in self.list:
             # check if chrx,y exists or total=2&A_cn=1&B_cn=1
             tmp_df = pd.read_csv(i, sep = '\t')
+            print(tmp_df)
             
             chrx = tmp_df.loc[tmp_df['Chromosome'] == 'chrX']
             chry = tmp_df.loc[tmp_df['Chromosome'] == 'chrY']
