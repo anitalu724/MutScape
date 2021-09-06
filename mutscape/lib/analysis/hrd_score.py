@@ -118,8 +118,15 @@ class HRDCompare:
         scar_r.write("library(\"scarHRD\")\n")
         meta_list = []
         for i in self.list:
+            # check if chrx,y exists or total=2&A_cn=1&B_cn=1
             tmp_df = pd.read_csv(i, sep = '\t')
-            print(tmp_df.shape)
+            print(tmp_df)
+            chrx = tmp_df.loc[tmp_df['CHromosome'] == 'chrX' or tmp_df['CHromosome'] == 'chrY']
+            if chrx.shape[0] != 0:
+                print(chrx)
+                os._exit(0)
+            
+            
             scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
         scar_r.close()
         os._exit(0)
