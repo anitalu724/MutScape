@@ -129,7 +129,7 @@ class HRDCompare:
             if delete.shape[0] != 0:
                 print(tmp_df)
                 print(tmp_df.shape, delete.shape)
-                print(total2.index)
+                print(chrx.index)
                 os._exit(0)
                 tmp_df = tmp_df[~tmp_df.isin(delete)].dropna()
                 
