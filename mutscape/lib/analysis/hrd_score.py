@@ -123,7 +123,7 @@ class HRDCompare:
             
             chrx = tmp_df.loc[tmp_df['Chromosome'] == 'chrX']
             chry = tmp_df.loc[tmp_df['Chromosome'] == 'chrY']
-            total2 = tmp_df.loc[tmp_df['total_cn'] == 2].loc[tmp_df['A_cn'] == 1]#.loc[tmp_df['B_cn'] == 1]
+            total2 = tmp_df.loc[tmp_df['total_cn'] == 3].loc[tmp_df['A_cn'] == 2]#.loc[tmp_df['B_cn'] == 1]
             if total2.shape[0] != 0:
                 print(total2)
                 os._exit(0)
