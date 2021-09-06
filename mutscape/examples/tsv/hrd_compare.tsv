@@ -6,6 +6,7 @@ CNV_input
 ./examples/test_data/hrd/realData/trio05_posttumour.txt
 ./examples/test_data/hrd/realData/trio06_posttumour.txt
 ./examples/test_data/hrd/realData/trio07_posttumour.txt
+./examples/test_data/hrd/realData/trio08_posttumour.txt
 ./examples/test_data/hrd/realData/trio09_posttumour.txt
 ./examples/test_data/hrd/realData/trio10_posttumour.txt
 ./examples/test_data/hrd/realData/trio11_posttumour.txt
