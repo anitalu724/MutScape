@@ -129,6 +129,7 @@ class HRDCompare:
                 print(tmp_df.shape, delete.shape)
                 tmp_df = tmp_df.drop(delete.index)
                 print(tmp_df)
+                os._exit(0)
             
             
             scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
