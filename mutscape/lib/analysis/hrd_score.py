@@ -118,7 +118,8 @@ class HRDCompare:
         scar_r.write("library(\"scarHRD\")\n")
         meta_list = []
         for i in self.list:
-            print(i)
+            tmp_df = pd.read_csv(i, sep = '\t')
+            print(tmp_df.shape)
             scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
         scar_r.close()
         os._exit(0)
