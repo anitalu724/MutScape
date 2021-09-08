@@ -152,7 +152,8 @@ class HRDCompare:
                 df = pd.read_csv(folder+sampleID+'_HRDresults.txt', sep="\t", index_col=False)
                 final_df = pd.concat([df, final_df]) if not final_df.empty else df
             else:
-                print(final_df.iloc[0])
+                new_df = final_df.iloc[0]
+                print(new_df.index)
                 os._exit(0)
                 print('out')
         print(final_df.shape)
