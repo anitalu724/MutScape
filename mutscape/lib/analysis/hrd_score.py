@@ -116,11 +116,13 @@ class HRDCompare:
     def data_analysis(self, folder, ref):
         scar_r = open(folder + "scar.r", "a")
         scar_r.write("library(\"scarHRD\")\n")
-        meta_list = []
-        delete_list = []
+        meta_list, delete_list, sample_list = [], [], []
+        
         for i in self.list:
             # check if chrx,y exists or total=2&A_cn=1&B_cn=1
             tmp_df = pd.read_csv(i, sep = '\t')
+            print(tmp_df['SampleID'].drop_duplicates())
+            os._exit(0)
             
             chrx = tmp_df.loc[tmp_df['Chromosome'] == 'chrX']
             chry = tmp_df.loc[tmp_df['Chromosome'] == 'chrY']
