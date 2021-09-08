@@ -150,7 +150,7 @@ class HRDCompare:
             print(meta)
             df = pd.read_csv(folder+meta, sep="\t", index_col=False)
             final_df = pd.concat([df, final_df]) if not final_df.empty else df
-            os.system("rm " + folder + meta + "\n")
+            # os.system("rm " + folder + meta + "\n")
 
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
         final_df.to_csv(folder + "all_HRDresults.csv",  index=False)
