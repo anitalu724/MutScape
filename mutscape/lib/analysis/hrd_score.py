@@ -153,6 +153,7 @@ class HRDCompare:
             else:
                 new_df = final_df.iloc[0]
                 # new_df.index = sampleID
+                print(new_df.name)
                 new_df['HRD'], new_df['Telomeric AI'], new_df['LST'], new_df['HRD-sum'] = 0, 0, 0, 0
                 print(new_df)
                 os._exit(0)
