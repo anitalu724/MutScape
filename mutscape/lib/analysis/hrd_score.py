@@ -128,7 +128,8 @@ class HRDCompare:
             delete = pd.concat([chrx, chry, total2]).drop_duplicates().reset_index(drop=True)
             if delete.shape[0] != 0:
                 tmp_df = tmp_df.drop(chrx.index).drop(chry.index).drop(total2.index)
-                
+            
+            print(i, tmp_df.shape)
             if tmp_df.shape[0] != 0:
                 scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
             else:
@@ -150,7 +151,7 @@ class HRDCompare:
             df = pd.read_csv(folder+meta, sep="\t", index_col=False)
             final_df = pd.concat([df, final_df]) if not final_df.empty else df
             os.system("rm " + folder + meta + "\n")
-            
+
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
         final_df.to_csv(folder + "all_HRDresults.csv",  index=False)
         print(colored("=> Generate analysis files: ", 'green'))
