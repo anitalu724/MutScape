@@ -121,8 +121,7 @@ class HRDCompare:
         for i in self.list:
             # check if chrx,y exists or total=2&A_cn=1&B_cn=1
             tmp_df = pd.read_csv(i, sep = '\t')
-            print(tmp_df['SampleID'][0])
-            os._exit(0)
+            sample_list.append(tmp_df['SampleID'][0])
             
             chrx = tmp_df.loc[tmp_df['Chromosome'] == 'chrX']
             chry = tmp_df.loc[tmp_df['Chromosome'] == 'chrY']
@@ -147,6 +146,12 @@ class HRDCompare:
                 meta_list.append(file)
         meta_list.sort(reverse = True)
         final_df = pd.DataFrame()
+
+        for sampleID in sample_list:
+            if sampleID+'_HRDresults.txt' in meta_list:
+                print(sampleID, 'in')
+            else:
+                print('out')
 
         for meta in meta_list:
             print(meta)
