@@ -152,7 +152,7 @@ class HRDCompare:
                 final_df = pd.concat([df, final_df]) if not final_df.empty else df
             else:
                 new_df = final_df.iloc[0]
-                print(new_df.columns)
+                # print(new_df.columns)
                 # new_df.index = sampleID
                
                 new_list = [sampleID, 0, 0, 0, 0]
