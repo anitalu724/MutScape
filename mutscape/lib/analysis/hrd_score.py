@@ -157,7 +157,7 @@ class HRDCompare:
                 new_list = [sampleID, 0, 0, 0, 0]
                 new_df = pd.DataFrame(new_list).T
                 new_df.columns = final_df.columns
-                final_df = pd.concat([new_df, final_df]) if not final_df.empty else new_df
+                final_df = pd.concat([final_df, new_df]) if not final_df.empty else new_df
                 
                 print(final_df)
 
