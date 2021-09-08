@@ -129,14 +129,12 @@ class HRDCompare:
             if delete.shape[0] != 0:
                 tmp_df = tmp_df.drop(chrx.index).drop(chry.index).drop(total2.index)
                 
-                print(tmp_df.shape)
             if tmp_df.shape[0] != 0:
                 scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
             else:
                 delete_list.append(i)
         scar_r.close()
-        print(delete_list)
-        os._exit(0)
+        
         os.system("Rscript " + folder + "scar.r\n")
 
         os.system("rm "+ folder + "scar.r\n")
@@ -146,10 +144,13 @@ class HRDCompare:
                 meta_list.append(file)
         meta_list.sort(reverse = True)
         final_df = pd.DataFrame()
+
         for meta in meta_list:
+            print(meta)
             df = pd.read_csv(folder+meta, sep="\t", index_col=False)
             final_df = pd.concat([df, final_df]) if not final_df.empty else df
             os.system("rm " + folder + meta + "\n")
+            
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
         final_df.to_csv(folder + "all_HRDresults.csv",  index=False)
         print(colored("=> Generate analysis files: ", 'green'))
