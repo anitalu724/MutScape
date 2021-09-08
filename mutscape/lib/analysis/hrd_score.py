@@ -152,7 +152,7 @@ class HRDCompare:
                 final_df = pd.concat([df, final_df]) if not final_df.empty else df
             else:
                 new_df = final_df.iloc[0]
-                new_df.index = sampleID
+                # new_df.index = sampleID
                 new_df['HRD'], new_df['Telomeric AI'], new_df['LST'], new_df['HRD-sum'] = 0, 0, 0, 0
                 print(new_df)
                 os._exit(0)
