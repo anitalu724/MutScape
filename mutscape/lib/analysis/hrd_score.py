@@ -149,9 +149,13 @@ class HRDCompare:
 
         for sampleID in sample_list:
             if sampleID+'_HRDresults.txt' in meta_list:
-                print(sampleID, 'in')
+                df = pd.read_csv(folder+sampleID+'_HRDresults.txt', sep="\t", index_col=False)
+                final_df = pd.concat([df, final_df]) if not final_df.empty else df
             else:
+                print(sampleID)
                 print('out')
+        print(final_df.shape)
+        os._exit(0)
 
         for meta in meta_list:
             print(meta)
