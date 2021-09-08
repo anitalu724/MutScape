@@ -151,11 +151,16 @@ class HRDCompare:
                 df = pd.read_csv(folder+sampleID+'_HRDresults.txt', sep="\t", index_col=False)
                 final_df = pd.concat([df, final_df]) if not final_df.empty else df
             else:
+                print(final_df)
+                print('___________')
                 
                 new_list = [sampleID, 0, 0, 0, 0]
                 new_df = pd.DataFrame(new_list).T
-                print(new_df)
-                print(final_df.columns)
+                new_df.columns = final_df.columns
+                final_df = pd.concat([new_df, final_df]) if not final_df.empty else new_df
+                
+                print(final_df)
+
                 os._exit(0)
                 new_df['HRD'], new_df['Telomeric AI'], new_df['LST'], new_df['HRD-sum'] = 0, 0, 0, 0
                 print(new_df)
