@@ -130,7 +130,6 @@ class HRDCompare:
             if delete.shape[0] != 0:
                 tmp_df = tmp_df.drop(chrx.index).drop(chry.index).drop(total2.index)
             
-            print(i, tmp_df.shape)
             if tmp_df.shape[0] != 0:
                 scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
             else:
@@ -153,7 +152,9 @@ class HRDCompare:
                 final_df = pd.concat([df, final_df]) if not final_df.empty else df
             else:
                 new_df = final_df.iloc[0]
-                print(new_df.index)
+                new_df.index = sampleID
+                new_df['HRD'], new_df['Telomeric AI'], new_df['LST'], new_df['HRD-sum'] = 0, 0, 0, 0
+                print(new_df)
                 os._exit(0)
                 print('out')
         print(final_df.shape)
