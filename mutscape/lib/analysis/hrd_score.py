@@ -108,10 +108,23 @@ class HRDScore:
 
 
 
+###############################################
+
+# python3 mafAnalysis.py -f examples/test_data/maf/hrd.maf -hrdc examples/tsv/hrd_compare.tsv grch37 -o examples/output -p examples/pic/
+
+
+
+
+
 class HRDCompare:
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Score...."), 'yellow'))
-        self.list = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
+        df = pd.read_csv(file, sep='\t')
+        print(df.columns)
+        print(df)
+        os._exit(0)
+        self.list1 = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
+        
         
     def data_analysis(self, folder, ref):
         scar_r = open(folder + "scar.r", "a")
@@ -157,14 +170,6 @@ class HRDCompare:
                 new_df.columns = final_df.columns
                 final_df = pd.concat([final_df, new_df]) if not final_df.empty else new_df
                 
-
-
-        # for meta in meta_list:
-        #     print(meta)
-        #     df = pd.read_csv(folder+meta, sep="\t", index_col=False)
-        #     final_df = pd.concat([df, final_df]) if not final_df.empty else df
-        #     # os.system("rm " + folder + meta + "\n")
-
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
         final_df.to_csv(folder + "all_HRDresults.csv",  index=False)
         print(colored("=> Generate analysis files: ", 'green'))

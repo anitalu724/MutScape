@@ -28,6 +28,7 @@ def main():
     4. CoMut plot analysis
     5. Mutational signature
     6. HRD Score
+    7. HRD Compare
     7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
     8. Actionable mutation(drug) annotation
 
@@ -58,6 +59,11 @@ def main():
     parser.add_argument("-hrd","--hrd_score",nargs=2,help="Two items must be entered:\n\
                                                            1. The CSV_input file.\n\
                                                            2. The reference for HRD Score.\n")
+
+    parser.add_argument("-hrdc","--hrd_compare",nargs=2,help="Two items must be entered:\n\
+                                                           1. The CSV_input file1.\n\
+                                                           2. The CSV_input file2.\n\
+                                                           3. The reference for HRD Score.\n")
     parser.add_argument("-wgdcin", "--wgd_cin", nargs=1)
     parser.add_argument("-oncokb","--oncokb_annotator",nargs='*',help='Three items must be entered:\n \
                                                                      1. The relative path of the folder "oncokb-annotator".\n \
@@ -112,15 +118,15 @@ def main():
         else:
             raise ValueError('[MutScape] Command -ms only support 0/1/2 parameters.')
         
-    # if args.hrd_score:
-    #     df = HRDScore(args.hrd_score[0])
-    #     df.data_analysis(folder, args.hrd_score[1])
-    #     df.plotting(folder, pic)
-
     if args.hrd_score:
-        df = HRDCompare(args.hrd_score[0])
+        df = HRDScore(args.hrd_score[0])
         df.data_analysis(folder, args.hrd_score[1])
-        
+        df.plotting(folder, pic)
+
+    if args.hrd_compare:
+        df = HRDCompare(args.hrd_compare[0])
+        df.data_analysis(folder, args.hrd_compare[2])
+
     if args.wgd_cin:
         df = WGDnCIN(args.wgd_cin[0])
         df.data_analysis(folder)
