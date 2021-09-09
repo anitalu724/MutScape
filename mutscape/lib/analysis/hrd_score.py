@@ -121,7 +121,7 @@ class HRDCompare:
         print(colored(("\nStart analysing HRD Score...."), 'yellow'))
         df = pd.read_csv(file, sep='\t', index_col=None)
         print(df.columns)
-        print(df)
+        print(df['Post'], df['Pre'])
         os._exit(0)
         self.list1 = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
         
