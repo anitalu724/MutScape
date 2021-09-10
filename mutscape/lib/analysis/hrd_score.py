@@ -224,7 +224,7 @@ class HRDCompare:
         print(colored(("   " + output_folder + 'WGD_result_'+self.type[idx]+'.csv'), 'green'))
         print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
-    def WGDplot(self, pic):
+    def WGDheatmap(self, pic):
         wgdList = []
         for wgd_file in self.wgdFile:
             wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
@@ -251,6 +251,35 @@ class HRDCompare:
         plt.savefig(pic+'WGD_heatmap.pdf',dpi=300,bbox_inches='tight')
         plt.clf()
         print(colored(('=> Generate WGD comparison Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
+    
+    def HRDheatmap(self, pic):
+        hrdList = []
+        for hrd_file in self.hrdFile:
+            hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
+        hrdList.reverse()
+        yLabel = self.type
+        yLabel.reverse()
+
+        M = np.array(hrdList)
+        sns.set(font_scale=2)
+        sns.set_style('white')
+        
+        f, ax = plt.subplots(1, 1, figsize=(20,6))
+        
+        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=sns.color_palette('Paired', 2), ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
+        colorbar = ax.collections[0].colorbar 
+        
+        r = M.max().max()
+        colorbar.set_ticks([0.25*r, 0.75*r])
+        colorbar.set_ticklabels(['HRD>=42' , 'HRD<42'])                           
+        
+        ax.tick_params(axis='both',length=0)
+        ax.set_yticklabels(ax.get_yticklabels(),color='#222222', rotation = 'horizontal')
+        plt.ylim(bottom=0, top=len(hrdList)+0.5)
+        plt.savefig(pic+'HRD_heatmap.pdf',dpi=300,bbox_inches='tight')
+        plt.clf()
+        print(colored(('=> Generate HRD comparison Plot: '+pic+'HRD_heatmap.pdf'), 'green'))  
+
         
         
         
