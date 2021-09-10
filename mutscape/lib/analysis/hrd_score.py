@@ -230,7 +230,7 @@ class HRDCompare:
         n = len(value_to_int)     
         # discrete colormap (n samples from a given cmap)
         cmap = sns.color_palette("Pastel2", n) 
-        ax = sns.heatmap(pd.DataFrame.replace(value_to_int), cmap=cmap) 
+        ax = sns.heatmap(np.array(list(value_to_int.items()), dtype=dtype), cmap=cmap) 
         # modify colorbar:
         colorbar = ax.collections[0].colorbar 
         r = colorbar.vmax - colorbar.vmin 
