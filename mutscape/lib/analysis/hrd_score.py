@@ -113,13 +113,10 @@ class HRDScore:
 # python3 mafAnalysis.py -f examples/test_data/maf/hrd.maf -hrdc examples/tsv/hrd_compare.tsv grch37 -o examples/output -p examples/pic/
 
 
-
-
-
 class HRDCompare:
     '''
     Arguments:
-        file            {string}    -- A TSV file path
+        file            {string}    -- A MAF file path
         folder          {string}    -- The path for output files
         ref             {string}    -- The reference genome used, grch38 or grch37 or mouse (default: grch38)
         pic             {string}    -- The path especially for output figures(.pdf)
@@ -144,8 +141,8 @@ class HRDCompare:
         self.fileList = [list(df[i]) for i in self.type]
         self.outputFile = []
         
-    def data_analysis(self, idx, fileList, folder, ref):
-        scar_r = open(folder + "scar.r", "a")
+    def data_analysis(self, idx, fileList, output_folder, ref):
+        scar_r = open(output_folder + "scar.r", "a")
         scar_r.write("library(\"scarHRD\")\n")
         meta_list, delete_list, sample_list = [], [], []
         
@@ -162,16 +159,16 @@ class HRDCompare:
                 tmp_df = tmp_df.drop(chrx.index).drop(chry.index).drop(total2.index)
             
             if tmp_df.shape[0] != 0:
-                scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + folder[:-1] + "\")\n")
+                scar_r.write("scar_score(\"" + i + "\", reference = \""+ref+"\", seqz = FALSE, outputdir = \"" + output_folder[:-1] + "\")\n")
             else:
                 delete_list.append(i)
         scar_r.close()
         
-        os.system("Rscript " + folder + "scar.r\n")
+        os.system("Rscript " + output_folder + "scar.r\n")
 
-        os.system("rm "+ folder + "scar.r\n")
+        os.system("rm "+ output_folder + "scar.r\n")
         
-        for file in os.listdir(folder):
+        for file in os.listdir(output_folder):
             if file.endswith("_HRDresults.txt"):
                 meta_list.append(file)
         meta_list.sort(reverse = True)
@@ -179,7 +176,7 @@ class HRDCompare:
 
         for sampleID in sample_list:
             if sampleID+'_HRDresults.txt' in meta_list:
-                df = pd.read_csv(folder+sampleID+'_HRDresults.txt', sep="\t", index_col=False)
+                df = pd.read_csv(output_folder+sampleID+'_HRDresults.txt', sep="\t", index_col=False)
                 final_df = pd.concat([final_df, df]) if not final_df.empty else df
             else:
                 
@@ -189,11 +186,40 @@ class HRDCompare:
                 final_df = pd.concat([final_df, new_df]) if not final_df.empty else new_df
                 
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
-        output_file = folder + 'all_HRDresults_' + self.type[idx] + '.csv'
+        output_file = output_folder + 'all_HRDresults_' + self.type[idx] + '.csv'
         final_df.to_csv(output_file,  index=False)
         self.outputFile.append(output_file)
         print(colored("=> Generate analysis files: ", 'green'))
         print(colored(("   " + output_file), 'green'))
+
+    def WGD_CIN(self, idx, fileList, output_folder):
+        genome_length = [249250621, 243199373, 198022430, 191154276, 180915260,
+                         171115067, 159138663, 146364022, 141213431, 135534747,
+                         135006516, 133851895, 115169878, 107349540, 102531392,
+                         90354753, 81195210, 78077248, 59128983, 63025520, 48129895, 51304566]
+        whole_length = sum(genome_length)
+        WGD_list, CIN_list, sample_list = [], [], []
+        for sample in self.list:
+            df = pd.read_csv(sample, sep="\t")
+            sample_name = pd.unique(df['SampleID'])[0]
+            sample_list.append(sample_name)
+            WGD_selected = df.loc[(df['A_cn'] >= 2)]
+            CIN_selected = df.loc[(df['A_cn'] != 1) | (df['B_cn'] != 1)]
+            WGD_SUM, CIN_SUM = 0, 0
+            for i in range(WGD_selected.shape[0]):
+                WGD_SUM += WGD_selected.iloc[i]['End_position']-WGD_selected.iloc[i]['Start_position']
+            for i in range(CIN_selected.shape[0]):
+                CIN_SUM += CIN_selected.iloc[i]['End_position']-CIN_selected.iloc[i]['Start_position']
+            WGD_list.append(WGD_SUM >= 0.5*whole_length)
+            CIN_list.append(CIN_SUM/whole_length)
+        WGD_df = (pd.DataFrame([sample_list, WGD_list])).T
+        CIN_df = (pd.DataFrame([sample_list, CIN_list])).T
+        WGD_df.columns,CIN_df.columns = [['SampleID','WGD']], [['SampleID','CIN']]
+        WGD_df.to_csv(output_folder + 'WGD_result_'+self.type[idx]+'.csv',  index=False)
+        CIN_df.to_csv(output_folder + 'CIN_result_'+self.type[idx]+'.csv',  index=False)
+        print(colored("=> Generate analysis files: ", 'green'))
+        print(colored(("   " + output_folder + 'WGD_result_'+self.type[idx]+'.csv'), 'green'))
+        print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
     def plot(self, pic):
         print(self.outputFile)
