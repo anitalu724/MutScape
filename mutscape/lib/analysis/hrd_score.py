@@ -258,7 +258,7 @@ class HRDCompare:
             hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
         hrdList.reverse()
         yLabel = self.type
-        yLabel.reverse()
+        # yLabel.reverse()
 
         M = np.array(hrdList)
         sns.set(font_scale=2)
