@@ -225,25 +225,45 @@ class HRDCompare:
         print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
     def WGDplot(self, pic):
-        wgdList = []
-        for wgd_file in self.wgdFile:
-            wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
-        print(wgdList[0])
-        M = np.array(wgdList)
-        sns.set(font_scale=2)
-        sns.set_style('white')
-        # grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
-        # f, (ax, cbar_ax) = plt.subplots(2,figsize=(20,6), gridspec_kw=grid_kws)
-        # , xticklabels =aux_list, yticklabels = my_list, ,cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70}
-        ax = sns.heatmap(M, vmin=-0.5, vmax = 1.5, square = True, yticklabels = self.type, xticklabels = False, linewidth = 1, cbar=False, cmap='Blues')
-        # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
-        # ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
-        ax.tick_params(axis='both',length=0)
-        ax.set_yticklabels(ax.get_yticklabels(),color='#222222')
-        plt.ylim(bottom=0, top=len(wgdList)+0.5)
-        plt.savefig(pic+'WGD_heatmap.pdf',dpi=300,bbox_inches='tight')
+        value_to_int = {self.type[idx]: list(pd.read_csv(wgd_file)['WGD']) for idx ,wgd_file in enumerate(self.wgdFile)} 
+        print(value_to_int)
+        n = len(value_to_int)     
+        # discrete colormap (n samples from a given cmap)
+        cmap = sns.color_palette("Pastel2", n) 
+        ax = sns.heatmap(pd.DataFrame.replace(value_to_int), cmap=cmap) 
+        # modify colorbar:
+        colorbar = ax.collections[0].colorbar 
+        r = colorbar.vmax - colorbar.vmin 
+        colorbar.set_ticks([colorbar.vmin + r / n * (0.5 + i) for i in range(n)])
+        colorbar.set_ticklabels(list(value_to_int.keys()))                                          
+        plt.savefig(pic+'WGD_heatmap1.pdf',dpi=300,bbox_inches='tight')
         plt.clf()
-        print(colored(('=> Generate Cosine Similarity Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
+        print(colored(('=> Generate Cosine Similarity Plot: '+pic+'WGD_heatmap1.pdf'), 'green')) 
+
+
+
+
+
+
+        # wgdList = []
+        # for wgd_file in self.wgdFile:
+        #     wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
+        # print(wgdList[0])
+        # M = np.array(wgdList)
+        # sns.set(font_scale=2)
+        # sns.set_style('white')
+        # # grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
+        # # f, (ax, cbar_ax) = plt.subplots(2,figsize=(20,6), gridspec_kw=grid_kws)
+        # # , xticklabels =aux_list, yticklabels = my_list, ,cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70}
+        # ax = sns.heatmap(M, vmin=-0.5, vmax = 1.5, square = True, yticklabels = self.type, xticklabels = False, linewidth = 1, cbar=False, cmap='Blues')
+        # # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
+        # # ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
+        # ax.tick_params(axis='both',length=0)
+        # ax.set_yticklabels(ax.get_yticklabels(),color='#222222')
+        # plt.ylim(bottom=0, top=len(wgdList)+0.5)
+        # plt.savefig(pic+'WGD_heatmap.pdf',dpi=300,bbox_inches='tight')
+        # plt.clf()
+        # print(colored(('=> Generate Cosine Similarity Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
         
         
         
