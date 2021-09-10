@@ -234,10 +234,7 @@ class HRDCompare:
         grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
         f, (ax, cbar_ax) = plt.subplots(2,figsize=(20,6), gridspec_kw=grid_kws)
         # , xticklabels =aux_list, yticklabels = my_list
-        ax = sns.heatmap(M, vmin=0, vmax=1, square=False, linewidth=1, cbar_ax=cbar_ax,ax=ax,
-                            cmap='Blues',cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
-        # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
-        ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
+        ax = sns.heatmap(M, vmin=0, vmax=1, square=True horizontalalignment='center', fontsize=20, color='#222222')
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=20,color='#222222',verticalalignment='center')
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
