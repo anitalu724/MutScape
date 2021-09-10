@@ -224,7 +224,9 @@ class HRDCompare:
         print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
     def WGDplot(self, pic):
-        for wgd_file in self.wgdFile:
+        wgdDict = {}
+        for idx, wgd_file in enumerate(self.wgdFile):
             tmp_df = pd.read_csv(wgd_file)
-            print(tmp_df)
+            wgdDict[self.type[idx]] = list(tmp_df['WGD'])
+        print(wgdDict)
         
