@@ -258,8 +258,8 @@ class HRDCompare:
         
         ax = sns.heatmap(M, square = True, yticklabels = self.type, xticklabels = False, linewidth = 1, cbar=False, cmap=sns.color_palette('Paired', 2), ax = ax)
         colorbar = ax.collections[0].colorbar 
-        r = colorbar.vmax - colorbar.vmin 
-        colorbar.set_ticks([colorbar.vmin + r / 2 * (0.5 + i) for i in range(2)])
+        r = M.max().max()
+        colorbar.set_ticks([0.25*r, 0.75*r])
         colorbar.set_ticklabels(['True' , 'False'])                           
         # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
         # ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
