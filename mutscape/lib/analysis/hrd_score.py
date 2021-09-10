@@ -225,32 +225,12 @@ class HRDCompare:
         print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
     def WGDplot(self, pic):
-        # value_to_int = {self.type[idx]: list(pd.read_csv(wgd_file)['WGD']) for idx ,wgd_file in enumerate(self.wgdFile)} 
-        # print(value_to_int)
-        # n = len(value_to_int)     
-        # # discrete colormap (n samples from a given cmap)
-        # cmap = sns.color_palette("Pastel2", n) 
-        # ax = sns.heatmap(np.array(list(value_to_int.items())), cmap=cmap) 
-        # # modify colorbar:
-        # colorbar = ax.collections[0].colorbar 
-        # r = colorbar.vmax - colorbar.vmin 
-        # colorbar.set_ticks([colorbar.vmin + r / n * (0.5 + i) for i in range(n)])
-        # colorbar.set_ticklabels(list(value_to_int.keys()))                                          
-        # plt.savefig(pic+'WGD_heatmap1.pdf',dpi=300,bbox_inches='tight')
-        # plt.clf()
-        # print(colored(('=> Generate Cosine Similarity Plot: '+pic+'WGD_heatmap1.pdf'), 'green')) 
-
-
-
-
-
-
         wgdList = []
         for wgd_file in self.wgdFile:
             wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
         print(wgdList[0])
         M = np.array(wgdList)
-        # sns.set(font_scale=2)
+        sns.set(font_scale=2)
         sns.set_style('white')
         # grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
         f, ax = plt.subplots(1, 1, figsize=(20,6))
@@ -258,9 +238,7 @@ class HRDCompare:
         
         ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = self.type, xticklabels = False, linewidth = 1, cmap=sns.color_palette('Paired', 2), ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
         colorbar = ax.collections[0].colorbar 
-        # print(ax.collections.colorbar)
-        # print(len(ax.collections))
-        # os._exit(0)
+        
         r = M.max().max()
         colorbar.set_ticks([0.25*r, 0.75*r])
         colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                           
