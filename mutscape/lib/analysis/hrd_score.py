@@ -119,7 +119,7 @@ class HRDScore:
 class HRDCompare:
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Score...."), 'yellow'))
-        df = (pd.read_csv(file, sep='\t', index_col=None)).reset_index()
+        df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         print(df)
         a = list(df.columns)
         print(len(a))
