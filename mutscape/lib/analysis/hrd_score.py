@@ -235,24 +235,22 @@ class HRDCompare:
         M = np.array(wgdList)
         sns.set(font_scale=2)
         sns.set_style('white')
-        # grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
-        f, ax = plt.subplots(1, 1, figsize=(20,6))
-        # , xticklabels =aux_list, yticklabels = my_list, ,cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70}, vmin=-0.5, vmax = 1.5
         
-        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=sns.color_palette('Paired', 2), ax = ax, cbar_kws={'orientation': 'horizontal','shrink':0.2, 'aspect':70})
+        f, ax = plt.subplots(1, 1, figsize=(20,6))
+        
+        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=sns.color_palette('Paired', 2), ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
         colorbar = ax.collections[0].colorbar 
         
         r = M.max().max()
         colorbar.set_ticks([0.25*r, 0.75*r])
         colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                           
-        # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
-        # ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
+        
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(),color='#222222', rotation = 'horizontal')
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
         plt.savefig(pic+'WGD_heatmap.pdf',dpi=300,bbox_inches='tight')
         plt.clf()
-        print(colored(('=> Generate Cosine Similarity Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
+        print(colored(('=> Generate WGD comparison Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
         
         
         
