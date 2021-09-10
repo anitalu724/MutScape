@@ -121,8 +121,9 @@ class HRDCompare:
         print(colored(("\nStart analysing HRD Score...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         self.type = list(df.columns)
-        for i in self.type:
-            print(list(df[i]))
+        self.fileList = [list(df[i]) for i in self.type]
+        print(self.fileList)
+        print(len(self.fileList), len(self.fileList[0], len(self.fileList[1]))
 
         
         
