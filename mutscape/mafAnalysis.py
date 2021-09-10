@@ -125,7 +125,8 @@ def main():
 
     if args.hrd_compare:
         df = HRDCompare(args.hrd_compare[0])
-        df.data_analysis(folder, args.hrd_compare[2])
+        for idx, fileList in enumerate(df.fileList):
+            df.data_analysis(idx, fileList, folder, args.hrd_compare[1])
 
     if args.wgd_cin:
         df = WGDnCIN(args.wgd_cin[0])

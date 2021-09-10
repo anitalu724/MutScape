@@ -117,28 +117,37 @@ class HRDScore:
 
 
 class HRDCompare:
+    '''
+    Arguments:
+        file            {string}    -- A TSV file path
+        folder          {string}    -- The path for output files
+        ref             {string}    -- The reference genome used, grch38 or grch37 or mouse (default: grch38)
+        pic             {string}    -- The path especially for output figures(.pdf)
+
+    Parameters:
+        self.type       {list}      -- [type1, type2, ...]
+        self.fileList   {list}      -- [[file1-1, file1-2, ...], [file2-1, file2-2, ...]]
+
+    Outputs:
+        all_HRDresults.csv
+
+    Pictures:
+        HRD_Score.pdf
+        high_HRD_pie.pdf
+
+    '''
     def __init__(self, file):
-        print(colored(("\nStart analysing HRD Score...."), 'yellow'))
+        print(colored(("\nStart analysing HRD Comparing...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         self.type = list(df.columns)
         self.fileList = [list(df[i]) for i in self.type]
-        print(self.fileList)
-        print(len(self.fileList), len(self.fileList[0]), len(self.fileList[1]))
-
         
-        
-        
-        
-        os._exit(0)
-        self.list1 = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
-        
-        
-    def data_analysis(self, folder, ref):
+    def data_analysis(self, idx, fileList, folder, ref):
         scar_r = open(folder + "scar.r", "a")
         scar_r.write("library(\"scarHRD\")\n")
         meta_list, delete_list, sample_list = [], [], []
         
-        for i in self.list:
+        for i in fileList:
             # check if chrx,y exists or total=2&A_cn=1&B_cn=1
             tmp_df = pd.read_csv(i, sep = '\t')
             sample_list.append(tmp_df['SampleID'][0])
@@ -178,6 +187,7 @@ class HRDCompare:
                 final_df = pd.concat([final_df, new_df]) if not final_df.empty else new_df
                 
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
-        final_df.to_csv(folder + "all_HRDresults.csv",  index=False)
+        output_file = folder + 'all_HRDresults_' + self.type[idx] + '.csv'
+        final_df.to_csv(output_file,  index=False)
         print(colored("=> Generate analysis files: ", 'green'))
-        print(colored(("   " + folder + "all_HRDresults.csv"), 'green'))
+        print(colored(("   " + output_file), 'green'))
