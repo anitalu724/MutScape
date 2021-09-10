@@ -228,13 +228,14 @@ class HRDCompare:
         wgdList = []
         for wgd_file in self.wgdFile:
             wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
+        print(wgdList[0])
         M = np.array(wgdList)
         sns.set(font_scale=2)
         sns.set_style('white')
         grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
         f, (ax, cbar_ax) = plt.subplots(2,figsize=(20,6), gridspec_kw=grid_kws)
         # , xticklabels =aux_list, yticklabels = my_list
-        ax = sns.heatmap(M, vmin=-0.5, vmax = 1.5, square = True, linewidth = 1, cbar_ax = cbar_ax, ax = ax,
+        ax = sns.heatmap(M, vmin=-0.5, vmax = 1.5, square = True,yticklabels = self.type, linewidth = 1, cbar_ax = cbar_ax, ax = ax,
                             cmap='Blues',cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
         # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
         ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
