@@ -258,8 +258,9 @@ class HRDCompare:
         
         ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = self.type, xticklabels = False, linewidth = 1, cbar=False, cmap=sns.color_palette('Paired', 2), ax = ax)
         colorbar = ax.collections[0].colorbar 
-        print(colorbar)
-        os.exit(0)
+        print(ax.collections)
+        print(len(ax.collections))
+        os._exit(0)
         r = M.max().max()
         colorbar.set_ticks([0.25*r, 0.75*r])
         colorbar.set_ticklabels(['True' , 'False'])                           
