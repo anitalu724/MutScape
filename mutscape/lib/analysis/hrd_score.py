@@ -267,7 +267,7 @@ class HRDCompare:
         # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
         # ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
         ax.tick_params(axis='both',length=0)
-        ax.set_yticklabels(ax.get_yticklabels(),color='#222222')
+        ax.set_yticklabels(ax.get_yticklabels(),color='#222222', rotation = 90)
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
         plt.savefig(pic+'WGD_heatmap.pdf',dpi=300,bbox_inches='tight')
         plt.clf()
