@@ -241,7 +241,7 @@ class HRDCompare:
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=20,color='#222222',verticalalignment='center')
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
-        plt.savefig(pic+'S2S.pdf',dpi=300,bbox_inches='tight')
+        plt.savefig(pic+'WGD_heatmap.pdf',dpi=300,bbox_inches='tight')
         plt.clf()
         print(colored(('=> Generate Cosine Similarity Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
         
