@@ -127,6 +127,7 @@ class HRDCompare:
     Parameters:
         self.type       {list}      -- [type1, type2, ...]
         self.fileList   {list}      -- [[file1-1, file1-2, ...], [file2-1, file2-2, ...]]
+        self.outputFile {list}      -- [file1.csv, file2.csv, ...]
 
     Outputs:
         all_HRDresults.csv
@@ -141,6 +142,7 @@ class HRDCompare:
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         self.type = list(df.columns)
         self.fileList = [list(df[i]) for i in self.type]
+        self.outputFile = []
         
     def data_analysis(self, idx, fileList, folder, ref):
         scar_r = open(folder + "scar.r", "a")
@@ -189,5 +191,10 @@ class HRDCompare:
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
         output_file = folder + 'all_HRDresults_' + self.type[idx] + '.csv'
         final_df.to_csv(output_file,  index=False)
+        self.outputFile.append(output_file)
         print(colored("=> Generate analysis files: ", 'green'))
         print(colored(("   " + output_file), 'green'))
+
+    def plot(self, pic):
+        print(self.outputFile)
+        
