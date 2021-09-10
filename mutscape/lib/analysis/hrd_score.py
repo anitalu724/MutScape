@@ -139,9 +139,9 @@ class HRDCompare:
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         self.type = list(df.columns)
         self.fileList = [list(df[i]) for i in self.type]
-        self.outputFile = []
+        self.hrdFile, self.wgdFile, self.cinFile = [], [], []
         
-    def data_analysis(self, idx, fileList, output_folder, ref):
+    def HRD(self, idx, fileList, output_folder, ref):
         scar_r = open(output_folder + "scar.r", "a")
         scar_r.write("library(\"scarHRD\")\n")
         meta_list, delete_list, sample_list = [], [], []
@@ -188,7 +188,7 @@ class HRDCompare:
         final_df.columns = [['Sample_id','HRD_LOH','Telomeric_AI','LST','HRD-sum']]
         output_file = output_folder + 'all_HRDresults_' + self.type[idx] + '.csv'
         final_df.to_csv(output_file,  index=False)
-        self.outputFile.append(output_file)
+        self.hrdFile.append(output_file)
         print(colored("=> Generate analysis files: ", 'green'))
         print(colored(("   " + output_file), 'green'))
 
@@ -212,15 +212,17 @@ class HRDCompare:
                 CIN_SUM += CIN_selected.iloc[i]['End_position']-CIN_selected.iloc[i]['Start_position']
             WGD_list.append(WGD_SUM >= 0.5*whole_length)
             CIN_list.append(CIN_SUM/whole_length)
-        WGD_df = (pd.DataFrame([sample_list, WGD_list])).T
-        CIN_df = (pd.DataFrame([sample_list, CIN_list])).T
-        WGD_df.columns,CIN_df.columns = [['SampleID','WGD']], [['SampleID','CIN']]
-        WGD_df.to_csv(output_folder + 'WGD_result_'+self.type[idx]+'.csv',  index=False)
-        CIN_df.to_csv(output_folder + 'CIN_result_'+self.type[idx]+'.csv',  index=False)
+        WGD_df, CIN_df = (pd.DataFrame([sample_list, WGD_list])).T, (pd.DataFrame([sample_list, CIN_list])).T
+        wgd_file, cin_file = output_folder + 'WGD_result_'+self.type[idx]+'.csv', output_folder + 'CIN_result_'+self.type[idx]+'.csv'
+        WGD_df.columns, CIN_df.columns = [['SampleID','WGD']], [['SampleID','CIN']]
+        WGD_df.to_csv(wgd_file, index=False)
+        CIN_df.to_csv(cin_file, index=False)
+        self.wgdFile.append(wgd_file)
+        self.cinFile.append(cin_file)
         print(colored("=> Generate analysis files: ", 'green'))
         print(colored(("   " + output_folder + 'WGD_result_'+self.type[idx]+'.csv'), 'green'))
         print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
-    def plot(self, pic):
-        print(self.outputFile)
+    def WGDplot(self, pic):
+        print(self.wgdFile)
         

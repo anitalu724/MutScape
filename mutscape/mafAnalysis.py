@@ -126,10 +126,10 @@ def main():
     if args.hrd_compare:
         df = HRDCompare(args.hrd_compare[0])
         for idx, fileList in enumerate(df.fileList):
-            df.data_analysis(idx, fileList, folder, args.hrd_compare[1])
+            df.HRD(idx, fileList, folder, args.hrd_compare[1])
             df.WGD_CIN(idx, fileList, folder)
-        os._exit(0)
-        df.plot(pic)
+        
+        df.WGDplot(pic)
 
     if args.wgd_cin:
         df = WGDnCIN(args.wgd_cin[0])
