@@ -199,7 +199,7 @@ class HRDCompare:
                          90354753, 81195210, 78077248, 59128983, 63025520, 48129895, 51304566]
         whole_length = sum(genome_length)
         WGD_list, CIN_list, sample_list = [], [], []
-        for sample in self.list:
+        for sample in fileList:
             df = pd.read_csv(sample, sep="\t")
             sample_name = pd.unique(df['SampleID'])[0]
             sample_list.append(sample_name)
