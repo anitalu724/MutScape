@@ -253,14 +253,14 @@ class HRDCompare:
         # sns.set(font_scale=2)
         sns.set_style('white')
         # grid_kws = {'height_ratios': (.9, .2),'hspace': 0.3}  
-        # f, (ax, cbar_ax) = plt.subplots(2,figsize=(20,6), gridspec_kw=grid_kws)
+        f, ax = plt.subplots(1, 1, figsize=(20,6))
         # , xticklabels =aux_list, yticklabels = my_list, ,cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70}, vmin=-0.5, vmax = 1.5
         
-        ax = sns.heatmap(M, square = True, yticklabels = self.type, xticklabels = False, linewidth = 1, cbar=False, cmap=sns.color_palette('Paired', 2))
+        ax = sns.heatmap(M, square = True, yticklabels = self.type, xticklabels = False, linewidth = 1, cbar=False, cmap=sns.color_palette('Paired', 2), ax = ax)
         colorbar = ax.collections[0].colorbar 
         r = colorbar.vmax - colorbar.vmin 
         colorbar.set_ticks([colorbar.vmin + r / 2 * (0.5 + i) for i in range(2)])
-        colorbar.set_ticklabels(self.type)                           
+        colorbar.set_ticklabels(['True' , 'False'])                           
         # ax.set_title('Cosine Similarity',fontsize=TITLE_SIZE,weight='bold',pad=0,verticalalignment='bottom')
         # ax.set_xticklabels(ax.get_xticklabels(),rotation=90, horizontalalignment='center', fontsize=20, color='#222222')
         ax.tick_params(axis='both',length=0)
