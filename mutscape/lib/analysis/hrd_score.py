@@ -228,5 +228,6 @@ class HRDCompare:
         for idx, wgd_file in enumerate(self.wgdFile):
             tmp_df = pd.read_csv(wgd_file)
             wgdDict[self.type[idx]] = list(tmp_df['WGD'])
-        print(wgdDict)
+        wgdDf = pd.DataFrame.from_dict(wgdDict)
+        print(wgdDf)
         
