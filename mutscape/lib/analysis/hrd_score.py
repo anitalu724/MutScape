@@ -271,7 +271,7 @@ class HRDCompare:
         
         r = M.max().max()
         colorbar.set_ticks([0.25*r, 0.75*r])
-        colorbar.set_ticklabels(['HRD>=42' , 'HRD<42'])                           
+        colorbar.set_ticklabels(['HRD<42' , 'HRD≧42'])                           
         
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(),color='#222222', rotation = 'horizontal')
