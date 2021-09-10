@@ -123,7 +123,7 @@ class HRDCompare:
         self.type = list(df.columns)
         self.fileList = [list(df[i]) for i in self.type]
         print(self.fileList)
-        print(len(self.fileList), len(self.fileList[0], len(self.fileList[1]))
+        print(len(self.fileList), len(self.fileList[0]), len(self.fileList[1]))
 
         
         
