@@ -239,7 +239,7 @@ class HRDCompare:
         f, ax = plt.subplots(1, 1, figsize=(20,6))
         # , xticklabels =aux_list, yticklabels = my_list, ,cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70}, vmin=-0.5, vmax = 1.5
         
-        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=sns.color_palette('Paired', 2), ax = ax, cbar_kws={'orientation': 'horizontal','shrink':0.5, 'aspect':70})
+        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=sns.color_palette('Paired', 2), ax = ax, cbar_kws={'orientation': 'horizontal','shrink':0.2, 'aspect':70})
         colorbar = ax.collections[0].colorbar 
         
         r = M.max().max()
