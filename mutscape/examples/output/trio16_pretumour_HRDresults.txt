@@ -1,0 +1,2 @@
+""	"HRD"	"Telomeric AI"	"LST"	"HRD-sum"
+"trio16_pretumour"	10	25	14	49

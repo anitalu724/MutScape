@@ -1,0 +1,2 @@
+""	"HRD"	"Telomeric AI"	"LST"	"HRD-sum"
+"trio21_pretumour"	10	10	1	21
