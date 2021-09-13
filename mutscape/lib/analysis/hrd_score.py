@@ -283,7 +283,8 @@ class HRDCompare:
     def CINbarplot(self, pic):
         cinList = []
         for cin_file in self.cinFile:
-            print(list(pd.read_csv(cin_file)['CIN']))
+            cinList.append(list(pd.read_csv(cin_file)['CIN']))
+            
         
         col_num = len(cinList[0])
         
