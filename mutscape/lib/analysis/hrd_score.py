@@ -306,6 +306,9 @@ class HRDCompare:
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
         ax.spines['left'].set_color('#cac9c9')
+        ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
+        ax.tick_params(axis='y',direction='in', color='#cac9c9')
+        ax.set_xlim([-1,len(index)])
         
         
         plt.ylabel("CIN score")
