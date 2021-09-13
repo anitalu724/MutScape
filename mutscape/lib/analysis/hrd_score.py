@@ -314,6 +314,8 @@ class HRDCompare:
             createLabels(bar)
         plt.legend()
         plt.savefig(pic+'CIN_barplot.pdf',dpi=300,bbox_inches='tight')
+        print(colored(('=> Generate CIN comparison Bar Plot: '+pic+'CIN_barplot.pdf'), 'green'))  
+
 
 
         
