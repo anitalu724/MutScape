@@ -309,9 +309,12 @@ class HRDCompare:
         ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
         ax.tick_params(axis='y',direction='in', color='#cac9c9')
         ax.set_xlim([-1,len(index)])
+        ax.set_ylabel('CIN Score', fontsize=20, fontweight='bold')
+        ax.set_yticks(np.arange(0, 1, 0.2))
+        ax.xaxis.set_visible(False)
         
         
-        plt.ylabel("CIN score")
+        
         plt.legend()
         plt.savefig(pic+'CIN_barplot.pdf',dpi=300,bbox_inches='tight')
         print(colored(('=> Generate CIN comparison Bar Plot: '+pic+'CIN_barplot.pdf'), 'green'))  
