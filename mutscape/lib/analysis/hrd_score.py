@@ -284,6 +284,42 @@ class HRDCompare:
         cinList = []
         for cin_file in self.cinFile:
             print(list(pd.read_csv(cin_file)['CIN']))
+        
+        col_num = len(cinList[0])
+        
+        for df in cinList:
+            if len(df) != col_num:
+                raise ValueError('[MutScape] The files\' format are not available.')
+
+        bar_width = 0.2
+        index = np.arange(col_num)
+
+        barList = []
+        for idx, df in enumerate(cinList):
+            tmp_bar = plt.bar(index+idx*0.2, tuple(df), alpha = .4, label = 'k')
+            barList.append(tmp_bar)
+        
+        def createLabels(data):
+            for item in data:
+                height = item.get_height()
+                plt.text(
+                    item.get_x()+item.get_width()/2., 
+                    height*1.05, 
+                    '%d' % int(height),
+                    ha = "center",
+                    va = "bottom",
+                )
+
+        for bar in barList:
+            createLabels(bar)
+        plt.legend()
+        plt.savefig(pic+'CIN_barplot.pdf',dpi=300,bbox_inches='tight')
+
+
+        
+
+
+
             
 
 
