@@ -297,22 +297,23 @@ class HRDCompare:
 
         barList = []
         for idx, df in enumerate(cinList):
-            tmp_bar = plt.bar(index+idx*0.2, tuple(df), alpha = .4, label = 'k')
+            tmp_bar = plt.bar(index+idx*0.2, tuple(df), bar_width, alpha = .4, label = self.type[idx])
             barList.append(tmp_bar)
         
-        def createLabels(data):
-            for item in data:
-                height = item.get_height()
-                plt.text(
-                    item.get_x()+item.get_width()/2., 
-                    height*1.05, 
-                    '%d' % int(height),
-                    ha = "center",
-                    va = "bottom",
-                )
+        # def createLabels(data):
+        #     for item in data:
+        #         height = item.get_height()
+        #         plt.text(
+        #             item.get_x()+item.get_width()/2., 
+        #             height*1.05, 
+        #             '%d' % int(height),
+        #             ha = "center",
+        #             va = "bottom",
+        #         )
 
-        for bar in barList:
-            createLabels(bar)
+        # for bar in barList:
+        #     createLabels(bar)
+        plt.ylabel("CIN score")
         plt.legend()
         plt.savefig(pic+'CIN_barplot.pdf',dpi=300,bbox_inches='tight')
         print(colored(('=> Generate CIN comparison Bar Plot: '+pic+'CIN_barplot.pdf'), 'green'))  
