@@ -299,7 +299,7 @@ class HRDCompare:
 
         barList = []
         for idx, df in enumerate(cinList):
-            tmp_bar = ax.bar(index+idx*0.35, tuple(df), bar_width, alpha = .4, label = self.type[idx], color = COLOR_MAP[idx])
+            tmp_bar = ax.bar(index+idx*0.35, tuple(df), bar_width, label = self.type[idx], color = COLOR_MAP[idx])
             barList.append(tmp_bar)
 
         ax.spines['right'].set_visible(False)
