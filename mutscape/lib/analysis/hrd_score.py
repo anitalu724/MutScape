@@ -292,13 +292,20 @@ class HRDCompare:
             if len(df) != col_num:
                 raise ValueError('[MutScape] The files\' format are not available.')
 
+        fig = plt.figure(figsize=(10, 5))
+        ax = fig.add_axes([0,0,1,1])
         bar_width = 0.35
         index = np.arange(col_num)
 
         barList = []
         for idx, df in enumerate(cinList):
-            tmp_bar = plt.bar(index+idx*0.35, tuple(df), bar_width, alpha = .1, label = self.type[idx])
+            tmp_bar = ax.bar(index+idx*0.35, tuple(df), bar_width, alpha = .4, label = self.type[idx], color = COLOR_MAP[idx])
             barList.append(tmp_bar)
+
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+        ax.spines['bottom'].set_color('#cac9c9')
+        ax.spines['left'].set_color('#cac9c9')
         
         
         plt.ylabel("CIN score")
