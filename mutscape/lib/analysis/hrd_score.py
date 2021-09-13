@@ -281,10 +281,10 @@ class HRDCompare:
         print(colored(('=> Generate HRD comparison Plot: '+pic+'HRD_heatmap.pdf'), 'green'))  
 
     def CINbarplot(self, pic):
-        for cinFile in self.cinFile:
-            df = pd.read_csv(cinFile)
-            print(df)
-            print("\n\n")
+        cinList = []
+        for cin_file in self.cinFile:
+            print(list(pd.read_csv(cin_file)['CIN']))
+            
 
 
         
