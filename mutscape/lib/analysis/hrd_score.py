@@ -309,7 +309,7 @@ class HRDCompare:
         ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
         ax.tick_params(axis='y',direction='in', color='#cac9c9')
         ax.set_xlim([-1,len(index)])
-        ax.set_ylabel('CIN Score', fontsize=20, fontweight='bold')
+        ax.set_ylabel('CIN Score', fontsize=14, fontweight='bold')
         ax.set_yticks(np.arange(0, 1, 0.2))
         ax.xaxis.set_visible(False)
         
