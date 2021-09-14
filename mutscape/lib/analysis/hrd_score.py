@@ -345,9 +345,9 @@ class HRDCompare:
             width = 0.35
             fig = plt.figure(figsize=(6, 3))
             ax = fig.add_axes([0,0,1,1])
-            ax.bar(index+idx*0.35, HRD_LOH, width, color=COLOR_MAP[7])
-            ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=COLOR_MAP[2])
-            ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=COLOR_MAP[6])
+            ax.bar(index+idx*0.35, HRD_LOH, width, color=COLOR_MAP[7+idx])
+            ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=COLOR_MAP[2+idx])
+            ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=COLOR_MAP[6+idx])
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
@@ -362,7 +362,7 @@ class HRDCompare:
         ax.xaxis.set_visible(False)
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = LABEL_SIZE - 4, edgecolor='white')
+        ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = LABEL_SIZE - 10, edgecolor='white')
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300,bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
