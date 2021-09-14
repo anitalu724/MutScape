@@ -332,7 +332,8 @@ class HRDCompare:
         
         LABEL_SIZE, TITLE_SIZE = 24,30
         #Bar Plot
-
+        fig = plt.figure(figsize=(6, 3))
+        ax = fig.add_axes([0,0,1,1])
         for idx, type in enumerate(hrdList):
             size = len(type[0])
             HRD_LOH = tuple(hrdList[idx][0])
@@ -343,8 +344,6 @@ class HRDCompare:
             index = np.arange(size)
         
             width = 0.35
-            fig = plt.figure(figsize=(6, 3))
-            ax = fig.add_axes([0,0,1,1])
             ax.bar(index+idx*0.35, HRD_LOH, width, color=COLOR_MAP[7+idx])
             ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=COLOR_MAP[2+idx])
             ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=COLOR_MAP[6+idx])
