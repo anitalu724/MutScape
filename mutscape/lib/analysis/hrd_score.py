@@ -299,7 +299,7 @@ class HRDCompare:
 
         barList = []
         for idx, df in enumerate(cinList):
-            tmp_bar = ax.bar(index+idx*0.35, tuple(df), bar_width, label = self.type[idx], color = COLOR_MAP[idx])
+            tmp_bar = ax.bar(index+idx*0.35, tuple(df), bar_width, label = self.type[idx], color = COLOR_MAP[idx], width = 0.1)
             barList.append(tmp_bar)
 
         ax.spines['right'].set_visible(False)
@@ -312,7 +312,6 @@ class HRDCompare:
         ax.set_ylabel('CIN Score', fontsize=14, fontweight='bold')
         ax.set_yticks(np.arange(0, 1, 0.2))
         ax.xaxis.set_visible(False)
-        
         
         
         plt.legend()
