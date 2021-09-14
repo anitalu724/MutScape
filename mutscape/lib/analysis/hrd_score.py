@@ -292,14 +292,14 @@ class HRDCompare:
             if len(df) != col_num:
                 raise ValueError('[MutScape] The files\' format are not available.')
 
-        fig = plt.figure(figsize=(10, 5))
+        fig = plt.figure(figsize=(6, 3))
         ax = fig.add_axes([0,0,1,1])
         bar_width = 0.35
         index = np.arange(col_num)
 
         barList = []
         for idx, df in enumerate(cinList):
-            tmp_bar = ax.bar(index+idx*0.35, tuple(df), bar_width, label = self.type[idx], color = COLOR_MAP[idx], linewidth = 0.1)
+            tmp_bar = ax.bar(index+idx*0.35, tuple(df), width = bar_width, label = self.type[idx], color = COLOR_MAP[idx], linewidth = 0)
             barList.append(tmp_bar)
 
         ax.spines['right'].set_visible(False)
