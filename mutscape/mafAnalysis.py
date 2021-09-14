@@ -131,7 +131,8 @@ def main():
         
         # df.WGDheatmap(pic)
         # df.HRDheatmap(pic)
-        df.CINbarplot(pic)
+        # df.CINbarplot(pic)
+        df.HRDbarplot(pic)
 
     if args.wgd_cin:
         df = WGDnCIN(args.wgd_cin[0])
