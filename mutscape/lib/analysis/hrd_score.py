@@ -255,9 +255,7 @@ class HRDCompare:
     def HRDheatmap(self, pic):
         hrdList = []
         for hrd_file in self.hrdFile:
-            print(pd.read_csv(hrd_file))
-            # hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
-        os._exit(0)
+            hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
         hrdList.reverse()
         yLabel = self.type
         # yLabel.reverse()
@@ -321,9 +319,16 @@ class HRDCompare:
 
 
     def HRDbarplot(self, pic):
+        hrdList = []
+        for hrd_file in self.hrdFile:
+            print(pd.read_csv(hrd_file))
+        os._exit(0)
+        
+        
         LABEL_SIZE, TITLE_SIZE = 24,30
         #Bar Plot
-        df = pd.read_csv(folder+"all_HRDresults.csv")
+
+        df = pd.read_csv("all_HRDresults.csv")
         size = df.shape[0]
         HRD_LOH = tuple(list(df['HRD_LOH']))
         TAI = tuple(list(df['Telomeric_AI']))
