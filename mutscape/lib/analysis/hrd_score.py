@@ -255,7 +255,9 @@ class HRDCompare:
     def HRDheatmap(self, pic):
         hrdList = []
         for hrd_file in self.hrdFile:
-            hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
+            print(pd.read_csv(hrd_file))
+            # hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
+        os._exit(0)
         hrdList.reverse()
         yLabel = self.type
         # yLabel.reverse()
@@ -313,10 +315,47 @@ class HRDCompare:
         ax.set_yticks(np.arange(0, 1, 0.2))
         ax.xaxis.set_visible(False)
         
-        
         plt.legend()
         plt.savefig(pic+'CIN_barplot.pdf',dpi=300,bbox_inches='tight')
         print(colored(('=> Generate CIN comparison Bar Plot: '+pic+'CIN_barplot.pdf'), 'green'))  
+
+
+    def HRDbarplot(self, pic):
+        LABEL_SIZE, TITLE_SIZE = 24,30
+        #Bar Plot
+        df = pd.read_csv(folder+"all_HRDresults.csv")
+        size = df.shape[0]
+        HRD_LOH = tuple(list(df['HRD_LOH']))
+        TAI = tuple(list(df['Telomeric_AI']))
+        LST = tuple(list(df['LST']))
+        SUM = list(df["HRD-sum"])
+        Sample = tuple(list(df['Sample_id']))
+        ind = np.arange(size)
+        # print(ind)
+        width = 0.7
+        fig = plt.figure(figsize=(10, 5))
+        ax = fig.add_axes([0,0,1,1])
+        ax.bar(ind, HRD_LOH, width, color=COLOR_MAP[7])
+        ax.bar(ind, TAI, width, bottom=HRD_LOH, color=COLOR_MAP[2])
+        ax.bar(ind, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=COLOR_MAP[6])
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+        ax.spines['bottom'].set_color('#cac9c9')
+        ax.spines['left'].set_color('#cac9c9')
+        ax.set_ylabel('Scores', fontsize=LABEL_SIZE, fontweight='bold')
+        ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
+        ax.tick_params(axis='y',direction='in', color='#cac9c9')
+        ax.set_ylim(top = max(SUM)*1.25)
+        # ax.set_title('HRD Scores',fontsize=TITLE_SIZE, fontweight='bold')
+        # plt.xticks(ind, Sample,rotation=45,horizontalalignment='right',fontweight='light', fontsize=12)
+        ax.set_xlim([-1,len(ind)])
+        ax.xaxis.set_visible(False)
+        plt.yticks(fontsize=LABEL_SIZE-4)
+        ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
+        ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize=LABEL_SIZE-4, edgecolor='white')
+        plt.savefig(pic+"HRD_Score.pdf", dpi=300,bbox_inches='tight')
+        print(colored(("=> Generate Bar Plot: " + pic + "HRD_Score.pdf"), 'green'))
+
 
 
 
