@@ -319,7 +319,7 @@ class HRDCompare:
 
 
     def HRDbarplot(self, pic):
-        HRD_COLOR_MAP = ['#71a0a5','#acc6aa','#BBBBBB','#082E43','#266199','#b7d5ea']
+        HRD_COLOR_MAP = ['#71a0a5','#acc6aa','#DDDDDD','#082E43','#266199','#b7d5ea']
         
         hrdList = []
         for hrd_file in self.hrdFile:
@@ -346,9 +346,9 @@ class HRDCompare:
             index = np.arange(size)
         
             width = 0.35
-            ax.bar(index+idx*0.35, HRD_LOH, width, color=HRD_COLOR_MAP[0+idx])
-            ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx])
-            ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx])
+            ax.bar(index+idx*0.35, HRD_LOH, width, color=HRD_COLOR_MAP[0+idx*3])
+            ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
+            ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
