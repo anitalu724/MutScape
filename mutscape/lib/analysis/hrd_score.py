@@ -349,6 +349,8 @@ class HRDCompare:
             ax.bar(index+idx*0.35, HRD_LOH, width, color=HRD_COLOR_MAP[0+idx*3])
             ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
             ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
+            ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = 12, edgecolor='white')
+            
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
@@ -363,7 +365,7 @@ class HRDCompare:
         ax.xaxis.set_visible(False)
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = 12, edgecolor='white')
+        
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
