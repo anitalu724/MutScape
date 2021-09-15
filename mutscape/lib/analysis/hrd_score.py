@@ -359,12 +359,12 @@ class HRDCompare:
         ax.set_ylim(top = max(SUM)*1.25)
         # ax.set_title('HRD Scores',fontsize=TITLE_SIZE, fontweight='bold')
         # plt.xticks(ind, Sample,rotation=45,horizontalalignment='right',fontweight='light', fontsize=12)
-        ax.set_xlim([-1,len(index)])
+        ax.set_xlim([-0.5,len(index)])
         ax.xaxis.set_visible(False)
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = LABEL_SIZE - 10, edgecolor='white')
-        plt.savefig(pic+"HRD_barplot.pdf", dpi=300,bbox_inches='tight')
+        ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = 12, edgecolor='white')
+        plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
 
