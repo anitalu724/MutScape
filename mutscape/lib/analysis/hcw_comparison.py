@@ -18,6 +18,66 @@ import seaborn as sns
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
 LABEL_SIZE = 12
 
+def heatmap(data, row_labels, col_labels, ax=None,
+            cbar_kw={}, cbarlabel="", **kwargs):
+    """
+    Create a heatmap from a numpy array and two lists of labels.
+
+    Parameters
+    ----------
+    data
+        A 2D numpy array of shape (N, M).
+    row_labels
+        A list or array of length N with the labels for the rows.
+    col_labels
+        A list or array of length M with the labels for the columns.
+    ax
+        A `matplotlib.axes.Axes` instance to which the heatmap is plotted.  If
+        not provided, use current axes or create a new one.  Optional.
+    cbar_kw
+        A dictionary with arguments to `matplotlib.Figure.colorbar`.  Optional.
+    cbarlabel
+        The label for the colorbar.  Optional.
+    **kwargs
+        All other arguments are forwarded to `imshow`.
+    """
+
+    if not ax:
+        ax = plt.gca()
+
+    # Plot the heatmap
+    im = ax.imshow(data, **kwargs)
+
+    # Create colorbar
+    cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
+    cbar.ax.set_ylabel(cbarlabel, rotation=-90, va="bottom")
+
+    # We want to show all ticks...
+    ax.set_xticks(np.arange(data.shape[1]))
+    ax.set_yticks(np.arange(data.shape[0]))
+    # ... and label them with the respective list entries.
+    ax.set_xticklabels(col_labels)
+    ax.set_yticklabels(row_labels)
+
+    # Let the horizontal axes labeling appear on top.
+    ax.tick_params(top=True, bottom=False,
+                   labeltop=True, labelbottom=False)
+
+    # Rotate the tick labels and set their alignment.
+    plt.setp(ax.get_xticklabels(), rotation=-30, ha="right",
+             rotation_mode="anchor")
+
+    # Turn spines off and create white grid.
+    ax.spines[:].set_visible(False)
+
+    ax.set_xticks(np.arange(data.shape[1]+1)-.5, minor=True)
+    ax.set_yticks(np.arange(data.shape[0]+1)-.5, minor=True)
+    ax.grid(which="minor", color="w", linestyle='-', linewidth=3)
+    ax.tick_params(which="minor", bottom=False, left=False)
+
+    return im, cbar
+
+
 
 #########################################################
 #                                                       #
@@ -163,13 +223,16 @@ class HCWComparison:
 
         M = np.array(wgdList)
         fig, ax = plt.subplots()
-        from matplotlib.colors import ListedColormap
-        cmap = ListedColormap(['#b7d5ea','#266199'])
-        im = ax.imshow(M, cmap = cmap, vmin=0, vmax = 1)
-        ax.set_xticks(np.arange(len(self.sampleList)))
-        ax.set_yticks(np.arange(len(self.type)))
-        ax.set_xticklabels(self.sampleList)
-        ax.set_yticklabels(self.type)
+        
+
+        im, cbar = heatmap(M, self.type, self.sampleList, ax=ax, cmap=['#b7d5ea','#266199'], cbar = None)
+        # from matplotlib.colors import ListedColormap
+        # cmap = ListedColormap(['#b7d5ea','#266199'])
+        # im = ax.imshow(M, cmap = cmap, vmin=0, vmax = 1)
+        # ax.set_xticks(np.arange(len(self.sampleList)))
+        # ax.set_yticks(np.arange(len(self.type)))
+        # ax.set_xticklabels(self.sampleList)
+        # ax.set_yticklabels(self.type)
         # sns.set(font_scale=2)
         # sns.set_style('white')
         
@@ -188,6 +251,7 @@ class HCWComparison:
 
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
+        fig.tight_layout()
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300,bbox_inches='tight')
         
