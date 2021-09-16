@@ -351,10 +351,10 @@ class HRDCompare:
             ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
 
         m1, = ax.plot([], [], c=HRD_COLOR_MAP[0] , marker='s', markersize=10,
-              fillstyle='left', linestyle='none')
+              fillstyle='left', linestyle='none', edgecolor='none')
 
         m2, = ax.plot([], [], c=HRD_COLOR_MAP[3] , marker='s', markersize=10,
-              fillstyle='right', linestyle='none')
+              fillstyle='right', linestyle='none', edgecolor='none')
         
         m3, = ax.plot([], [], c=HRD_COLOR_MAP[1] , marker='s', markersize=10,
               fillstyle='left', linestyle='none')
@@ -384,7 +384,7 @@ class HRDCompare:
         ax.xaxis.set_visible(False)
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(((m1, m2), (m3, m4), (m5, m6)), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=2, loc='upper right', fontsize=12, edgecolor='white')
+        ax.legend(((m1, m2), (m3, m4), (m5, m6)), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0, loc='upper right', fontsize=12, edgecolor='white')
 
         # ax.legend(((), ), labelspacing=2, loc='', fontsize = 12, )
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
