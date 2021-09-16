@@ -634,8 +634,3 @@ class MutationalSignature:
         self.SigDistribution(df1, output_folder, pic)
         self.DonutPlot(df1, pic)
 
-    
-
-
-        
-
