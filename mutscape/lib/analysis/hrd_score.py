@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
+LABEL_SIZE = 12
 
 class HRDScore:
     """HRD score
@@ -136,8 +137,8 @@ class HRDCompare:
         high_HRD_pie.pdf
 
     '''
-    LABEL_SIZE = 12
     
+
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Comparing...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
