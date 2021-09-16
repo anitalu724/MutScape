@@ -62,7 +62,7 @@ def main():
                                                            2. The reference for HRD Score.\n")
 
     parser.add_argument("-hcwc","--hrd_cin_wgd_comparison",nargs=2,help="Two items must be entered:\n\
-                                                           1. The CSV_input file.\n\
+                                                           1. The TSV_input file.\n\
                                                            2. The reference for HRD Score.\n")
     parser.add_argument("-wgdcin", "--wgd_cin", nargs=1)
     parser.add_argument("-oncokb","--oncokb_annotator",nargs='*',help='Three items must be entered:\n \

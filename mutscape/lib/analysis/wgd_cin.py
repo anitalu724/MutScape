@@ -25,32 +25,28 @@ COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDD
 ###################################################
 
 class WGDnCIN:
-    """MAF analysis: Whole-genome doubling (WGD) and Chromosome instability (CIN)
+    ''' Whole-genome doubling (WGD) and Chromosome instability (CIN)
 
-    Parameters
-    ----------
-    maf_file : str
-        A MAF file path.
-    output_folder : str
-        The path for every output file.
-    pic : str
-        The path for storing plots.
-
-
-    Output files
-    ------------
-    output :
+    Arguments:
+        input_file          {string}    -- The input TSV file for all data. (One column only)
+        output_folder       {string}    -- The path for output files
+        pic                 {string}    -- The path especially for output figures(.pdf)
+    
+    Parameters:
+        self.list       {list}      -- [file1, file2, ...]
+    
+    Outputs:
         WGD_result.csv
         CIN_result.csv
 
-    pictures:
+    Pictures:
         CIN_Score.pdf
         WGD_pie.pdf
 
-    """
-    def __init__(self, maf_file):
+    '''
+    def __init__(self, input_file):
         print(colored(("\nStart analysing WGD and CIN...."), 'yellow'))
-        self.list = ((pd.read_csv(maf_file, sep="\t"))[['CNV_input']].values.T)[0]
+        self.list = ((pd.read_csv(input_file, sep="\t"))[['CNV_input']].values.T)[0]
     def data_analysis(self, output_folder):
         genome_length = [249250621, 243199373, 198022430, 191154276, 180915260,
                          171115067, 159138663, 146364022, 141213431, 135534747,
