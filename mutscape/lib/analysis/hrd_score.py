@@ -18,11 +18,19 @@ import seaborn as sns
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
 LABEL_SIZE = 12
 
+###################################################
+#                                                 #
+#    python3 mafAnalysis.py \                     #
+#    -hrd examples/tsv/hrd.tsv grch37 \           #
+#    -o examples/output \                         #
+#    -p examples/pic/                             #
+#                                                 #
+###################################################
+
 class HRDScore:
-    """HRD score
+    """ HRD score
 
     Arguments:
-        file            {string}    -- A MAF file path
         folder          {string}    -- The path for output files
         ref             {string}    -- The reference genome used, grch38 or grch37 or mouse (default: grch38)
         pic             {string}    -- The path especially for output figures(.pdf)
@@ -85,7 +93,7 @@ class HRDScore:
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
         ax.spines['left'].set_color('#cac9c9')
-        ax.set_ylabel('Scores', fontsize=LABEL_SIZE, fontweight='bold')
+        ax.set_ylabel('HRD Score', fontsize = LABEL_SIZE, fontweight='bold')
         ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
         ax.tick_params(axis='y',direction='in', color='#cac9c9')
         ax.set_ylim(top = max(SUM)*1.25)
@@ -98,6 +106,7 @@ class HRDScore:
         ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize=LABEL_SIZE-4, edgecolor='white')
         plt.savefig(pic+"HRD_Score.pdf", dpi=300,bbox_inches='tight')
         print(colored(("=> Generate Bar Plot: " + pic + "HRD_Score.pdf"), 'green'))
+        
         #Pie Plot
         over = len([i for i in SUM if i >=42])
         data = [over, size-over]
@@ -111,15 +120,18 @@ class HRDScore:
 
 
 
-###############################################
-
-# python3 mafAnalysis.py -f examples/test_data/maf/hrd.maf -hrdc examples/tsv/hrd_compare.tsv grch37 -o examples/output -p examples/pic/
-
+###################################################
+#                                                 #
+#    python3 mafAnalysis.py \                     #
+#    -hcwc examples/tsv/hrd_compare.tsv grch37 \  #
+#    -o examples/output \                         #
+#    -p exa                                       #
+#                                                 #
+###################################################
 
 class HCWCompare:
-    '''
+    ''' HRD_CIN_WGD Comparison
     Arguments:
-        file            {string}    -- A MAF file path
         folder          {string}    -- The path for output files
         ref             {string}    -- The reference genome used, grch38 or grch37 or mouse (default: grch38)
         pic             {string}    -- The path especially for output figures(.pdf)
@@ -127,7 +139,9 @@ class HCWCompare:
     Parameters:
         self.type       {list}      -- [type1, type2, ...]
         self.fileList   {list}      -- [[file1-1, file1-2, ...], [file2-1, file2-2, ...]]
-        self.outputFile {list}      -- [file1.csv, file2.csv, ...]
+        self.hrdFile    {list}      -- [file1.csv, file2.csv, ...]
+        self.cinFile    {list}      -- [file1.csv, file2.csv, ...]
+        self.wgdFile    {list}      -- [file1.csv, file2.csv, ...]
 
     Outputs:
         all_HRDresults_xxx.csv
@@ -146,7 +160,7 @@ class HCWCompare:
     
 
     def __init__(self, file):
-        print(colored(("\nStart analysing HRD Comparing...."), 'yellow'))
+        print(colored(("\nStart analysing HRD_CIN_WGD Comparison...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         self.type = list(df.columns)
         self.fileList = [list(df[i]) for i in self.type]
@@ -332,7 +346,6 @@ class HCWCompare:
         plt.cla
         plt.clf
         print(colored(('=> Generate CIN comparison Bar Plot: '+ pic +'CIN_barplot.pdf'), 'green'))  
-
 
     def HRDbarplot(self, pic):
         HRD_COLOR_MAP = ['#5D3E6B', '#695D73', '#E0CADB','#561729', '#C88984', '#EFCAC2', '#031A54','#266199','#b7d5ea',  '#71a0a5','#9Ab377','#ACd5AA']
