@@ -350,25 +350,37 @@ class HRDCompare:
             ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
             ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
         
+        legend_list = []
+        for i in range(3):
+            tmp_list = []
+            tmp_plot1,  = ax.plot([], [], c = HRD_COLOR_MAP[i*3+0] , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
+            tmp_plot2,  = ax.plot([], [], c = HRD_COLOR_MAP[i*3+1] , marker='s', markersize=10, fillstyle='right', linestyle='none', mec = 'None')
+            tmp_list.append(tmp_plot1)
+            tmp_list.append(tmp_plot2)
+            legend_list.append(tuple(tmp_list))
         
 
-        m1, = ax.plot([], [], c = HRD_COLOR_MAP[0] , marker='s', markersize=10,
-              fillstyle='left', linestyle='none', mec = 'None')
 
-        m2, = ax.plot([], [], c = HRD_COLOR_MAP[3] , marker='s', markersize=10,
-              fillstyle='right', linestyle='none', mec = 'None')
+
         
-        m3, = ax.plot([], [], c = HRD_COLOR_MAP[1] , marker='s', markersize=10,
-              fillstyle='left', linestyle='none', mec = 'None')
 
-        m4, = ax.plot([], [], c = HRD_COLOR_MAP[4] , marker='s', markersize=10,
-              fillstyle='right', linestyle='none', mec = 'None')
+        # m1, = ax.plot([], [], c = HRD_COLOR_MAP[0] , marker='s', markersize=10,
+        #       fillstyle='left', linestyle='none', mec = 'None')
+
+        # m2, = ax.plot([], [], c = HRD_COLOR_MAP[3] , marker='s', markersize=10,
+        #       fillstyle='right', linestyle='none', mec = 'None')
         
-        m5, = ax.plot([], [], c = HRD_COLOR_MAP[2] , marker='s', markersize=10,
-              fillstyle='left', linestyle='none', mec = 'None')
+        # m3, = ax.plot([], [], c = HRD_COLOR_MAP[1] , marker='s', markersize=10,
+        #       fillstyle='left', linestyle='none', mec = 'None')
 
-        m6, = ax.plot([], [], c = HRD_COLOR_MAP[5] , marker='s', markersize=10,
-              fillstyle='right', linestyle='none', mec = 'None')
+        # m4, = ax.plot([], [], c = HRD_COLOR_MAP[4] , marker='s', markersize=10,
+        #       fillstyle='right', linestyle='none', mec = 'None')
+        
+        # m5, = ax.plot([], [], c = HRD_COLOR_MAP[2] , marker='s', markersize=10,
+        #       fillstyle='left', linestyle='none', mec = 'None')
+
+        # m6, = ax.plot([], [], c = HRD_COLOR_MAP[5] , marker='s', markersize=10,
+        #       fillstyle='right', linestyle='none', mec = 'None')
         # from matplotlib.patches import Patch
         # pa1 = Patch(facecolor=HRD_COLOR_MAP[0], edgecolor='black')
         # pa2 = Patch(facecolor=HRD_COLOR_MAP[3], edgecolor='black')
@@ -395,7 +407,7 @@ class HRDCompare:
         ax.xaxis.set_visible(False)
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(((m1, m2), (m3, m4), (m5, m6)), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0, loc='upper right', fontsize=12, edgecolor='white')
+        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=1, loc='upper right', fontsize=12, edgecolor='white')
 
         # ax.legend(((), ), labelspacing=2, loc='', fontsize = 12, )
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
