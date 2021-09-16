@@ -12,7 +12,7 @@ from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
 from lib.analysis.tumor_mutated_burden import TumorMutationBurden
 from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 from lib.analysis.mutational_sig import MutationalSignature
-from lib.analysis.hrd_score import HRDScore, HRDCompare
+from lib.analysis.hrd_score import HRDScore, HCWCompare
 from lib.analysis.wgd_cin import WGDnCIN
 from lib.analysis.oncokb_annotation import OncoKBAnnotator
 
@@ -28,9 +28,9 @@ def main():
     4. CoMut plot analysis
     5. Mutational signature
     6. HRD Score
-    7. HRD Compare
     7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
-    8. Actionable mutation(drug) annotation
+    8. HRD_CIN_WGD Comparison
+    9. Actionable mutation(drug) annotation
 
     '''
     parser = argparse.ArgumentParser(description="MAF analysis", formatter_class=argparse.RawTextHelpFormatter)
@@ -60,7 +60,7 @@ def main():
                                                            1. The CSV_input file.\n\
                                                            2. The reference for HRD Score.\n")
 
-    parser.add_argument("-hrdc","--hrd_compare",nargs=2,help="Two items must be entered:\n\
+    parser.add_argument("-hcwc","--hrd_cin_wgd_compare",nargs=2,help="Two items must be entered:\n\
                                                            1. The CSV_input file1.\n\
                                                            2. The CSV_input file2.\n\
                                                            3. The reference for HRD Score.\n")
@@ -86,24 +86,29 @@ def main():
             raise ValueError('[MutScape] Command -significantly_mutated_gene needs -file as a parameter.')
         df = SigMutatedGeneDetection(args.file[0])
         df.oncodriveCLUST(folder)
+    
     if args.known_cancer_gene_annotaiton:
         if args.file == None or len(args.file) == 0:
             raise ValueError('[MutScape] Command -known_cancer_gene_annotaiton needs -file as a parameter.')
         df = KnownCancerGeneAnnotation(args.file[0])
         df.annotation(folder)
+    
     if args.tumor_mutation_burden:
         if args.file == None or len(args.file) == 0:
             raise ValueError('[MutScape] Command -tumor_mutation_burden needs -file as a parameter.')
         df = TumorMutationBurden(args.file[0])
         df.data_analysis(folder, int(args.tumor_mutation_burden[0]))
+    
     if args.comut_analysis:
         if args.file == None or len(args.file) == 0:
             raise ValueError('[MutScape] Command -comut_analysis needs -file as a parameter.')
         df = CoMutAnalysis(args.file[0])
         df.data_analysis(folder, int(args.comut_analysis[0]))
+    
     if args.comut_plot:
         plot1 = CoMutPlot(args.comut_plot[0], args.comut_plot[1])
         plot1.plot(pic, args.comut_plot[2], args.comut_plot[3])
+    
     if args.mutational_signature:
         if args.file == None or len(args.file) == 0:
             raise ValueError('[MutScape] Command -mutational_signature needs -file as a parameter.')
@@ -133,10 +138,10 @@ def main():
         df.data_analysis(folder, args.hrd_score[1])
         df.plotting(folder, pic)
 
-    if args.hrd_compare:
-        df = HRDCompare(args.hrd_compare[0])
+    if args.hrd_cin_wgd_compare:
+        df = HCWCompare(args.hrd_cin_wgd_compare[0])
         for idx, fileList in enumerate(df.fileList):
-            df.HRD(idx, fileList, folder, args.hrd_compare[1])
+            df.HRD(idx, fileList, folder, args.hrd_cin_wgd_compare[1])
             df.WGD_CIN(idx, fileList, folder)
         df.CINbarplot(pic)
         df.HRDbarplot(pic)
@@ -147,6 +152,7 @@ def main():
         df = WGDnCIN(args.wgd_cin[0])
         df.data_analysis(folder)
         df.plotting(folder, pic)
+    
     if args.oncokb_annotator:
         if args.file == None or len(args.file) == 0:
             raise ValueError('[MutScape] Command -oncokb_annotator needs -file as a parameter.')

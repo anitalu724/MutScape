@@ -116,7 +116,7 @@ class HRDScore:
 # python3 mafAnalysis.py -f examples/test_data/maf/hrd.maf -hrdc examples/tsv/hrd_compare.tsv grch37 -o examples/output -p examples/pic/
 
 
-class HRDCompare:
+class HCWCompare:
     '''
     Arguments:
         file            {string}    -- A MAF file path
