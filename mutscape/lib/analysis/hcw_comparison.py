@@ -19,20 +19,21 @@ COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDD
 LABEL_SIZE = 12
 
 
-###################################################
-#                                                 #
-#    python3 mafAnalysis.py \                     #
-#    -hcwc examples/tsv/hrd_compare.tsv grch37 \  #
-#    -o examples/output \                         #
-#    -p exa                                       #
-#                                                 #
-###################################################
+#########################################################
+#                                                       #
+#    python3 mafAnalysis.py \                           #
+#    -hcwc examples/tsv/hcw_comparison.tsv grch37 \     #
+#    -o examples/output \                               #
+#    -p exa                                             #
+#                                                       #
+#########################################################
 
 class HCWComparison:
     ''' HRD_CIN_WGD Comparison
     Arguments:
-        folder          {string}    -- The path for output files
+        file            {string}    -- The input TSV file for all data. (Two columns)
         ref             {string}    -- The reference genome used, grch38 or grch37 or mouse (default: grch38)
+        folder          {string}    -- The path for output files
         pic             {string}    -- The path especially for output figures(.pdf)
 
     Parameters:

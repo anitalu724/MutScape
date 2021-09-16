@@ -15,6 +15,15 @@ import matplotlib.pyplot as plt
 
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
 
+###################################################
+#                                                 #
+#    python3 mafAnalysis.py \                     #
+#    -wgdcin examples/tsv/hrd.tsv \               #
+#    -o examples/output \                         #
+#    -p examples/pic/                             #
+#                                                 #
+###################################################
+
 class WGDnCIN:
     """MAF analysis: Whole-genome doubling (WGD) and Chromosome instability (CIN)
 
