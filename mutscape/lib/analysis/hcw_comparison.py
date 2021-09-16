@@ -213,7 +213,7 @@ class HCWComparison:
 
     def WGDheatmap(self, pic):
         
-        fig, ax = plt.subplots(2, 1, figsize=(10,1))
+        fig, ax = plt.subplots(2, 1, figsize=(10,2))
         ax1, ax2 = ax[0], ax[1]
         
         # ax1
@@ -239,11 +239,10 @@ class HCWComparison:
         im = heatmap(N, self.others, self.sampleList, ax=ax2, cmap=cmap)
         tmp_plot1,  = ax2.plot([], [], c = '#555555' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         tmp_plot2,  = ax2.plot([], [], c = '#DDDDDD' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
-        ax2.legend((tmp_plot1, tmp_plot2), ('Pathological response','non-response'), labelspacing=0.5, loc='lower center', fontsize=LABEL_SIZE-4, edgecolor='white')
+        ax2.legend((tmp_plot1, tmp_plot2), ('Pathological response','non-response'), labelspacing=0.5, loc='lower center', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1, -1.1))
         ax2.tick_params(axis='both',length=0)
         ax2.set_yticklabels(ax2.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
         ax2.set_xticklabels(ax2.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
-        ax2.set_title('PATHR')
         
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         plt.cla
