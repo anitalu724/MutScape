@@ -6,7 +6,7 @@
 # Copyright    [ 2021 4 ]
 ############################################################################################
 
-from mutscape.lib.analysis.mutational_sig import LABEL_SIZE
+# from mutscape.lib.analysis.mutational_sig import LABEL_SIZE
 from ..maf_filter import fast_read_maf
 from termcolor import colored
 import pandas as pd
@@ -137,6 +137,7 @@ class HRDCompare:
 
     '''
     LABEL_SIZE = 12
+    
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Comparing...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
@@ -362,7 +363,7 @@ class HRDCompare:
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
         ax.spines['left'].set_color('#cac9c9')
-        ax.set_ylabel('Scores', fontsize=LABEL_SIZE, fontweight='bold')
+        ax.set_ylabel('HRD Score', fontsize=LABEL_SIZE, fontweight='bold')
         ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
         ax.tick_params(axis='y',direction='in', color='#cac9c9')
         ax.set_ylim(top = max(SUM)*1.25)
