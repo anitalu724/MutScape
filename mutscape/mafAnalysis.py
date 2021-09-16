@@ -60,7 +60,7 @@ def main():
                                                            1. The CSV_input file.\n\
                                                            2. The reference for HRD Score.\n")
 
-    parser.add_argument("-hcwc","--hrd_cin_wgd_compare",nargs=2,help="Two items must be entered:\n\
+    parser.add_argument("-hcwc","--hrd_cin_wgd_comparison",nargs=2,help="Two items must be entered:\n\
                                                            1. The CSV_input file1.\n\
                                                            2. The CSV_input file2.\n\
                                                            3. The reference for HRD Score.\n")
@@ -138,10 +138,10 @@ def main():
         df.data_analysis(folder, args.hrd_score[1])
         df.plotting(folder, pic)
 
-    if args.hrd_cin_wgd_compare:
-        df = HCWCompare(args.hrd_cin_wgd_compare[0])
+    if args.hrd_cin_wgd_comparison:
+        df = HCWCompare(args.hrd_cin_wgd_comparison[0])
         for idx, fileList in enumerate(df.fileList):
-            df.HRD(idx, fileList, folder, args.hrd_cin_wgd_compare[1])
+            df.HRD(idx, fileList, folder, args.hrd_cin_wgd_comparison[1])
             df.WGD_CIN(idx, fileList, folder)
         df.CINbarplot(pic)
         df.HRDbarplot(pic)
