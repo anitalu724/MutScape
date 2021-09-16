@@ -217,6 +217,7 @@ Some simple test commands are displayed below.
     -o examples/output \
     -p examples/pic/
     ```
+
 7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
    > Output figure is shown like [**Fig. 4C, D**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     ```
@@ -226,7 +227,17 @@ Some simple test commands are displayed below.
     -o examples/output \
     -p examples/pic/
     ```
-8. Actionable mutation (drug) annotation
+
+8. HRD_CIN_WGD Comparison
+    ```
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/hrd.maf \
+    -hrdc examples/tsv/hrd_compare.tsv grch37 \
+    -o examples/output \
+    -p examples/pic/
+    ```
+
+9. Actionable mutation (drug) annotation
    `[your_oncokb_token]` is gotten from [OncoKB Website](https://www.oncokb.org/). You must create  your own account and get your personal API token.
    > Output figure is shown like [**Fig. 5**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig5.pdf).
     ```
