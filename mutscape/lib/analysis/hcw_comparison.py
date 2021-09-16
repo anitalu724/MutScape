@@ -215,12 +215,9 @@ class HCWComparison:
         wgdList = []
         for wgd_file in self.wgdFile:
             wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
-        # wgdList.reverse()
-        # yLabel = self.type
-        # yLabel.reverse()
 
         M = np.array(wgdList)
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(2, 1)
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap([ '#acc6aa', '#71a0a5'])
         im = heatmap(M, self.type, self.sampleList, ax=ax, cmap=cmap)
@@ -232,10 +229,8 @@ class HCWComparison:
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
         ax.set_xticklabels(ax.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
-        
-        # plt.ylim(bottom=0, top=len(wgdList))
+
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
-        
         plt.cla
         plt.clf
         print(colored(('=> Generate WGD comparison Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
