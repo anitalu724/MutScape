@@ -212,23 +212,39 @@ class HCWComparison:
         print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
     def WGDheatmap(self, pic):
+        
+        fig, ax = plt.subplots(2, 1)
+        ax1, ax2 = ax[0], ax[1]
+        
+        # ax1
         wgdList = []
         for wgd_file in self.wgdFile:
             wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
-
         M = np.array(wgdList)
-        fig, ax = plt.subplots(2, 1)
-        ax1, ax2 = ax[0], ax[1]
+
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap([ '#acc6aa', '#71a0a5'])
         im = heatmap(M, self.type, self.sampleList, ax=ax1, cmap=cmap)
-
         tmp_plot1,  = ax1.plot([], [], c = '#acc6aa' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         tmp_plot2,  = ax1.plot([], [], c = '#71a0a5' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         ax1.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
         ax1.tick_params(axis='both',length=0)
         ax1.set_yticklabels(ax1.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
         ax1.set_xticklabels(ax1.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+
+        # ax2
+        N = np.array(self.dataList)
+        from matplotlib.colors import ListedColormap
+        cmap = ListedColormap([ '#555555', '#DDDDDD'])
+        im = heatmap(N, self.others, self.sampleList, ax=ax2, cmap=cmap)
+        tmp_plot1,  = ax2.plot([], [], c = '#555555' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        tmp_plot2,  = ax2.plot([], [], c = '#DDDDDD' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        ax2.legend((tmp_plot1, tmp_plot2), ('Pathological response','non-response'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
+        ax2.tick_params(axis='both',length=0)
+        ax2.set_yticklabels(ax2.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
+        ax2.set_xticklabels(ax2.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+
+
 
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         plt.cla
