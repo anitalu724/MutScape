@@ -220,15 +220,15 @@ class HCWComparison:
         fig, ax = plt.subplots(2, 1)
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap([ '#acc6aa', '#71a0a5'])
-        im = heatmap(M, self.type, self.sampleList, ax=ax, cmap=cmap)
+        im = heatmap(M, self.type, self.sampleList, ax=ax[0], cmap=cmap)
 
-        tmp_plot1,  = ax.plot([], [], c = '#acc6aa' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
-        tmp_plot2,  = ax.plot([], [], c = '#71a0a5' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
-        ax.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
+        tmp_plot1,  = ax[0].plot([], [], c = '#acc6aa' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        tmp_plot2,  = ax[0].plot([], [], c = '#71a0a5' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        ax[0].legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
 
-        ax.tick_params(axis='both',length=0)
-        ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
-        ax.set_xticklabels(ax.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+        ax[0].tick_params(axis='both',length=0)
+        ax[0].set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
+        ax[0].set_xticklabels(ax.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
 
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         plt.cla
