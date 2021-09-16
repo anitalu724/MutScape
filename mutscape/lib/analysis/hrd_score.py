@@ -289,7 +289,6 @@ class HRDCompare:
         for cin_file in self.cinFile:
             cinList.append(list(pd.read_csv(cin_file)['CIN']))
             
-        
         col_num = len(cinList[0])
         
         for df in cinList:
@@ -313,13 +312,14 @@ class HRDCompare:
         ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
         ax.tick_params(axis='y',direction='in', color='#cac9c9')
         ax.set_xlim([-0.5,len(index)])
-        ax.set_ylabel('CIN Score', fontsize=14, fontweight='bold')
+        ax.set_ylabel('CIN Score', fontsize=LABEL_SIZE, fontweight='bold')
+        plt.yticks(fontsize=LABEL_SIZE - 2)
         ax.set_yticks(np.arange(0, 1, 0.2))
         ax.xaxis.set_visible(False)
         
         plt.legend()
-        plt.savefig(pic+'CIN_barplot.pdf',dpi=300,bbox_inches='tight')
-        print(colored(('=> Generate CIN comparison Bar Plot: '+pic+'CIN_barplot.pdf'), 'green'))  
+        plt.savefig(pic+'CIN_barplot.pdf',dpi = 300, bbox_inches='tight')
+        print(colored(('=> Generate CIN comparison Bar Plot: '+ pic +'CIN_barplot.pdf'), 'green'))  
 
 
     def HRDbarplot(self, pic):
@@ -371,9 +371,9 @@ class HRDCompare:
         
         ax.set_xlim([-0.5,len(index)])
         ax.xaxis.set_visible(False)
-        plt.yticks(fontsize=LABEL_SIZE-4)
+        plt.yticks(fontsize=LABEL_SIZE - 2)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=12, edgecolor='white')
+        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
 
         plt.savefig(pic+"HRD_barplot.pdf", dpi = 300, bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
