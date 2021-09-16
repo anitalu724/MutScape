@@ -48,9 +48,9 @@ def heatmap(data, row_labels, col_labels, ax=None,
     # Plot the heatmap
     im = ax.imshow(data, **kwargs)
 
-    # Create colorbar
-    cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
-    cbar.ax.set_ylabel(cbarlabel, rotation=-90, va="bottom")
+    # # Create colorbar
+    # cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
+    # cbar.ax.set_ylabel(cbarlabel, rotation=-90, va="bottom")
 
     # We want to show all ticks...
     ax.set_xticks(np.arange(data.shape[1]))
@@ -75,7 +75,7 @@ def heatmap(data, row_labels, col_labels, ax=None,
     ax.grid(which="minor", color="w", linestyle='-', linewidth=3)
     ax.tick_params(which="minor", bottom=False, left=False)
 
-    return im, cbar
+    return im
 
 
 
@@ -225,7 +225,7 @@ class HCWComparison:
         fig, ax = plt.subplots()
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap(['#b7d5ea','#266199'])
-        im, cbar = heatmap(M, self.type, self.sampleList, ax=ax, cmap=cmap, cbar = None)
+        im = heatmap(M, self.type, self.sampleList, ax=ax, cmap=cmap)
         # from matplotlib.colors import ListedColormap
         # 
         # im = ax.imshow(M, cmap = cmap, vmin=0, vmax = 1)
