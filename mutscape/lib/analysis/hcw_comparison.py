@@ -63,9 +63,10 @@ class HCWComparison:
         print(colored(("\nStart analysing HRD_CIN_WGD Comparison...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         df = df.sort_values(by=['PathR'], ascending=False)
-        print(df)
+        
+        self.sampleList = list(df[list(df.columns)[0]])
+        print(self.sampleList)
         os._exit(0)
-        self.sampleID = list(df.columns)[0]
         self.type = list(df.columns)[1:3]
         self.others = list(df.columns)[3:]
         self.fileList = [list(df[i]) for i in self.type]
