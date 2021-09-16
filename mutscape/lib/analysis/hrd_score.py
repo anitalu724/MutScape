@@ -241,12 +241,9 @@ class HRDCompare:
         sns.set_style('white')
         
         f, ax = plt.subplots(1, 1, figsize=(20,6))
-        
-        # ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=sns.color_palette('Paired', 2), ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
         ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=['#b7d5ea','#266199'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
         
         colorbar = ax.collections[0].colorbar 
-        
         r = M.max().max()
         colorbar.set_ticks([0.25*r, 0.75*r])
         colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                       
@@ -289,6 +286,7 @@ class HRDCompare:
         print(colored(('=> Generate HRD comparison Plot: '+pic+'HRD_heatmap.pdf'), 'green'))  
 
     def CINbarplot(self, pic):
+        CIN_COLOR_MAP = ['#266199','#b7d5ea']
         cinList = []
         for cin_file in self.cinFile:
             cinList.append(list(pd.read_csv(cin_file)['CIN']))
@@ -306,7 +304,7 @@ class HRDCompare:
 
         barList = []
         for idx, df in enumerate(cinList):
-            tmp_bar = ax.bar(index+idx*0.35, tuple(df), width = bar_width, label = self.type[idx], color = COLOR_MAP[idx], linewidth = 0)
+            tmp_bar = ax.bar(index+idx*0.35, tuple(df), width = bar_width, label = self.type[idx], color = CIN_COLOR_MAP[idx], linewidth = 0)
             barList.append(tmp_bar)
 
         ax.spines['right'].set_visible(False)
