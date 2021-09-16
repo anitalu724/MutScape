@@ -353,8 +353,8 @@ class HRDCompare:
         legend_list = []
         for i in range(3):
             tmp_list = []
-            tmp_plot1,  = ax.plot([], [], c = HRD_COLOR_MAP[i*3+0] , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
-            tmp_plot2,  = ax.plot([], [], c = HRD_COLOR_MAP[i*3+1] , marker='s', markersize=10, fillstyle='right', linestyle='none', mec = 'None')
+            tmp_plot1,  = ax.plot([], [], c = HRD_COLOR_MAP[i+0] , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
+            tmp_plot2,  = ax.plot([], [], c = HRD_COLOR_MAP[i+3] , marker='s', markersize=10, fillstyle='right', linestyle='none', mec = 'None')
             tmp_list.append(tmp_plot1)
             tmp_list.append(tmp_plot2)
             legend_list.append(tuple(tmp_list))
