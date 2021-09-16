@@ -69,8 +69,6 @@ class HCWComparison:
         
         self.fileList = [list(df[i]) for i in self.type]
         self.dataList = [list(df[i]) for i in self.others]
-        print(self.dataList)
-        os._exit(0)
         self.hrdFile, self.wgdFile, self.cinFile = [], [], []
         
     def HRD(self, idx, fileList, output_folder, ref):
@@ -175,11 +173,16 @@ class HCWComparison:
         colorbar.set_ticks([0.25*r, 0.75*r])
         colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                       
         colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)    
-        
+
+        tmp_plot1,  = ax.plot([], [], c = '#b7d5ea' , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
+        tmp_plot2,  = ax.plot([], [], c = '#266199' , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
+        ax.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
+
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300,bbox_inches='tight')
+        
         plt.cla
         plt.clf
         print(colored(('=> Generate WGD comparison Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
