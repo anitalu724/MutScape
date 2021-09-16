@@ -224,10 +224,10 @@ class HCWComparison:
         M = np.array(wgdList)
         fig, ax = plt.subplots()
         
-
-        im, cbar = heatmap(M, self.type, self.sampleList, ax=ax, cmap=['#b7d5ea','#266199'], cbar = None)
+        cmap = ListedColormap(['#b7d5ea','#266199'])
+        im, cbar = heatmap(M, self.type, self.sampleList, ax=ax, cmap=cmap, cbar = None)
         # from matplotlib.colors import ListedColormap
-        # cmap = ListedColormap(['#b7d5ea','#266199'])
+        # 
         # im = ax.imshow(M, cmap = cmap, vmin=0, vmax = 1)
         # ax.set_xticks(np.arange(len(self.sampleList)))
         # ax.set_yticks(np.arange(len(self.type)))
@@ -247,7 +247,7 @@ class HCWComparison:
 
         tmp_plot1,  = ax.plot([], [], c = '#b7d5ea' , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
         tmp_plot2,  = ax.plot([], [], c = '#266199' , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
-        ax.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
+        ax.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-2, edgecolor='white')
 
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
