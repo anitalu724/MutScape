@@ -62,9 +62,12 @@ class HCWComparison:
     def __init__(self, file):
         print(colored(("\nStart analysing HRD_CIN_WGD Comparison...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
-        self.type = list(df.columns)
+        self.type = list(df.columns)[:2]
+        self.others = list(df.columns)[2:]
         self.fileList = [list(df[i]) for i in self.type]
         self.hrdFile, self.wgdFile, self.cinFile = [], [], []
+        print(self.type, self.others)
+        os._exit(0)
         
     def HRD(self, idx, fileList, output_folder, ref):
         scar_r = open(output_folder + "scar.r", "a")
