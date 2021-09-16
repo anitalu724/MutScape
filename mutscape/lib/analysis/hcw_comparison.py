@@ -218,7 +218,7 @@ class HCWComparison:
 
         M = np.array(wgdList)
         fig, ax = plt.subplots(2, 1)
-        ax1, ax2 = ax[0, 0], ax[1, 0]
+        ax1, ax2 = ax[0], ax[1]
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap([ '#acc6aa', '#71a0a5'])
         im = heatmap(M, self.type, self.sampleList, ax=ax1, cmap=cmap)
