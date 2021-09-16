@@ -250,10 +250,10 @@ class HRDCompare:
         r = M.max().max()
         colorbar.set_ticks([0.25*r, 0.75*r])
         colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                       
-        colorbar.ax.tick_params(labelsize = LABEL_SIZE + 6)    
+        colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)    
         
         ax.tick_params(axis='both',length=0)
-        ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE+8, fontweight = 'bold')
+        ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
         plt.savefig(pic+'WGD_heatmap.pdf',dpi=300,bbox_inches='tight')
         plt.clf()
