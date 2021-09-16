@@ -253,7 +253,8 @@ class HRDCompare:
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
         plt.ylim(bottom=0, top=len(wgdList)+0.5)
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300,bbox_inches='tight')
-        plt.close()
+        plt.cla
+        plt.clf
         print(colored(('=> Generate WGD comparison Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
     
     def HRDheatmap(self, pic):
@@ -282,7 +283,8 @@ class HRDCompare:
         ax.set_yticklabels(ax.get_yticklabels() , color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
         plt.ylim(bottom=0, top=len(hrdList)+0.5)
         plt.savefig(pic+'HRD_heatmap.pdf',dpi=300,bbox_inches='tight')
-        plt.close()
+        plt.cla
+        plt.clf
         print(colored(('=> Generate HRD comparison Plot: '+pic+'HRD_heatmap.pdf'), 'green'))  
 
     def CINbarplot(self, pic):
