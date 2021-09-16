@@ -359,40 +359,6 @@ class HRDCompare:
             tmp_list.append(tmp_plot2)
             legend_list.append(tuple(tmp_list))
         
-
-
-
-        
-
-        # m1, = ax.plot([], [], c = HRD_COLOR_MAP[0] , marker='s', markersize=10,
-        #       fillstyle='left', linestyle='none', mec = 'None')
-
-        # m2, = ax.plot([], [], c = HRD_COLOR_MAP[3] , marker='s', markersize=10,
-        #       fillstyle='right', linestyle='none', mec = 'None')
-        
-        # m3, = ax.plot([], [], c = HRD_COLOR_MAP[1] , marker='s', markersize=10,
-        #       fillstyle='left', linestyle='none', mec = 'None')
-
-        # m4, = ax.plot([], [], c = HRD_COLOR_MAP[4] , marker='s', markersize=10,
-        #       fillstyle='right', linestyle='none', mec = 'None')
-        
-        # m5, = ax.plot([], [], c = HRD_COLOR_MAP[2] , marker='s', markersize=10,
-        #       fillstyle='left', linestyle='none', mec = 'None')
-
-        # m6, = ax.plot([], [], c = HRD_COLOR_MAP[5] , marker='s', markersize=10,
-        #       fillstyle='right', linestyle='none', mec = 'None')
-        # from matplotlib.patches import Patch
-        # pa1 = Patch(facecolor=HRD_COLOR_MAP[0], edgecolor='black')
-        # pa2 = Patch(facecolor=HRD_COLOR_MAP[3], edgecolor='black')
-        # #
-        # pb1 = Patch(facecolor=HRD_COLOR_MAP[1], edgecolor='black')
-        # pb2 = Patch(facecolor=HRD_COLOR_MAP[4], edgecolor='black')
-        # #
-        # pc1 = Patch(facecolor=HRD_COLOR_MAP[2], edgecolor='black')
-        # pc2 = Patch(facecolor=HRD_COLOR_MAP[5], edgecolor='black')
-
-        
-
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
@@ -407,7 +373,7 @@ class HRDCompare:
         ax.xaxis.set_visible(False)
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=1, loc='upper right', fontsize=12, edgecolor='white')
+        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=12, edgecolor='white')
 
         # ax.legend(((), ), labelspacing=2, loc='', fontsize = 12, )
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
