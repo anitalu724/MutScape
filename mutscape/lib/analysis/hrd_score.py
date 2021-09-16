@@ -74,7 +74,7 @@ class HRDScore:
         SUM = list(df["HRD-sum"])
         Sample = tuple(list(df['Sample_id']))
         ind = np.arange(size)
-        # print(ind)
+
         width = 0.7
         fig = plt.figure(figsize=(10, 5))
         ax = fig.add_axes([0,0,1,1])
@@ -130,12 +130,18 @@ class HRDCompare:
         self.outputFile {list}      -- [file1.csv, file2.csv, ...]
 
     Outputs:
-        all_HRDresults.csv
+        all_HRDresults_xxx.csv
+        all_HRDresults_yyy.csv
+        WGD_result_xxx.csv
+        WGD_result_yyy.csv
+        CIN_result_xxx.csv
+        CIN_result_yyy.csv
 
     Pictures:
-        HRD_Score.pdf
-        high_HRD_pie.pdf
-
+        CIN_barplot.pdf
+        HRD_barplot.pdf
+        WGD_heatmap.pdf
+        HRD_heatmap.pdf
     '''
     
 
