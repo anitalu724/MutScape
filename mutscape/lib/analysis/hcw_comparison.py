@@ -235,7 +235,7 @@ class HCWComparison:
         # ax2
         N = np.array(self.dataList)
         from matplotlib.colors import ListedColormap
-        cmap = ListedColormap([ '#555555', '#DDDDDD'])
+        cmap = ListedColormap([ '#DDDDDD', '#555555'])
         im = heatmap(N, self.others, self.sampleList, ax=ax2, cmap=cmap)
         tmp_plot1,  = ax2.plot([], [], c = '#555555' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         tmp_plot2,  = ax2.plot([], [], c = '#DDDDDD' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
