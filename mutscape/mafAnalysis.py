@@ -34,7 +34,7 @@ def main():
 
     '''
     parser = argparse.ArgumentParser(description="MAF analysis", formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument("-f", "--file", nargs=1, metavar="MAF file", required=True)
+    parser.add_argument("-f", "--file", nargs=1, metavar="MAF file")
     parser.add_argument("-smg", "--significantly_mutated_gene", action="store_true")
     parser.add_argument("-kcga", "--known_cancer_gene_annotaiton", action="store_true")
     parser.add_argument("-tmb","--tumor_mutation_burden",nargs=1,help="One item must be entered:\n \
@@ -82,6 +82,8 @@ def main():
     pic = args.picture if args.picture[-1:] == '/' else (args.picture + '/')
 
     if args.significantly_mutated_gene:
+        print(args.file)
+        os._exit(0)
         df = SigMutatedGeneDetection(args.file[0])
         df.oncodriveCLUST(folder)
     if args.known_cancer_gene_annotaiton:
@@ -128,8 +130,6 @@ def main():
         for idx, fileList in enumerate(df.fileList):
             df.HRD(idx, fileList, folder, args.hrd_compare[1])
             df.WGD_CIN(idx, fileList, folder)
-        
-        
         df.CINbarplot(pic)
         df.HRDbarplot(pic)
         df.WGDheatmap(pic)
