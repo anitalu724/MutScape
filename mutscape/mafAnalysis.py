@@ -130,9 +130,9 @@ def main():
             df.WGD_CIN(idx, fileList, folder)
         
         df.WGDheatmap(pic)
-        df.HRDheatmap(pic)
-        df.CINbarplot(pic)
-        df.HRDbarplot(pic)
+        # df.HRDheatmap(pic)
+        # df.CINbarplot(pic)
+        # df.HRDbarplot(pic)
 
     if args.wgd_cin:
         df = WGDnCIN(args.wgd_cin[0])
