@@ -165,7 +165,7 @@ class HCWComparison:
         fig, ax = plt.subplots()
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap(['#b7d5ea','#266199'])
-        im = ax.imshow(M, cmap = cmap, vmin=0, vmax = 1, marker='s')
+        im = ax.imshow(M, cmap = cmap, vmin=0, vmax = 1)
         ax.set_xticks(np.arange(len(self.sampleList)))
         ax.set_yticks(np.arange(len(self.type)))
         ax.set_xticklabels(self.sampleList)
