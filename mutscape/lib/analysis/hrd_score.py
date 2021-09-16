@@ -349,6 +349,27 @@ class HRDCompare:
             ax.bar(index+idx*0.35, HRD_LOH, width, color=HRD_COLOR_MAP[0+idx*3])
             ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
             ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
+
+        m1, = ax.plot([], [], c=HRD_COLOR_MAP[0] , marker='s', markersize=20,
+              fillstyle='left', linestyle='none')
+
+        m2, = ax.plot([], [], c=HRD_COLOR_MAP[3] , marker='s', markersize=20,
+              fillstyle='right', linestyle='none')
+        
+        m3, = ax.plot([], [], c=HRD_COLOR_MAP[1] , marker='s', markersize=20,
+              fillstyle='left', linestyle='none')
+
+        m4, = ax.plot([], [], c=HRD_COLOR_MAP[4] , marker='s', markersize=20,
+              fillstyle='right', linestyle='none')
+        
+        m5, = ax.plot([], [], c=HRD_COLOR_MAP[2] , marker='s', markersize=20,
+              fillstyle='left', linestyle='none')
+
+        m6, = ax.plot([], [], c=HRD_COLOR_MAP[5] , marker='s', markersize=20,
+              fillstyle='right', linestyle='none')
+
+        
+
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
         ax.spines['bottom'].set_color('#cac9c9')
@@ -364,7 +385,7 @@ class HRDCompare:
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
         print(len(hrdList))
-        ax.legend(labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = 12, edgecolor='white')
+        ax.legend(((m1, m2), (m3, m4), (m5, m6)), labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = 12, edgecolor='white')
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
