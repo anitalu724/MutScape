@@ -213,7 +213,7 @@ class HCWComparison:
 
     def WGDheatmap(self, pic):
         
-        fig, ax = plt.subplots(2, 1, sharex=True)
+        fig, ax = plt.subplots(2, 1, sharex=True, tight_layout=True, edgecolor='#aa4444')
         ax1, ax2 = ax[0], ax[1]
         
         # ax1
@@ -244,7 +244,7 @@ class HCWComparison:
         ax2.set_yticklabels(ax2.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
         ax2.set_xticklabels(ax2.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
         ax2.set_title('PATHR')
-        fig.tight_layout()
+        
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         plt.cla
         plt.clf
