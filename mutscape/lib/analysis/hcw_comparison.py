@@ -227,8 +227,8 @@ class HCWComparison:
         tmp_plot2,  = ax1.plot([], [], c = '#71a0a5' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         ax1.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
         ax1.tick_params(axis='both',length=0)
-        ax1.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
-        ax1.set_xticklabels(ax.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+        ax1.set_yticklabels(ax1.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
+        ax1.set_xticklabels(ax1.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
 
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         plt.cla
