@@ -12,7 +12,8 @@ from lib.analysis.known_cancer_gene_anno import KnownCancerGeneAnnotation
 from lib.analysis.tumor_mutated_burden import TumorMutationBurden
 from lib.analysis.comut_plot_analysis import CoMutAnalysis, CoMutPlot
 from lib.analysis.mutational_sig import MutationalSignature
-from lib.analysis.hrd_score import HRDScore, HCWCompare
+from lib.analysis.hrd_score import HRDScore
+from lib.analysis.hcw_comparison import HCWComparison
 from lib.analysis.wgd_cin import WGDnCIN
 from lib.analysis.oncokb_annotation import OncoKBAnnotator
 
@@ -139,7 +140,7 @@ def main():
         df.plotting(folder, pic)
 
     if args.hrd_cin_wgd_comparison:
-        df = HCWCompare(args.hrd_cin_wgd_comparison[0])
+        df = HCWComparison(args.hrd_cin_wgd_comparison[0])
         for idx, fileList in enumerate(df.fileList):
             df.HRD(idx, fileList, folder, args.hrd_cin_wgd_comparison[1])
             df.WGD_CIN(idx, fileList, folder)
