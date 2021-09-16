@@ -222,29 +222,11 @@ class HCWComparison:
         M = np.array(wgdList)
         fig, ax = plt.subplots()
         from matplotlib.colors import ListedColormap
-        cmap = ListedColormap(['#b7d5ea','#266199'])
+        cmap = ListedColormap([ '#acc6aa', '#71a0a5'])
         im = heatmap(M, self.type, self.sampleList, ax=ax, cmap=cmap)
-        # from matplotlib.colors import ListedColormap
-        # 
-        # im = ax.imshow(M, cmap = cmap, vmin=0, vmax = 1)
-        # ax.set_xticks(np.arange(len(self.sampleList)))
-        # ax.set_yticks(np.arange(len(self.type)))
-        # ax.set_xticklabels(self.sampleList)
-        # ax.set_yticklabels(self.type)
-        # sns.set(font_scale=2)
-        # sns.set_style('white')
-        
-        # f, ax = plt.subplots(1, 1, figsize=(20,6))
-        # ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=['#b7d5ea','#266199'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
-        
-        # colorbar = ax.collections[0].colorbar 
-        # r = M.max().max()
-        # colorbar.set_ticks([0.25*r, 0.75*r])
-        # colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                       
-        # colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)    
 
-        tmp_plot1,  = ax.plot([], [], c = '#b7d5ea' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
-        tmp_plot2,  = ax.plot([], [], c = '#266199' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        tmp_plot1,  = ax.plot([], [], c = '#acc6aa' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        tmp_plot2,  = ax.plot([], [], c = '#71a0a5' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         ax.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
 
         ax.tick_params(axis='both',length=0)
