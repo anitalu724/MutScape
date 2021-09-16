@@ -350,10 +350,10 @@ class HRDCompare:
             ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
             ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
 
-        m1, = ax.plot([], [], c=HRD_COLOR_MAP[0] , marker='s', markersize=20,
+        m1, = ax.plot([], [], c=HRD_COLOR_MAP[0] , marker='s', markersize=10,
               fillstyle='left', linestyle='none')
 
-        m2, = ax.plot([], [], c=HRD_COLOR_MAP[3] , marker='s', markersize=20,
+        m2, = ax.plot([], [], c=HRD_COLOR_MAP[3] , marker='s', markersize=10,
               fillstyle='right', linestyle='none')
         
         m3, = ax.plot([], [], c=HRD_COLOR_MAP[1] , marker='s', markersize=20,
