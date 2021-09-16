@@ -356,16 +356,16 @@ class HRDCompare:
         m2, = ax.plot([], [], c=HRD_COLOR_MAP[3] , marker='s', markersize=10,
               fillstyle='right', linestyle='none')
         
-        m3, = ax.plot([], [], c=HRD_COLOR_MAP[1] , marker='s', markersize=20,
+        m3, = ax.plot([], [], c=HRD_COLOR_MAP[1] , marker='s', markersize=10,
               fillstyle='left', linestyle='none')
 
-        m4, = ax.plot([], [], c=HRD_COLOR_MAP[4] , marker='s', markersize=20,
+        m4, = ax.plot([], [], c=HRD_COLOR_MAP[4] , marker='s', markersize=10,
               fillstyle='right', linestyle='none')
         
-        m5, = ax.plot([], [], c=HRD_COLOR_MAP[2] , marker='s', markersize=20,
+        m5, = ax.plot([], [], c=HRD_COLOR_MAP[2] , marker='s', markersize=10,
               fillstyle='left', linestyle='none')
 
-        m6, = ax.plot([], [], c=HRD_COLOR_MAP[5] , marker='s', markersize=20,
+        m6, = ax.plot([], [], c=HRD_COLOR_MAP[5] , marker='s', markersize=10,
               fillstyle='right', linestyle='none')
 
         
@@ -385,7 +385,9 @@ class HRDCompare:
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
         print(len(hrdList))
-        ax.legend((((m1, m2), (m3, m4), (m5, m6)), ('HRD_LOH','Telomeric_AI','LST')), labelspacing=2, loc='upper right', fontsize = 12, edgecolor='white')
+        ax.legend(((m1, m2), (m3, m4), (m5, m6)), ('HRD_LOH','Telomeric_AI','LST'), numpoints=1, labelspacing=2, loc='upper right', fontsize=12, edgecolor='white')
+
+        # ax.legend(((), ), labelspacing=2, loc='', fontsize = 12, )
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
