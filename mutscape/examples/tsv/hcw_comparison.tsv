@@ -14,12 +14,12 @@ SampleID	Pre	Post	PathR	Evolution
 16	./examples/test_data/hrd/realData/trio16_pretumour.txt	./examples/test_data/hrd/realData/trio16_posttumour.txt	0	0
 17	./examples/test_data/hrd/realData/trio17_pretumour.txt	./examples/test_data/hrd/realData/trio17_posttumour.txt	0	0
 18	./examples/test_data/hrd/realData/trio18_pretumour.txt	./examples/test_data/hrd/realData/trio18_posttumour.txt	0	0
-19	./examples/test_data/hrd/realData/trio19_pretumour.txt	./examples/test_data/hrd/realData/trio19_posttumour.txt	0	0	
+19	./examples/test_data/hrd/realData/trio19_pretumour.txt	./examples/test_data/hrd/realData/trio19_posttumour.txt	0	0
 21	./examples/test_data/hrd/realData/trio21_pretumour.txt	./examples/test_data/hrd/realData/trio21_posttumour.txt	0	0
 22	./examples/test_data/hrd/realData/trio22_pretumour.txt	./examples/test_data/hrd/realData/trio22_posttumour.txt	1	1
 23	./examples/test_data/hrd/realData/trio23_pretumour.txt	./examples/test_data/hrd/realData/trio23_posttumour.txt	1	0
 24	./examples/test_data/hrd/realData/trio24_pretumour.txt	./examples/test_data/hrd/realData/trio24_posttumour.txt	0	0
-25	./examples/test_data/hrd/realData/trio25_pretumour.txt	./examples/test_data/hrd/realData/trio25_posttumour.txt	0	0	
+25	./examples/test_data/hrd/realData/trio25_pretumour.txt	./examples/test_data/hrd/realData/trio25_posttumour.txt	0	0
 27	./examples/test_data/hrd/realData/trio27_pretumour.txt	./examples/test_data/hrd/realData/trio27_posttumour.txt	1	1
-28	./examples/test_data/hrd/realData/trio28_pretumour.txt	./examples/test_data/hrd/realData/trio28_posttumour.txt	1	1	
+28	./examples/test_data/hrd/realData/trio28_pretumour.txt	./examples/test_data/hrd/realData/trio28_posttumour.txt	1	1
 30	./examples/test_data/hrd/realData/trio30_pretumour.txt	./examples/test_data/hrd/realData/trio30_posttumour.txt	0	0
