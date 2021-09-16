@@ -319,7 +319,7 @@ class HRDCompare:
 
 
     def HRDbarplot(self, pic):
-        HRD_COLOR_MAP = ['#71a0a5','#9Ab377','#ACd5AA','#082E43','#266199','#b7d5ea']
+        HRD_COLOR_MAP = ['#031A54','#266199','#b7d5ea' '#5D3E6B', '#695D73', '#E0CADB','#71a0a5','#9Ab377','#ACd5AA',]
         
         hrdList = []
         for hrd_file in self.hrdFile:
@@ -350,35 +350,27 @@ class HRDCompare:
             ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
             ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
         
-        from matplotlib.patches import Patch
+    
 
-        m1, = ax.plot([], [], c = HRD_COLOR_MAP[0] , marker='s', markersize=10,
+        m1, = ax.plot([], [], c = HRD_COLOR_MAP[0] , marker='s', markersize=15,
               fillstyle='left', linestyle='none', mec = 'None')
 
-        m2, = ax.plot([], [], c = HRD_COLOR_MAP[3] , marker='s', markersize=10,
+        m2, = ax.plot([], [], c = HRD_COLOR_MAP[3] , marker='s', markersize=15,
               fillstyle='right', linestyle='none', mec = 'None')
         
-        m3, = ax.plot([], [], c = HRD_COLOR_MAP[1] , marker='s', markersize=10,
+        m3, = ax.plot([], [], c = HRD_COLOR_MAP[1] , marker='s', markersize=15,
               fillstyle='left', linestyle='none', mec = 'None')
 
-        m4, = ax.plot([], [], c = HRD_COLOR_MAP[4] , marker='s', markersize=10,
+        m4, = ax.plot([], [], c = HRD_COLOR_MAP[4] , marker='s', markersize=15,
               fillstyle='right', linestyle='none', mec = 'None')
         
-        m5, = ax.plot([], [], c = HRD_COLOR_MAP[2] , marker='s', markersize=10,
+        m5, = ax.plot([], [], c = HRD_COLOR_MAP[2] , marker='s', markersize=15,
               fillstyle='left', linestyle='none', mec = 'None')
 
-        m6, = ax.plot([], [], c = HRD_COLOR_MAP[5] , marker='s', markersize=10,
+        m6, = ax.plot([], [], c = HRD_COLOR_MAP[5] , marker='s', markersize=15,
               fillstyle='right', linestyle='none', mec = 'None')
 
-        # pa1 = Patch(facecolor=HRD_COLOR_MAP[0], edgecolor='black')
-        # pa2 = Patch(facecolor=HRD_COLOR_MAP[3], edgecolor='black')
-        # #
-        # pb1 = Patch(facecolor=HRD_COLOR_MAP[1], edgecolor='black')
-        # pb2 = Patch(facecolor=HRD_COLOR_MAP[4], edgecolor='black')
-        # #
-        # pc1 = Patch(facecolor=HRD_COLOR_MAP[2], edgecolor='black')
-        # pc2 = Patch(facecolor=HRD_COLOR_MAP[5], edgecolor='black')
-
+        
         
 
         ax.spines['right'].set_visible(False)
