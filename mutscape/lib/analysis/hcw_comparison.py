@@ -60,7 +60,7 @@ def heatmap(data, row_labels, col_labels, ax=None,
     ax.set_yticklabels(row_labels)
 
     # Let the horizontal axes labeling appear on top.
-    ax.tick_params(top=True, bottom=False, labeltop=True, labelbottom=False)
+    ax.tick_params(top=False, bottom=False, labeltop=False, labelbottom=True)
 
     # Rotate the tick labels and set their alignment.
     # plt.setp(ax.get_xticklabels(), rotation=-30, ha="right", rotation_mode="anchor")
@@ -250,7 +250,7 @@ class HCWComparison:
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
         
-        plt.ylim(bottom=0, top=len(wgdList)+1)
+        # plt.ylim(bottom=0, top=len(wgdList))
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         
         plt.cla
