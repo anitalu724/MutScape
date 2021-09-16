@@ -187,7 +187,6 @@ Some simple test commands are displayed below.
 
 
     python3 mafAnalysis.py \
-    -f examples/test_data/maf/TCGA_test.maf \
     -cmp examples/tsv/comut.tsv examples/tsv/comut_info.tsv 0 comut.pdf \
     -o examples/output \
     -p examples/pic/
@@ -212,7 +211,6 @@ Some simple test commands are displayed below.
    > Output figure is shown like [**Fig. 4A, B**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     ```
     python3 mafAnalysis.py \
-    -f examples/test_data/maf/hrd.maf \
     -hrd examples/tsv/hrd.tsv grch37 \
     -o examples/output \
     -p examples/pic/
@@ -222,7 +220,6 @@ Some simple test commands are displayed below.
    > Output figure is shown like [**Fig. 4C, D**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     ```
     python3 mafAnalysis.py \
-    -f examples/test_data/maf/hrd.maf \
     -wgdcin examples/tsv/hrd.tsv \
     -o examples/output \
     -p examples/pic/
@@ -231,7 +228,6 @@ Some simple test commands are displayed below.
 8. HRD_CIN_WGD Comparison
     ```
     python3 mafAnalysis.py \
-    -f examples/test_data/maf/hrd.maf \
     -hrdc examples/tsv/hrd_compare.tsv grch37 \
     -o examples/output \
     -p examples/pic/

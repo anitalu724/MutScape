@@ -84,24 +84,29 @@ def main():
     if args.significantly_mutated_gene:
         if args.file == None or len(args.file) == 0:
             raise ValueError('[MutScape] Command -significantly_mutated_gene needs -file as a parameter.')
-        
-        os._exit(0)
-        
         df = SigMutatedGeneDetection(args.file[0])
         df.oncodriveCLUST(folder)
     if args.known_cancer_gene_annotaiton:
+        if args.file == None or len(args.file) == 0:
+            raise ValueError('[MutScape] Command -known_cancer_gene_annotaiton needs -file as a parameter.')
         df = KnownCancerGeneAnnotation(args.file[0])
         df.annotation(folder)
     if args.tumor_mutation_burden:
+        if args.file == None or len(args.file) == 0:
+            raise ValueError('[MutScape] Command -tumor_mutation_burden needs -file as a parameter.')
         df = TumorMutationBurden(args.file[0])
         df.data_analysis(folder, int(args.tumor_mutation_burden[0]))
     if args.comut_analysis:
+        if args.file == None or len(args.file) == 0:
+            raise ValueError('[MutScape] Command -comut_analysis needs -file as a parameter.')
         df = CoMutAnalysis(args.file[0])
         df.data_analysis(folder, int(args.comut_analysis[0]))
     if args.comut_plot:
         plot1 = CoMutPlot(args.comut_plot[0], args.comut_plot[1])
         plot1.plot(pic, args.comut_plot[2], args.comut_plot[3])
     if args.mutational_signature:
+        if args.file == None or len(args.file) == 0:
+            raise ValueError('[MutScape] Command -mutational_signature needs -file as a parameter.')
         df = MutationalSignature(args.file[0])
         # if args.mutational_signature[0] != '0':
         # params = ast.literal_eval(args.mutational_signature[1])
@@ -143,6 +148,8 @@ def main():
         df.data_analysis(folder)
         df.plotting(folder, pic)
     if args.oncokb_annotator:
+        if args.file == None or len(args.file) == 0:
+            raise ValueError('[MutScape] Command -oncokb_annotator needs -file as a parameter.')
         df = OncoKBAnnotator(args.file[0])
         if len(args.oncokb_annotator) == 5:
             df.data_analysis(folder,args.oncokb_annotator[0],args.oncokb_annotator[1],args.oncokb_annotator[3],args.oncokb_annotator[4])
