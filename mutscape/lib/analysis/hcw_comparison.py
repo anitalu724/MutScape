@@ -65,11 +65,12 @@ class HCWComparison:
         df = df.sort_values(by=['PathR'], ascending=False)
         
         self.sampleList = list(df[list(df.columns)[0]])
-        print(self.sampleList)
-        os._exit(0)
-        self.type = list(df.columns)[1:3]
-        self.others = list(df.columns)[3:]
+        self.type, self.others = list(df.columns)[1:3], list(df.columns)[3:]
+        
         self.fileList = [list(df[i]) for i in self.type]
+        self.dataList = [list(df[i]) for i in self.others]
+        print(self.dataList)
+        os._exit(0)
         self.hrdFile, self.wgdFile, self.cinFile = [], [], []
         
     def HRD(self, idx, fileList, output_folder, ref):
