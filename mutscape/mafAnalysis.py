@@ -82,8 +82,11 @@ def main():
     pic = args.picture if args.picture[-1:] == '/' else (args.picture + '/')
 
     if args.significantly_mutated_gene:
-        print(args.file)
+        if args.file == None or len(args.file) == 0:
+            raise ValueError('[MutScape] Command -significantly_mutated_gene needs -file as a parameter.')
+        
         os._exit(0)
+        
         df = SigMutatedGeneDetection(args.file[0])
         df.oncodriveCLUST(folder)
     if args.known_cancer_gene_annotaiton:
