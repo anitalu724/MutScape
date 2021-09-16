@@ -319,7 +319,7 @@ class HRDCompare:
 
 
     def HRDbarplot(self, pic):
-        HRD_COLOR_MAP = ['#031A54','#266199','#b7d5ea', '#5D3E6B', '#695D73', '#E0CADB', '#71a0a5','#9Ab377','#ACd5AA']
+        HRD_COLOR_MAP = ['#031A54','#266199','#b7d5ea', '#561729', '#C88984', '#EFCAC2', '#5D3E6B', '#695D73', '#E0CADB', '#71a0a5','#9Ab377','#ACd5AA']
         
         hrdList = []
         for hrd_file in self.hrdFile:
