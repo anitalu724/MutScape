@@ -273,7 +273,7 @@ class HRDCompare:
         
         f, ax = plt.subplots(1, 1, figsize=(20,6))
         
-        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=[ '#EFCAC2', '#C88984'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
+        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=[ '#E0CADB',  '#695D73'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
         colorbar = ax.collections[0].colorbar 
         
         r = M.max().max()
@@ -282,7 +282,7 @@ class HRDCompare:
         colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)                        
         
         ax.tick_params(axis='both',length=0)
-        ax.set_yticklabels(ax.get_yticklabels() , color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14)
+        ax.set_yticklabels(ax.get_yticklabels() , color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
         plt.ylim(bottom=0, top=len(hrdList)+0.5)
         plt.savefig(pic+'HRD_heatmap.pdf',dpi=300,bbox_inches='tight')
         plt.clf()
