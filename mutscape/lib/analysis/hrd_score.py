@@ -385,7 +385,7 @@ class HRDCompare:
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
         print(len(hrdList))
-        ax.legend(((m1, m2), (m3, m4), (m5, m6)), labels=['HRD_LOH','Telomeric_AI','LST'], fontsize = 12, edgecolor='white')
+        ax.legend((((m1, m2), (m3, m4), (m5, m6)), ('HRD_LOH','Telomeric_AI','LST')), labelspacing=2, loc='upper right', fontsize = 12, edgecolor='white')
         plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
