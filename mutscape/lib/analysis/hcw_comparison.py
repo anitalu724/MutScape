@@ -70,7 +70,7 @@ def heatmap(data, row_labels, col_labels, ax=None,
 
     ax.set_xticks(np.arange(data.shape[1]+1)-.5, minor=True)
     ax.set_yticks(np.arange(data.shape[0]+1)-.5, minor=True)
-    ax.grid(which="minor", color="w", linestyle='-', linewidth=1)
+    ax.grid(which="minor", color="w", linestyle='-', linewidth=1.5)
     ax.tick_params(which="minor", bottom=False, left=False)
 
     return im
@@ -215,9 +215,9 @@ class HCWComparison:
         wgdList = []
         for wgd_file in self.wgdFile:
             wgdList.append([int(elem) for elem in list(pd.read_csv(wgd_file)['WGD'])])
-        wgdList.reverse()
-        yLabel = self.type
-        yLabel.reverse()
+        # wgdList.reverse()
+        # yLabel = self.type
+        # yLabel.reverse()
 
         M = np.array(wgdList)
         fig, ax = plt.subplots()
