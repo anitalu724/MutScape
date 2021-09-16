@@ -250,8 +250,8 @@ class HCWComparison:
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
         
-        plt.ylim(bottom=0, top=len(wgdList)+0.5)
-        plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300,bbox_inches='tight')
+        plt.ylim(bottom=0, top=len(wgdList)+1)
+        plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         
         plt.cla
         plt.clf
