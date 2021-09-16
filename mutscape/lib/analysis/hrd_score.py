@@ -6,6 +6,7 @@
 # Copyright    [ 2021 4 ]
 ############################################################################################
 
+from mutscape.lib.analysis.mutational_sig import LABEL_SIZE
 from ..maf_filter import fast_read_maf
 from termcolor import colored
 import pandas as pd
@@ -135,6 +136,7 @@ class HRDCompare:
         high_HRD_pie.pdf
 
     '''
+    LABEL_SIZE = 12
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Comparing...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
@@ -330,9 +332,6 @@ class HRDCompare:
             tmp.append(list(df['HRD-sum']))
             hrdList.append(tmp)
         
-        
-        
-        LABEL_SIZE, TITLE_SIZE = 24,30
         #Bar Plot
         fig = plt.figure(figsize=(6, 3))
         ax = fig.add_axes([0,0,1,1])
@@ -367,16 +366,14 @@ class HRDCompare:
         ax.tick_params(axis='x',direction='in', color='#cac9c9', length=0)
         ax.tick_params(axis='y',direction='in', color='#cac9c9')
         ax.set_ylim(top = max(SUM)*1.25)
-        # ax.set_title('HRD Scores',fontsize=TITLE_SIZE, fontweight='bold')
-        # plt.xticks(ind, Sample,rotation=45,horizontalalignment='right',fontweight='light', fontsize=12)
+        
         ax.set_xlim([-0.5,len(index)])
         ax.xaxis.set_visible(False)
         plt.yticks(fontsize=LABEL_SIZE-4)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
         ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=12, edgecolor='white')
 
-        # ax.legend(((), ), labelspacing=2, loc='', fontsize = 12, )
-        plt.savefig(pic+"HRD_barplot.pdf", dpi=300, bbox_inches='tight')
+        plt.savefig(pic+"HRD_barplot.pdf", dpi = 300, bbox_inches='tight')
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
 
