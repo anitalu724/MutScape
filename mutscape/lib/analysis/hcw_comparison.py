@@ -245,7 +245,7 @@ class HCWComparison:
 
         tmp_plot1,  = ax.plot([], [], c = '#b7d5ea' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         tmp_plot2,  = ax.plot([], [], c = '#266199' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
-        ax.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='best', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.2, 0.5))
+        ax.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.2, 1))
 
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
