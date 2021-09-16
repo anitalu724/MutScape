@@ -162,17 +162,23 @@ class HCWComparison:
         yLabel.reverse()
 
         M = np.array(wgdList)
-        sns.set(font_scale=2)
-        sns.set_style('white')
+        fig, ax = plt.subplots()
+        im = ax.imshow(M)
+        ax.set_xticks(np.arange(len(self.sampleList)))
+        ax.set_yticks(np.arange(len(self.type)))
+        ax.set_xticklabels(self.sampleList)
+        ax.set_yticklabels(self.type)
+        # sns.set(font_scale=2)
+        # sns.set_style('white')
         
-        f, ax = plt.subplots(1, 1, figsize=(20,6))
-        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=['#b7d5ea','#266199'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
+        # f, ax = plt.subplots(1, 1, figsize=(20,6))
+        # ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=['#b7d5ea','#266199'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
         
-        colorbar = ax.collections[0].colorbar 
-        r = M.max().max()
-        colorbar.set_ticks([0.25*r, 0.75*r])
-        colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                       
-        colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)    
+        # colorbar = ax.collections[0].colorbar 
+        # r = M.max().max()
+        # colorbar.set_ticks([0.25*r, 0.75*r])
+        # colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                       
+        # colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)    
 
         tmp_plot1,  = ax.plot([], [], c = '#b7d5ea' , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
         tmp_plot2,  = ax.plot([], [], c = '#266199' , marker='s', markersize=10, fillstyle='left', linestyle='none', mec = 'None')
