@@ -213,7 +213,7 @@ class HCWComparison:
 
     def WGDheatmap(self, pic):
         
-        fig, ax = plt.subplots(2, 1, sharex=True, tight_layout=True, edgecolor='#aa4444')
+        fig, ax = plt.subplots(2, 1, sharex=True, tight_layout=True)
         ax1, ax2 = ax[0], ax[1]
         
         # ax1
