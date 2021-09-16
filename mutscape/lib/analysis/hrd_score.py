@@ -321,13 +321,15 @@ class HRDCompare:
         ax.set_yticks(np.arange(0, 1, 0.2))
         ax.xaxis.set_visible(False)
         
-        plt.legend()
+        plt.legend(loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
         plt.savefig(pic+'CIN_barplot.pdf',dpi = 300, bbox_inches='tight')
+        plt.cla
+        plt.clf
         print(colored(('=> Generate CIN comparison Bar Plot: '+ pic +'CIN_barplot.pdf'), 'green'))  
 
 
     def HRDbarplot(self, pic):
-        HRD_COLOR_MAP = ['#031A54','#266199','#b7d5ea', '#561729', '#C88984', '#EFCAC2', '#5D3E6B', '#695D73', '#E0CADB', '#71a0a5','#9Ab377','#ACd5AA']
+        HRD_COLOR_MAP = ['#5D3E6B', '#695D73', '#E0CADB','#561729', '#C88984', '#EFCAC2', '#031A54','#266199','#b7d5ea',  '#71a0a5','#9Ab377','#ACd5AA']
         
         hrdList = []
         for hrd_file in self.hrdFile:
@@ -380,6 +382,8 @@ class HRDCompare:
         ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
 
         plt.savefig(pic+"HRD_barplot.pdf", dpi = 300, bbox_inches='tight')
+        plt.cla
+        plt.clf
         print(colored(("=> Generate HRD Compare Bar Plot: " + pic + "HRD_barplot.pdf"), 'green'))
 
 
