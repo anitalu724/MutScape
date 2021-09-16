@@ -220,7 +220,7 @@ class HCWComparison:
         fig, ax = plt.subplots(2, 1)
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap([ '#acc6aa', '#71a0a5'])
-        im = heatmap(M, self.type, self.sampleList, ax=ax[0], cmap=cmap)
+        im = heatmap(M, self.type, self.sampleList, ax=ax[0, 0], cmap=cmap)
 
         tmp_plot1,  = ax[0].plot([], [], c = '#acc6aa' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         tmp_plot2,  = ax[0].plot([], [], c = '#71a0a5' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
