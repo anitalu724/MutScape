@@ -247,7 +247,8 @@ class HRDCompare:
         
         r = M.max().max()
         colorbar.set_ticks([0.25*r, 0.75*r])
-        colorbar.set_ticklabels(['Non-WGD' , 'WGD'], fontsize=LABEL_SIZE-2)                           
+        colorbar.set_ticklabels(['Non-WGD' , 'WGD'])                       
+        colorbar.ax.tick_params(labelsize = LABEL_SIZE - 2)    
         
         ax.tick_params(axis='both',length=0)
         ax.set_yticklabels(ax.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
