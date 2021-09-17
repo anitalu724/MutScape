@@ -316,12 +316,12 @@ class HCWComparison:
         ax.set_xlim([-0.5,len(index)])
         ax.set_ylabel('CIN Score', fontsize=LABEL_SIZE, fontweight='bold')
         plt.yticks(fontsize=LABEL_SIZE - 2)
-        plt.xticks(index + bar_width / 2, tuple(self.sampleList))
+        plt.xticks(index + bar_width / 2, tuple(self.sampleList), fontsize=LABEL_SIZE - 3)
 
         ax.set_yticks(np.arange(0, 1, 0.2))
         # ax.xaxis.set_visible(False)
         
-        plt.legend(loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
+        plt.legend(loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white', bbox_to_anchor=(1.2, 1.1))
         plt.savefig(pic+'CIN_barplot.pdf',dpi = 300, bbox_inches='tight')
         plt.cla
         plt.clf
@@ -342,6 +342,7 @@ class HCWComparison:
         #Bar Plot
         fig = plt.figure(figsize=(6, 3))
         ax = fig.add_axes([0,0,1,1])
+        bar_width = 0.35
         for idx, type in enumerate(hrdList):
             size = len(type[0])
             HRD_LOH = tuple(hrdList[idx][0])
@@ -351,10 +352,10 @@ class HCWComparison:
         
             index = np.arange(size)
         
-            width = 0.35
-            ax.bar(index+idx*0.35, HRD_LOH, width, color=HRD_COLOR_MAP[0+idx*3])
-            ax.bar(index+idx*0.35, TAI, width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
-            ax.bar(index+idx*0.35, LST, width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
+            
+            ax.bar(index+idx*0.35, HRD_LOH, bar_width, color=HRD_COLOR_MAP[0+idx*3])
+            ax.bar(index+idx*0.35, TAI, bar_width, bottom=HRD_LOH, color=HRD_COLOR_MAP[1+idx*3])
+            ax.bar(index+idx*0.35, LST, bar_width, bottom=np.array(TAI)+np.array(HRD_LOH), color=HRD_COLOR_MAP[2+idx*3])
         
         legend_list = []
         for i in range(3):
@@ -375,10 +376,10 @@ class HCWComparison:
         ax.set_ylim(top = max(SUM)*1.25)
         
         ax.set_xlim([-0.5,len(index)])
-        ax.xaxis.set_visible(False)
+        plt.xticks(index + bar_width / 2, tuple(self.sampleList), fontsize=LABEL_SIZE - 3)
         plt.yticks(fontsize=LABEL_SIZE - 2)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
+        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white', bbox_to_anchor=(1.2, 1.1))
 
         plt.savefig(pic+"HRD_barplot.pdf", dpi = 300, bbox_inches='tight')
         plt.cla
