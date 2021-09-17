@@ -145,8 +145,8 @@ def main():
         for idx, fileList in enumerate(df.fileList):
             df.HRD(idx, fileList, folder, args.hrd_cin_wgd_comparison[1])
             df.WGD_CIN(idx, fileList, folder)
-        # df.CINbarplot(pic)
-        # df.HRDbarplot(pic)
+        df.CINbarplot(pic)
+        df.HRDbarplot(pic)
         df.WGDheatmap(pic)
         df.HRDheatmap(pic)
 

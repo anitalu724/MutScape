@@ -317,7 +317,7 @@ class HCWComparison:
         ax.set_ylabel('CIN Score', fontsize=LABEL_SIZE, fontweight='bold')
         plt.yticks(fontsize=LABEL_SIZE - 2)
         ax.set_yticks(np.arange(0, 1, 0.2))
-        ax.xaxis.set_visible(False)
+        # ax.xaxis.set_visible(False)
         
         plt.legend(loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white')
         plt.savefig(pic+'CIN_barplot.pdf',dpi = 300, bbox_inches='tight')
