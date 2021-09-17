@@ -212,7 +212,6 @@ class HCWComparison:
         print(colored(("   " + output_folder + 'CIN_result_'+self.type[idx]+'.csv'), 'green'))
 
     def WGDheatmap(self, pic):
-        
         fig, ax = plt.subplots(2, 1, figsize=(8,2))
         ax1, ax2 = ax[0], ax[1]
         
@@ -250,31 +249,55 @@ class HCWComparison:
         print(colored(('=> Generate WGD comparison Plot: '+pic+'WGD_heatmap.pdf'), 'green'))  
     
     def HRDheatmap(self, pic):
+        fig, ax = plt.subplots(2, 1, figsize=(8,2))
+        ax1, ax2 = ax[0], ax[1]
+        
         hrdList = []
         for hrd_file in self.hrdFile:
             hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
         hrdList.reverse()
-        yLabel = self.type
-        # yLabel.reverse()
 
         M = np.array(hrdList)
-        sns.set(font_scale=2)
-        sns.set_style('white')
+        from matplotlib.colors import ListedColormap
+        cmap = ListedColormap([ '#C88984', '#561729'])
+        im = heatmap(M, self.type, self.sampleList, ax=ax1, cmap=cmap)
+        tmp_plot1,  = ax1.plot([], [], c = '#C88984' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        tmp_plot2,  = ax1.plot([], [], c = '#561729' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        # ax1.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
+        ax1.tick_params(axis='both',length=0)
+        ax1.set_yticklabels(ax1.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
+        ax1.set_xticklabels(ax1.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+
+        # ax2
+        N = np.array(self.dataList)
+        from matplotlib.colors import ListedColormap
+        cmap = ListedColormap([ '#DDDDDD', '#555555'])
+        im = heatmap(N, self.others, self.sampleList, ax=ax2, cmap=cmap)
+        tmp_plot21,  = ax2.plot([], [], c = '#555555' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        tmp_plot22,  = ax2.plot([], [], c = '#DDDDDD' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
+        ax2.legend((tmp_plot1, tmp_plot2, tmp_plot21, tmp_plot22), ('Non-WGD','WGD', 'Pathological response / Putative bottleneck','Non-response / Non-bottleneck'), ncol = 2, labelspacing=0.5, loc='lower center', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(0.5, -1.2))
+        ax2.tick_params(axis='both',length=0)
+        ax2.set_yticklabels(ax2.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
+        ax2.set_xticklabels(ax2.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+
+
+        # sns.set(font_scale=2)
+        # sns.set_style('white')
         
-        f, ax = plt.subplots(1, 1, figsize=(20,6))
+        # f, ax = plt.subplots(1, 1, figsize=(20,6))
         
-        ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=[ '#E0CADB',  '#695D73'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
-        colorbar = ax.collections[0].colorbar 
+        # ax = sns.heatmap(M, vmin=0, vmax = 1, square = True, yticklabels = yLabel, xticklabels = False, linewidth = 1, cmap=[ '#E0CADB',  '#695D73'], ax = ax, cbar_kws={'orientation': 'horizontal','shrink':1, 'aspect':70})
+        # colorbar = ax.collections[0].colorbar 
         
-        r = M.max().max()
-        colorbar.set_ticks([0.25*r, 0.75*r])
-        colorbar.set_ticklabels(['HRD<42' , 'HRD≧42'])   
-        colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)                        
+        # r = M.max().max()
+        # colorbar.set_ticks([0.25*r, 0.75*r])
+        # colorbar.set_ticklabels(['HRD<42' , 'HRD≧42'])   
+        # colorbar.ax.tick_params(labelsize = LABEL_SIZE + 12)                        
         
-        ax.tick_params(axis='both',length=0)
-        ax.set_yticklabels(ax.get_yticklabels() , color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
-        plt.ylim(bottom=0, top=len(hrdList)+0.5)
-        plt.savefig(pic+'HRD_heatmap.pdf',dpi=300,bbox_inches='tight')
+        # ax.tick_params(axis='both',length=0)
+        # ax.set_yticklabels(ax.get_yticklabels() , color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE + 14, fontweight = 'bold')
+        # plt.ylim(bottom=0, top=len(hrdList)+0.5)
+        plt.savefig(pic + 'HRD_heatmap.pdf', dpi=300, bbox_inches='tight')
         plt.cla
         plt.clf
         print(colored(('=> Generate HRD comparison Plot: '+pic+'HRD_heatmap.pdf'), 'green'))  
