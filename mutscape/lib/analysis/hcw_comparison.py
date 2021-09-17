@@ -316,6 +316,8 @@ class HCWComparison:
         ax.set_xlim([-0.5,len(index)])
         ax.set_ylabel('CIN Score', fontsize=LABEL_SIZE, fontweight='bold')
         plt.yticks(fontsize=LABEL_SIZE - 2)
+        plt.xticks(index + bar_width / 2, tuple(self.sampleList))
+
         ax.set_yticks(np.arange(0, 1, 0.2))
         # ax.xaxis.set_visible(False)
         
