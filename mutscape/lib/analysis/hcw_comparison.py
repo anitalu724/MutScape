@@ -82,7 +82,7 @@ def heatmap(data, row_labels, col_labels, ax=None,
 #    python3 mafAnalysis.py \                           #
 #    -hcwc examples/tsv/hcw_comparison.tsv grch37 \     #
 #    -o examples/output \                               #
-#    -p exa                                             #
+#    -p examples/pic/                                   #
 #                                                       #
 #########################################################
 
@@ -95,8 +95,10 @@ class HCWComparison:
         pic             {string}    -- The path especially for output figures(.pdf)
 
     Parameters:
-        self.type       {list}      -- [type1, type2, ...]
+        self.type       {list}      -- [type1, type2, ...] The y-axis for the first plot.
+        self.others     {list}      -- [str1, str2, ...] The y-axis for the second plot.
         self.fileList   {list}      -- [[file1-1, file1-2, ...], [file2-1, file2-2, ...]]
+        self.dataList   {list}      -- [[data1-1, data1-2, ...], [data2-1, data2-2, ...]]
         self.hrdFile    {list}      -- [file1.csv, file2.csv, ...]
         self.cinFile    {list}      -- [file1.csv, file2.csv, ...]
         self.wgdFile    {list}      -- [file1.csv, file2.csv, ...]
@@ -121,6 +123,8 @@ class HCWComparison:
         print(colored(("\nStart analysing HRD_CIN_WGD Comparison...."), 'yellow'))
         df = (pd.read_csv(file, sep='\t', index_col=None)).dropna(axis='columns')
         df = df.sort_values(by=['PathR'], ascending=False)
+        print(df)
+        os._exit(0)
         
         self.sampleList = list(df[list(df.columns)[0]])
         self.type, self.others = list(df.columns)[1:3], list(df.columns)[3:]
