@@ -321,7 +321,7 @@ class HCWComparison:
         ax.set_yticks(np.arange(0, 1, 0.2))
         # ax.xaxis.set_visible(False)
         
-        plt.legend(loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white', bbox_to_anchor=(1.2, 1.1))
+        plt.legend(loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white', bbox_to_anchor=(1.1, 1))
         plt.savefig(pic+'CIN_barplot.pdf',dpi = 300, bbox_inches='tight')
         plt.cla
         plt.clf
@@ -379,7 +379,7 @@ class HCWComparison:
         plt.xticks(index + bar_width / 2, tuple(self.sampleList), fontsize=LABEL_SIZE - 3)
         plt.yticks(fontsize=LABEL_SIZE - 2)
         ax.set_yticks(np.arange(0, max(SUM)*1.25+3, 10))
-        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white', bbox_to_anchor=(1.2, 1.1))
+        ax.legend(tuple(legend_list), ('HRD_LOH','Telomeric_AI','LST'), labelspacing=0.5, loc='upper right', fontsize=LABEL_SIZE-2, edgecolor='white', bbox_to_anchor=(1.1, 1.0))
 
         plt.savefig(pic+"HRD_barplot.pdf", dpi = 300, bbox_inches='tight')
         plt.cla
