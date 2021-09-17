@@ -194,6 +194,14 @@ Some simple test commands are displayed below.
 5. Mutational signature
    > Output figure is shown like [**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
     ```
+
+    python3 mafAnalysis.py \
+    -f examples/test_data/maf/ms.maf \
+    -ms 0 "[SBS1, SBS5, SBS40, SBS87]" \
+    -o examples/output \
+    -p examples/pic/
+
+
     python3 mafAnalysis.py \
     -f examples/test_data/maf/ms.maf \
     -ms 1 "[2,9,10]" \
@@ -228,7 +236,7 @@ Some simple test commands are displayed below.
 8. HRD_CIN_WGD Comparison
     ```
     python3 mafAnalysis.py \
-    -hrdc examples/tsv/hrd_compare.tsv grch37 \
+    -hcwc examples/tsv/hcw_comparison.tsv grch37 \
     -o examples/output \
     -p examples/pic/
     ```
