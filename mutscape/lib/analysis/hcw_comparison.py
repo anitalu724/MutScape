@@ -228,8 +228,8 @@ class HCWComparison:
         tmp_plot2,  = ax1.plot([], [], c = '#71a0a5' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         # ax1.legend((tmp_plot1, tmp_plot2), ('Non-WGD','WGD'), labelspacing=0.5, loc='right', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(1.25, 0.5))
         ax1.tick_params(axis='both',length=0)
-        ax1.set_yticklabels(ax1.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
-        ax1.set_xticklabels(ax1.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+        ax1.set_yticklabels(ax1.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE)
+        ax1.set_xticklabels(ax1.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-3)
 
         # ax2
         N = np.array(self.dataList)
@@ -238,10 +238,10 @@ class HCWComparison:
         im = heatmap(N, self.others, self.sampleList, ax=ax2, cmap=cmap)
         tmp_plot21,  = ax2.plot([], [], c = '#555555' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
         tmp_plot22,  = ax2.plot([], [], c = '#DDDDDD' , marker='s', markersize=10, fillstyle='full', linestyle='none', mec = 'None')
-        ax2.legend((tmp_plot1, tmp_plot2, tmp_plot21, tmp_plot22), ('Non-WGD','WGD', 'Pathological response / Putative bottleneck','Non-response / Non-bottleneck'), ncol = 2, labelspacing=0.5, loc='lower center', fontsize=LABEL_SIZE-4, edgecolor='white', bbox_to_anchor=(0.5, -1.2))
+        ax2.legend((tmp_plot1, tmp_plot2, tmp_plot21, tmp_plot22), ('Non-WGD','WGD', 'Pathological response / Putative bottleneck','Non-response / Non-bottleneck'), ncol = 2, labelspacing=0.5, loc='lower center', fontsize=LABEL_SIZE-3, edgecolor='white', bbox_to_anchor=(0.5, -1.3))
         ax2.tick_params(axis='both',length=0)
-        ax2.set_yticklabels(ax2.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE, fontweight = 'bold')
-        ax2.set_xticklabels(ax2.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-4)
+        ax2.set_yticklabels(ax2.get_yticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE)
+        ax2.set_xticklabels(ax2.get_xticklabels(), color='#222222', rotation = 'horizontal', fontsize=LABEL_SIZE-3)
         
         plt.savefig(pic+'WGD_heatmap.pdf',dpi = 300, bbox_inches='tight')
         plt.cla

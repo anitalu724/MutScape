@@ -147,7 +147,7 @@ def main():
             df.WGD_CIN(idx, fileList, folder)
         # df.CINbarplot(pic)
         # df.HRDbarplot(pic)
-        # df.WGDheatmap(pic)
+        df.WGDheatmap(pic)
         df.HRDheatmap(pic)
 
     if args.wgd_cin:
