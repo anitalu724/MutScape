@@ -3,7 +3,7 @@
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Implement mutational signature analysis. ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 4 ]
+# Copyright    [ 2021 9 ]
 ############################################################################################
 
 from numpy.core.numeric import outer
@@ -25,33 +25,50 @@ from scipy import linalg
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
 LABEL_SIZE, TITLE_SIZE = 24,30
 
-class MutationalSignature:
-    '''MAF analysis: Mutational signature
+#########################################################
+#                                                       #
+#    python3 mafAnalysis.py \                           #
+#    -f examples/test_data/maf/ms.maf \                 #
+#    -ms 0 "[SBS1, SBS5, SBS40, SBS87]" \               #
+#    -o examples/output \                               #
+#    -p examples/pic/                                   #
+#                                                       #
+#                                                       #
+#    python3 mafAnalysis.py \                           #
+#    -f examples/test_data/maf/ms.maf \                 #
+#    -ms 1 "[2,9,10]" \                                 #
+#    -o examples/output \                               #
+#    -p examples/pic/                                   #
+#                                                       #
+#                                                       #
+#    python3 mafAnalysis.py \                           #
+#    -f examples/test_data/maf/ms.maf \                 #
+#    -ms 2 "[3]" \                                      #
+#    -o examples/output \                               #
+#    -p examples/pic/                                   #
+#########################################################
 
-    Parameters
-    ----------
-    maf_file : str
-        A MAF file path.
-    output_folder : str
-        The path for every output file.
-    pic : str
-        The path for storing comut plot.
-    rank1, rank2 : int
-        The range for estimate # signature.
-    epoch : int
-        # estimation running.
-    sig : int
-        The final factorization rank(# signature)
-    
+class MutationalSignature:
+    '''Mutational signature
+
+    Arguments:
+        maf_file        {string}    -- The input MAF file for all data. 
+        output_folder   {string}    -- The path for output files.
+        pic             {string}    -- The path especially for output figures(.pdf)
+        rank1, rank2    {int}       -- The range for estimate # signature.
+        epoch           {int}       -- # estimation running.
+        sig             {int}       -- The final factorization rank(# signature)
+
+
+    Parameters:
+
     Output files
-    ------------
-    output :
         ms_input.tsv
         96_sig.csv
         sig_sample.csv
         SBS.tsv
         
-    pictures:
+    Pictures:
         Estimation.pdf
         SBS_96_plots.pdf
         S2S.pdf
