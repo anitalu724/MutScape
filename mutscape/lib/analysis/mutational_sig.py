@@ -84,6 +84,7 @@ class MutationalSignature:
         self.contribution, self.reconstructed = pd.DataFrame(), pd.DataFrame()
         self.input = ""
         self.params = list()
+        
     
     
     def get_input_file(self, output_folder):
