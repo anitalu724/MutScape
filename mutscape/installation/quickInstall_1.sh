@@ -6,6 +6,7 @@ read -n 1 input
 if [ "$input" = "" ]
 then
     echo -e "\e[1;35m Create a new Conda environment \n \e[0m"
+    conda create --name MutScape
     conda activate MutScape
 else
     echo "Quit"
