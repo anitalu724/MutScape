@@ -1,1 +1,1 @@
-echo $This is quickInstall_1.sh
+echo $ This is quickInstall_1.sh
