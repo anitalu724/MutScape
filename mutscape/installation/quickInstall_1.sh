@@ -7,7 +7,7 @@ if [ "$input" = "" ]
 then
     echo -e "\e[1;35m Create a new Conda environment \n \e[0m"
     conda create --name MutScape
-    source activate MutScape
+    activate MutScape
 else
     echo "Quit"
 fi
