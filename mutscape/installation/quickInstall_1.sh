@@ -15,11 +15,10 @@ then
 
     echo -e "\e[1;35m \nMove MutScape tool into vcf2maf\n \e[0m"
     mv MutScape vcf2maf-1.6.20/
-    cd vcf2maf-1.6.20
-    perl vcf2maf.pl --man
+    
 
     conda install -c anaconda pip
-    cd MutScape/mutscape
+    cd vcf2maf-1.6.20/MutScape/mutscape
     bash installation/install_module.sh
 
 else
