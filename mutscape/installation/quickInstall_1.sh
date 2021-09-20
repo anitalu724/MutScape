@@ -4,7 +4,7 @@ echo -e "\e[1;33m \nWARNING: Before you implement this bash script, please confi
 
 read -t 10 -r -s -p $'Press enter to continue...' input
 
-if [ "input" = "" ]
+if [ "input" = "\n" ]
 then
     echo "Enter"
 else
