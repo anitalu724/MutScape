@@ -18,6 +18,10 @@ then
     cd vcf2maf-1.6.20
     perl vcf2maf.pl --man
 
+    conda install -c anaconda pip
+    cd MutScape/mutscape
+    bash installation/install_module.sh
+
 else
     echo "Quit"
 fi
