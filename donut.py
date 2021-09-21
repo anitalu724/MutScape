@@ -13,7 +13,7 @@ data = [225, 90, 50, 60, 100, 5]
 
 wedges, texts = ax.pie(data, wedgeprops=dict(width=0.5), startangle=-40)
 
-bbox_props = dict(fc="w", ec="k", lw=0.72)
+bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0)
 kw = dict(arrowprops=dict(arrowstyle="-"),
           bbox=bbox_props, zorder=0, va="center")
 

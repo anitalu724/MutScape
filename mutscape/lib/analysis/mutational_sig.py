@@ -619,7 +619,7 @@ class MutationalSignature:
             horizontalalignment = {-1: 'right', 1: 'left'}[int(np.sign(x))]
             connectionstyle = 'angle,angleA=0,angleB={}'.format(ang)
             kw['arrowprops'].update({'connectionstyle': connectionstyle})
-            ax.annotate(names[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),horizontalalignment=horizontalalignment, **kw, fontsize=LABEL_SIZE)
+            ax.annotate(names[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),horizontalalignment=horizontalalignment, **kw) #, fontsize=LABEL_SIZE
         plt.savefig(pic+'Donut_plot.pdf', dpi=300, bbox_inches='tight')
         print(colored(('=> Generate Donut Plot: '+pic+'Donut_plot.pdf'), 'green'))
 
