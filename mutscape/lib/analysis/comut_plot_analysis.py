@@ -111,7 +111,7 @@ from comut import fileparsers
 #############################################################################
 
 class CoMutPlot:
-    '''CoMut plot plotting
+    ''' CoMut plot plotting
     Arguments:
         tsv_file        {string}    -- A TSV file includes all file paths that need for plotting.
         tsv_info        {string}    -- A TSV file includes all informations for plotting.
