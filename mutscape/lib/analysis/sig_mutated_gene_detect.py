@@ -10,6 +10,16 @@ from ..maf_filter import fast_read_maf
 from termcolor import colored
 import os
 
+#########################################################
+#                                                       #
+#   python3 mafAnalysis.py \                            #
+#   -f examples/test_data/maf/TCGA_test.maf \           #
+#   -smg \                                              # 
+#   -o examples/output \                                #
+#   -p examples/pic/                                    #
+#                                                       #
+#########################################################
+
 class SigMutatedGeneDetection:
     '''Significantly mutated gene detection 
 
