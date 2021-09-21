@@ -242,7 +242,7 @@ Some simple test commands are displayed below.
     -p examples/pic/
     ```
 
-8. HRD_CIN_WGD Comparison
+8. HRD, CIN and WGD Comparison
     ```
     python3 mafAnalysis.py \
     -hcwc examples/tsv/hcw_comparison.tsv grch37 \

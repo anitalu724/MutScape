@@ -21,7 +21,7 @@ import pandas as pd
 #########################################################
 
 class TumorMutationBurden:
-    '''MAF analysis: Mutation burden statistics
+    '''Mutation burden statistics
     Arguments:
         maf_file            {string}        -- The input MAF file for all data.
         output_folder       {string}        -- The path for output files.
