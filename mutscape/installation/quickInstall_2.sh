@@ -5,6 +5,11 @@ read -n 1 input
 if [ "$input" = "" ]
 then
     export PATH="$HOME/miniconda3/bin:$PATH"
+
+    echo -e "\e[1;35m \nInstall Ensembl's VEP \n \e[0m"
+    conda install -c bioconda -c conda-forge samtools=1.10 ucsc-liftover=377 bcftools=1.10.2 htslib==1.10.2
+    conda install -c bioconda -c conda-forge -c defaults ensembl-vep=102.0 
+
     mkdir -p $HOME/.vep/homo_sapiens/102_GRCh37/
     echo -e "\e[1;35m \nDownload Homo_sapiens.GRCh37.dna.toplevel.fa.gz...\n \e[0m"
     wget ftp://ftp.ensembl.org/pub/grch37/release-102/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.dna.toplevel.fa.gz
@@ -19,6 +24,7 @@ then
     echo -e "\e[1;35m \nDecompress homo_sapiens_vep_102_GRCh37.tar.gz...\n \e[0m"
     tar -zxf $HOME/.vep/homo_sapiens_vep_102_GRCh37.tar.gz -C $HOME/.vep/
     echo -e "\e[1;32m \nDone!\n \e[0m"
+    
 else
     echo "Quit!"
 fi

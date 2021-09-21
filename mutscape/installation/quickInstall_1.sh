@@ -5,10 +5,7 @@ echo -e "\e[1;33mPress enter to continue... \e[0m"
 read -n 1 input
 if [ "$input" = "" ]
 then
-    echo -e "\e[1;35m \nInstall Ensembl's VEP \n \e[0m"
-    conda install -c bioconda -c conda-forge samtools=1.10 ucsc-liftover=377 bcftools=1.10.2
-    conda install -c bioconda -c conda-forge -c defaults ensembl-vep=102.0 
-
+    
     echo -e "\e[1;35m \nInstall vcf2maf \n \e[0m"
     wget https://github.com/mskcc/vcf2maf/archive/refs/tags/v1.6.20.tar.gz
     tar -zxf v1.6.20.tar.gz
