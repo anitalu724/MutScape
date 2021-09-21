@@ -46,7 +46,7 @@ MutScape is preferred to be implementing under a brand-new conda environment.
 ### Install Ensembl's VEP
 If you have already install Ensembl's VEP, you may skip this part and directly into the next part to install `vcf2maf`. (However, you must confirm that your VEP version is compatible to vcf2maf. Here, we recommended installing `ensembl-vep=102.0`. )
 
-    conda install -c bioconda -c conda-forge samtools=1.10 ucsc-liftover=377 bcftools=1.10.2
+    conda install -c bioconda -c conda-forge samtools=1.10 ucsc-liftover=377 bcftools=1.10.2 htslib==1.10.2
     conda install -c bioconda -c conda-forge -c defaults ensembl-vep=102.0 
 
 ### Install vcf2maf
