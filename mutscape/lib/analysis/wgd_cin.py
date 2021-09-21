@@ -33,7 +33,7 @@ class WGDnCIN:
         pic                 {string}    -- The path especially for output figures(.pdf)
     
     Parameters:
-        self.list       {list}      -- [file1, file2, ...]
+        self.list           {list}      -- [file1, file2, ...]
     
     Outputs:
         WGD_result.csv
@@ -42,7 +42,6 @@ class WGDnCIN:
     Pictures:
         CIN_Score.pdf
         WGD_pie.pdf
-
     '''
     def __init__(self, input_file):
         print(colored(("\nStart analysing WGD and CIN...."), 'yellow'))
