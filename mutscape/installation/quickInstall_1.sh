@@ -12,6 +12,7 @@ then
     echo -e "\e[1;35m \nInstall vcf2maf \n \e[0m"
     wget https://github.com/mskcc/vcf2maf/archive/refs/tags/v1.6.20.tar.gz
     tar -zxf v1.6.20.tar.gz
+    rm -rf v1.6.20.tar.gz
 
     echo -e "\e[1;35m \nMove MutScape tool into vcf2maf\n \e[0m"
     mv MutScape vcf2maf-1.6.20/
