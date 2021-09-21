@@ -10,6 +10,16 @@ from ..maf_filter import fast_read_maf
 from termcolor import colored
 import pandas as pd
 
+#########################################################
+#                                                       #
+#   python3 mafAnalysis.py \                            #
+#   -f examples/test_data/maf/TCGA_test.maf \           #
+#   -kcga \                                             #
+#   -o examples/output \                                #
+#   -p examples/pic/                                    #
+#                                                       #
+#########################################################
+
 class KnownCancerGeneAnnotation:
     ''' Known cancer gene annotation
     Arguments:
@@ -17,17 +27,11 @@ class KnownCancerGeneAnnotation:
         output_folder       {string}        -- The path for output files.
 
     Parameters:
- 
-    maf_file : str
-        A MAF file path.
-    output_folder : str
-        The path for every output file.  
-
-    Output files
-    ------------
-    output :
-        kcga.output.maf
-            
+        self.head           {string}        -- The column names of MAF file.
+        self.df             {pd.DataFrame}  -- The data for the MAF file.
+    
+    Outputs:
+        kcga.output.maf     
     ''' 
     def __init__(self, maf_file):
         print(colored(('\nStart Known_Cancer_Gene_Annotation....'), 'yellow'))
