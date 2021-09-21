@@ -60,7 +60,6 @@ class MutationalSignature:
         epoch           {int}       -- # estimation running.
         sig             {int}       -- The final factorization rank(# signature)
 
-
     Parameters:
         self.head           {string}        -- The column names of MAF file.
         self.df             {pd.DataFrame}  -- The data for the MAF file.
@@ -83,8 +82,8 @@ class MutationalSignature:
         SigContribution.pdf
         SigSamHeatmap.pdf
         Donut_plot.pdf
-
     '''
+    
     def __init__(self, maf_file):
         print(colored(('\nStart Mutational_Signature....'), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
@@ -93,8 +92,6 @@ class MutationalSignature:
         self.input = ""
         self.params = list()
         
-    
-    
     def get_input_file(self, output_folder):
         output_file = output_folder+'ms_input.tsv'
         self.input = output_file
