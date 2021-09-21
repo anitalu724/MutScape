@@ -3,7 +3,7 @@
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Actionable mutation(drug) annotation ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 4 ]
+# Copyright    [ 2021 9 ]
 ############################################################################################
 
 from ..maf_filter import fast_read_maf
@@ -16,39 +16,43 @@ import matplotlib.ticker as mtick
 
 COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDDD','#71a0a5','#841D22','#E08B69']
 
+#################################################################################################################
+#                                                                                                               #
+#    python3 mafAnalysis.py \                                                                                   #
+#    -f examples/test_data/maf/TCGA_test.maf \                                                                  #
+#    -oncokb ../oncokb-annotator/ [your_oncokb_token] 4 examples/test_data/oncokb/clinical_input.txt \          #
+#    -o examples/output \                                                                                       #
+#    -p examples/pic/                                                                                           #
+#                                                                                                               #
+#################################################################################################################
+
 class OncoKBAnnotator:
-    '''MAF analysis: Actionable mutation(drug) annotation
+    '''Actionable mutation(drug) annotation
 
-    Parameters
-    ----------
-    maf_file : str
-        A MAF file path.
-    output_folder : str
-        The path for every output file.
-    path : str
-        The path for oncokb-annotator folder.
-    token : str
-        The personal token provided from OncoKB.
-    clinical : str
-        The path for clinical data.
-    pic : str
-        The path for storing plots.
-    cna : str (Optional) 
-        The path for cna data
-    level : str (Optional) 
-        The level the user chooses (default = 4)
+    Arguments:
+        maf_file            {string}        -- The input MAF file for all data.
+        output_folder       {string}        -- The path for output files.
+        path                {string}        -- The path for oncokb-annotator folder.
+        token               {string}        -- The personal token provided from OncoKB.
+        clinical            {string}        -- The path for clinical data.
+        pic                 {string}        -- The path for storing plots.
+        cna                 {string}        -- The path for cna data
+        level               {string}        -- The level the user chooses (default = 4)
+    
+    Parameters:
+        self.head           {string}        -- The column names of MAF file.
+        self.df             {pd.DataFrame}  -- The data for the MAF file.
+        self.file           {string}        -- The input file for plotting which is also the output file from analysis.
 
-    Output files
-    ------------
-    output :
+    Outputs
         maf_oncokb_output.txt
         clinical_oncokb_output.txt
 
-    pictures:
+    Pictures:
         oncokb_total_pie.pdf
         oncokb_freq_actionable_genes.pdf
-
     '''
+    
     def __init__(self, maf_file):
         print(colored(("\nStart OncoKB annotator(drug)...."), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
