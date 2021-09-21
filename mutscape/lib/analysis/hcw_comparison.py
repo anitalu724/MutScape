@@ -90,9 +90,9 @@ class HCWComparison:
     ''' HRD_CIN_WGD Comparison
     Arguments:
         file            {string}    -- The input TSV file for all data. (Two columns or more)
-        ref             {string}    -- The reference genome used, grch38 or grch37 or mouse (default: grch38)
-        folder          {string}    -- The path for output files
-        pic             {string}    -- The path especially for output figures(.pdf)
+        ref             {string}    -- The reference genome used, grch38 or grch37 or mouse. (default: grch38)
+        folder          {string}    -- The path for output files.
+        pic             {string}    -- The path especially for output figures(.pdf).
 
     Parameters:
         self.type       {list}      -- [type1, type2, ...] The y-axis for the first plot.

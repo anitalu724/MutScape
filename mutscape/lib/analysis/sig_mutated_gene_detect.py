@@ -11,14 +11,17 @@ from termcolor import colored
 import os
 
 class SigMutatedGeneDetection:
-    '''MAF analysis: Significantly mutated gene detection 
+    '''Significantly mutated gene detection 
 
-    Parameters
-    ----------
-    maf_file : str
-        A MAF file path.
-    output_folder : str
-        The path for every output file.
+    Arguments:
+        maf_file            {string}    -- The input MAF file for all data.
+        output_folder       {string}    -- The path for output files.
+
+    Parameters:
+        self.head
+        self.df             {}
+    
+        
 
     Output files
     ------------
@@ -30,6 +33,7 @@ class SigMutatedGeneDetection:
     def __init__(self, maf_file):
         print(colored(("\nStart Significantly_Mutated_Gene_Detection...."), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
+        print(type(self.head), type(self.df))
     def oncodriveCLUST(self, output_folder):
         def get_input():
             selected_col = self.df[['Hugo_Symbol', 'Variant_Classification','Tumor_Sample_Barcode', 'Transcript_ID', 'Gene', 'Protein_position']]
