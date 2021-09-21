@@ -10,10 +10,9 @@ Cancer genomics has been evolving rapidly, fueled by the emergence of numerous s
 ```
     git clone https://github.com/anitalu724/MutScape.git
     bash MutScape/mutscape/installation/quickInstall_1.sh
-    bash MutScape/mutscape/installation/quickInstall_2.sh
+    bash vcf2maf-1.6.20/MutScape/mutscape/installation/quickInstall_2.sh
     
 ```
-
 
 ## Prerequisite installation
 
