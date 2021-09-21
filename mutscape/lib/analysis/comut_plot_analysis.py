@@ -120,8 +120,8 @@ class CoMutPlot:
         comut_name      {string}    -- The file name of CoMut plot.
     
     Parameters:
-        self.fd         {dict}      
-        self.info       {dict}      
+        self.fd         {dict}      -- The file dictionary for each subplot. 
+        self.info       {dict}      -- The information dictionary for each subplot.
 
     Outputs:
         An image of CoMut plot.
@@ -136,8 +136,7 @@ class CoMutPlot:
         for item in self.info:
             cleanedList = [x for x in self.info[item] if str(x) != 'nan']
             self.info[item] = cleanedList
-        print((self.fd))
-        print((self.info))
+
     def plot(self, pic, theme, comut_name):
         fixed_category = ['Same Patient','Copy Number Alteration','Mutation Type','Purity','Mutation Signature','Mutation Classification','Frequency', 'Whole Genome Doubling']
         feature_category = [item for item in self.fd if item not in fixed_category]
