@@ -28,7 +28,6 @@ COLOR_MAP = ['#266199','#b7d5ea','#acc6aa','#E0CADB','#695D73','#B88655','#DDDDD
 
 class OncoKBAnnotator:
     '''Actionable mutation(drug) annotation
-
     Arguments:
         maf_file            {string}        -- The input MAF file for all data.
         output_folder       {string}        -- The path for output files.
@@ -52,7 +51,7 @@ class OncoKBAnnotator:
         oncokb_total_pie.pdf
         oncokb_freq_actionable_genes.pdf
     '''
-    
+
     def __init__(self, maf_file):
         print(colored(("\nStart OncoKB annotator(drug)...."), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
