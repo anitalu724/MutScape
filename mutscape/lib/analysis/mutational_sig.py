@@ -654,10 +654,11 @@ class MutationalSignature:
         self.nmf(output_folder, sig)
         df = (pd.read_csv(output_folder+'96_sig.csv'))
         df = df.set_index(list(df.columns[[0]]))
-        # self.SBSplot(df, pic)
-        # self.CosineSimilarity(df, output_folder, pic)
         df1 = pd.read_csv(output_folder+'sig_sample.csv', index_col=0)
+        
         self.DonutPlot(df1, pic)
+        self.SBSplot(df, pic)
+        self.CosineSimilarity(df, output_folder, pic)
         self.SigDistribution(df1, output_folder, pic)
         
 
