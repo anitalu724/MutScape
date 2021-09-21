@@ -3,7 +3,7 @@
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Detect significantly mutated gene. ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 4 ]
+# Copyright    [ 2021 9 ]
 ############################################################################################
 
 from ..maf_filter import fast_read_maf
@@ -18,14 +18,10 @@ class SigMutatedGeneDetection:
         output_folder       {string}        -- The path for output files.
 
     Parameters:
-        self.head           {string}        --
-        self.df             {pd.DataFrame}  -- 
+        self.head           {string}        -- The column names of MAF file.
+        self.df             {pd.DataFrame}  -- The data for the MAF file.
     
-        
-
-    Output files
-    ------------
-    output : 
+    Output:
         oncodriveCLUST.nonsyn.txt
         oncodriveCLUST.syn.txt
         oncodriveclust_results.tsv
