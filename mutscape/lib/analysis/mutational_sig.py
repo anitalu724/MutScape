@@ -46,6 +46,7 @@ LABEL_SIZE, TITLE_SIZE = 24,30
 #    -ms 2 "[3]" \                                      #
 #    -o examples/output \                               #
 #    -p examples/pic/                                   #
+#                                                       #
 #########################################################
 
 class MutationalSignature:
@@ -61,7 +62,14 @@ class MutationalSignature:
 
 
     Parameters:
-
+        self.head           {string}        -- The column names of MAF file.
+        self.df             {pd.DataFrame}  -- The data for the MAF file.
+        self.cosmic         {pd.DataFrame}  -- The data for 'lib/auxiliary/COSMIC_72.tsv'.
+        self.contribution   {pd.DataFrame}  -- The data for signature refitting.
+        self.reconstructed  {pd.DataFrame}  -- The data for signature refitting.
+        self.input          {string}        -- The input file for plotting.
+        self.params         {list}          -- The list for input parameters.
+    
     Output files
         ms_input.tsv
         96_sig.csv
