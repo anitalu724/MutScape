@@ -174,7 +174,7 @@ class CoMutPlot:
 
         used_set = cold_set if theme == '0' else warm_set
 
-    # info
+        # info
         #wgd
         wgd_mapping = {'Yes': {'facecolor': 'black', 'alpha': 0.5}, 'No': 'white'}
         #same patient
@@ -200,7 +200,7 @@ class CoMutPlot:
         bar_mapping = dict(zip(burden, used_set['burden']))
         bar_kwargs = {'width': 0.8}
     
-    # features
+        # features
         feature_mapping = []
         for feature in feature_category:
             fea = self.info[feature]
