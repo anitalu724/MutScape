@@ -14,12 +14,12 @@ class SigMutatedGeneDetection:
     '''Significantly mutated gene detection 
 
     Arguments:
-        maf_file            {string}    -- The input MAF file for all data.
-        output_folder       {string}    -- The path for output files.
+        maf_file            {string}        -- The input MAF file for all data.
+        output_folder       {string}        -- The path for output files.
 
     Parameters:
-        self.head
-        self.df             {}
+        self.head           {string}        --
+        self.df             {pd.DataFrame}  -- 
     
         
 
@@ -33,7 +33,7 @@ class SigMutatedGeneDetection:
     def __init__(self, maf_file):
         print(colored(("\nStart Significantly_Mutated_Gene_Detection...."), 'yellow'))
         self.head, self.df = fast_read_maf(maf_file)
-        print(type(self.head), type(self.df))
+        
     def oncodriveCLUST(self, output_folder):
         def get_input():
             selected_col = self.df[['Hugo_Symbol', 'Variant_Classification','Tumor_Sample_Barcode', 'Transcript_ID', 'Gene', 'Protein_position']]
