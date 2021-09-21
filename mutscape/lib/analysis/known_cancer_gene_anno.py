@@ -3,7 +3,7 @@
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Annotate known cancer gene. ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 4 ]
+# Copyright    [ 2021 9 ]
 ############################################################################################
 
 from ..maf_filter import fast_read_maf
@@ -11,10 +11,13 @@ from termcolor import colored
 import pandas as pd
 
 class KnownCancerGeneAnnotation:
-    '''MAF analysis: Known cancer gene annotation
+    ''' Known cancer gene annotation
+    Arguments:
+        maf_file            {string}        -- The input MAF file for all data.
+        output_folder       {string}        -- The path for output files.
 
-    Parameters
-    ----------
+    Parameters:
+ 
     maf_file : str
         A MAF file path.
     output_folder : str
