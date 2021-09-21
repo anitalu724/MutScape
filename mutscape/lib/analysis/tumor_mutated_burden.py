@@ -3,31 +3,37 @@
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Calculate TMB for each data. ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 4 ]
+# Copyright    [ 2021 9 ]
 ############################################################################################
 
 from ..maf_filter import fast_read_maf
 from termcolor import colored
 import pandas as pd
 
+#########################################################
+#                                                       #
+#   python3 mafAnalysis.py \                            #
+#   -f examples/test_data/maf/TCGA_test.maf \           #
+#   -tmb 60456963 \                                     #
+#   -o examples/output \                                #
+#   -p examples/pic/                                    #
+#                                                       #
+#########################################################
+
 class TumorMutationBurden:
     '''MAF analysis: Mutation burden statistics
+    Arguments:
+        maf_file            {string}        -- The input MAF file for all data.
+        output_folder       {string}        -- The path for output files.
+        length              {int}           -- The length of genome (WES = 60456963)
 
-    Parameters
-    ----------
-    maf_file : str
-        A MAF file path.
-    output_folder : str
-        The path for every output file.
-    length : int
-        The length of genome (WES = 60456963)
-
-    Output files
-    ------------
-    output :
+    Parameters:
+        self.head           {string}        -- The column names of MAF file.
+        self.df             {pd.DataFrame}  -- The data for the MAF file.
+    
+    Outputs:
         TMB_analysis.tsv
         TMB_statistic.tsv
-            
     ''' 
     def __init__(self, maf_file):
         print(colored(('\nStart Tumor Mutation Burden....'), 'yellow'))
