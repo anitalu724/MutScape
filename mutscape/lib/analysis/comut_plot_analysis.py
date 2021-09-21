@@ -3,7 +3,7 @@
 # PackageName  [ lib/analysis ]
 # Synopsis     [ Implement CoMut analysis. ]
 # Author       [ Cheng-Hua Lu ]
-# Copyright    [ 2021 4 ]
+# Copyright    [ 2021 9 ]
 ############################################################################################
 
 from ..maf_filter import fast_read_maf
@@ -11,21 +11,29 @@ from termcolor import colored
 import pandas as pd
 import os
 
+#########################################################
+#                                                       #
+#    python3 mafAnalysis.py \                           #
+#    -f examples/test_data/maf/TCGA_test.maf \          #
+#    -cm 60456963 \                                     #
+#    -o examples/output \                               #
+#    -p examples/pic/                                   #
+#                                                       #
+#########################################################
+
 class CoMutAnalysis:
-    '''MAF analysis: CoMut plot analysis
+    '''CoMut plot analysis
 
-    Parameters
-    ----------
-    maf_file : str
-        A MAF file path.
-    output_folder : str
-        The path for every output file.
-    length : int
-        The length of genome (WES = 60456963)
+    Arguments:
+        maf_file            {string}        -- The input MAF file for all data.
+        output_folder       {string}        -- The path for output files.
+        length              {int}           -- The length of genome (WES = 60456963)
 
-    Output files
-    ------------
-    output :
+    Parameters:
+        self.head           {string}        -- The column names of MAF file.
+        self.df             {pd.DataFrame}  -- The data for the MAF file.
+    
+    Outputs:
         mutation_data.tsv
         mutation_classification.tsv
     
@@ -93,27 +101,30 @@ class CoMutAnalysis:
 from comut import comut
 from comut import fileparsers
 
-class CoMutPlot:
-    '''MAF analysis: CoMut plot plotting
+#############################################################################
+#                                                                           #
+#    python3 mafAnalysis.py \                                               #
+#    -cmp examples/tsv/comut.tsv examples/tsv/comut_info.tsv 0 comut.pdf \  #
+#    -o examples/output \                                                   #
+#    -p examples/pic/                                                       #
+#                                                                           #
+#############################################################################
 
-    Parameters
-    ----------
-    tsv_file : str
-        A TSV file includes all file paths that need for plotting.
-    tsv_info : str
-        A TSV file includes all informations for plotting.
-    pic : str
-        The path for storing comut plot.
-    theme : int
-        The color theme. (0: cold, 1: warm) 
-    comut_name : str
-        The file name of CoMut plot.
+class CoMutPlot:
+    '''CoMut plot plotting
+    Arguments:
+        tsv_file        {string}    -- A TSV file includes all file paths that need for plotting.
+        tsv_info        {string}    -- A TSV file includes all informations for plotting.
+        pic             {string}    -- The path for storing comut plot.
+        theme           {string}    -- The color theme. (0: cold, 1: warm) 
+        comut_name      {string}    -- The file name of CoMut plot.
     
-    Output files
-    ------------
-    output :
+    Parameters:
+        self.fd
+        self.info
+
+    Outputs:
         An image of CoMut plot.
-    
     '''  
     def __init__(self, tsv_file, tsv_info):
         print(colored(('\nStart plotting CoMut Plot....'), 'yellow'))
@@ -125,6 +136,8 @@ class CoMutPlot:
         for item in self.info:
             cleanedList = [x for x in self.info[item] if str(x) != 'nan']
             self.info[item] = cleanedList
+        print(type(self.fd))
+        print(type(self.info))
     def plot(self, pic, theme, comut_name):
         fixed_category = ['Same Patient','Copy Number Alteration','Mutation Type','Purity','Mutation Signature','Mutation Classification','Frequency', 'Whole Genome Doubling']
         feature_category = [item for item in self.fd if item not in fixed_category]
