@@ -16,7 +16,7 @@ then
     
     echo -e "\e[1;35m \nInstall pip...\n \e[0m"
     conda install -c anaconda pip
-    cd vcf2maf-1.6.20/MutScape/mutscape
+    
 
     echo -e "\e[1;35m \nInstall modules needed for MutScape...\n \e[0m"
     echo -e "\e[1;35m \nInstall termcolor...\n \e[0m"
@@ -48,9 +48,10 @@ then
     pip3 install PyVCF
     echo -e "\e[1;35m \nInstall comut...\n \e[0m"
     pip3 install comut
-    echo -e "\e[1;35m \nInstall scarHRD...\n \e[0m"
+    echo -e "\e[1;35m \nInstall r-devtools...\n \e[0m"
     conda install -c conda-forge r-devtools
-    Rscript installation/scarHRD.r
+    echo -e "\e[1;35m \nInstall scarHRD...\n \e[0m"
+    Rscript vcf2maf-1.6.20/MutScape/mutscape/installation/scarHRD.r
     echo -e "\e[1;32m \nDone!\n \e[0m"
 
 else

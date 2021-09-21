@@ -24,6 +24,7 @@ then
     echo -e "\e[1;35m \nDecompress homo_sapiens_vep_102_GRCh37.tar.gz...\n \e[0m"
     tar -zxf $HOME/.vep/homo_sapiens_vep_102_GRCh37.tar.gz -C $HOME/.vep/
     echo -e "\e[1;32m \nDone!\n \e[0m"
+
     
 else
     echo "Quit!"
