@@ -7,6 +7,7 @@ Cancer genomics has been evolving rapidly, fueled by the emergence of numerous s
 
 
 ## Quick Installation
+Before implement quick installation, please be sure that you have installed MiniConda3, created a new conda environment and activate it. Also, to make this implementation run smoothly, please confirm that the Internet is connected always and the server/computer has enough storage memory.
 ```
     git clone https://github.com/anitalu724/MutScape.git
     bash MutScape/mutscape/installation/quickInstall_1.sh
