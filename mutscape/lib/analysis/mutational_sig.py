@@ -657,6 +657,7 @@ class MutationalSignature:
         self.SBSplot(df, pic)
         self.CosineSimilarity(df, output_folder, pic)
         df1 = pd.read_csv(output_folder+'sig_sample.csv', index_col=0)
-        self.SigDistribution(df1, output_folder, pic)
         self.DonutPlot(df1, pic)
+        self.SigDistribution(df1, output_folder, pic)
+        
 
