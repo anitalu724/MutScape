@@ -28,7 +28,7 @@ LABEL_SIZE = 12
 ###################################################
 
 class HRDScore:
-    """ HRD score
+    ''' HRD score
 
     Arguments:
         folder          {string}    -- The path for output files
@@ -41,8 +41,7 @@ class HRDScore:
     Pictures:
         HRD_Score.pdf
         high_HRD_pie.pdf
-
-    """
+    '''
     def __init__(self, file):
         print(colored(("\nStart analysing HRD Score...."), 'yellow'))
         self.list = ((pd.read_csv(file, sep="\t"))[['CNV_input']].values.T)[0]
