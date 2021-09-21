@@ -30,3 +30,4 @@ pip3 install comut
 echo -e "\e[1;35m \nInstall scarHRD...\n \e[0m"
 conda install -c conda-forge r-devtools
 Rscript installation/scarHRD.r
+echo -e "\e[1;32m \nDone!\n \e[0m"
