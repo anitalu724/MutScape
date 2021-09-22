@@ -255,7 +255,8 @@ Some simple test commands are displayed below.
     
 
 8. HRD, CIN and WGD Comparison
-    
+    > Output figure is shown like [**Fig. 5**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig5.pdf).
+
     python3 mafAnalysis.py \
     -hcwc examples/tsv/hcw_comparison.tsv grch37 \
     -o examples/output \
@@ -264,7 +265,7 @@ Some simple test commands are displayed below.
 
 9. Actionable mutation (drug) annotation
    `[your_oncokb_token]` is gotten from [OncoKB Website](https://www.oncokb.org/). You must create  your own account and get your personal API token.
-   > Output figure is shown like [**Fig. 5**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig5.pdf).
+   > Output figure is shown like [**Fig. 6**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig6.pdf).
     
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
