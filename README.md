@@ -1,6 +1,6 @@
 # MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics
 
-![all_figure](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/movie.gif?raw=true)
+![all_figure](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/MutScape_movie.gif?raw=true)
 
 
 ## Introduction
@@ -14,14 +14,13 @@ Before implement quick installation, please be sure that you have installed Mini
     bash MutScape/mutscape/installation/quickInstall_1.sh
     bash vcf2maf-1.6.20/MutScape/mutscape/installation/quickInstall_2.sh
 
-
 ## Prerequisite installation
 
 ### Requirements ####
 The latest tested version in parentheses:
 1. Using Miniconda (py37_4.9.2) to install:
 
-    samtools (v1.10), ucsc-liftover (v377), bcftools (v1.10.2), ensembl-vep (v102.0)
+    samtools (v1.10), ucsc-liftover (v377), bcftools (v1.10.2), htslib (v1.10.2) and ensembl-vep (v102.0)
 
 2. Download vcf2maf (v1.6.20) and git clone MutScape (v1.0)
 
@@ -51,7 +50,7 @@ If you have already install Ensembl's VEP, you may skip this part and directly i
     conda install -c bioconda -c conda-forge -c defaults ensembl-vep=102.0 
 
 ### Install vcf2maf
-For transforming the VCF into the MAF, this procedure is implemented by `vcf2maf` utility, which processes variant annotation and transcript prioritization. You can refer to  [this script]((https://github.com/mskcc/vcf2maf)) or just follow the commands below. (Before this step, you must be sure that you have installed [ Ensembl's VEP](https://gist.github.com/ckandoth/61c65ba96b011f286220fa4832ad2bc0))
+For transforming the VCF into the MAF, this procedure is implemented by `vcf2maf` utility, which processes variant annotation and transcript prioritization. You can refer to  [this script]((https://github.com/mskcc/vcf2maf)) or just follow the commands below. (Before this step, you must be sure that you have installed [ Ensembl's VEP ](https://gist.github.com/ckandoth/61c65ba96b011f286220fa4832ad2bc0))
 
     wget https://github.com/mskcc/vcf2maf/archive/refs/tags/v1.6.20.tar.gz
     tar -zxf v1.6.20.tar.gz
