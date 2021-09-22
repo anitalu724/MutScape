@@ -170,36 +170,36 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Table-of-arguments-for-an
 Some simple test commands are displayed below.
 
 1. Significantly mutated gene detection
-    
+    ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
     -smg \
     -o examples/output \
     -p examples/pic/
-
+    ```
 
 2. Known cancer gene annotation
-    
+    ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
     -kcga \
     -o examples/output \
     -p examples/pic/
-    
+    ```
 
 3. Mutation burden statistics
-    
+    ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
     -tmb 60456963 \
     -o examples/output \
     -p examples/pic/
-    
+    ```
 4. CoMut plot analysis
     > Output figure is shown like [**Fig. 2**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig2.pdf).</br>
     > See [Wiki](https://github.com/anitalu724/MutScape/wiki/Column-information-of-input-TSV-file-for-CoMut-plot) for detailed information.
 
-    
+    ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
     -cm 60456963 \
@@ -211,10 +211,12 @@ Some simple test commands are displayed below.
     -cmp examples/tsv/comut.tsv examples/tsv/comut_info.tsv 0 comut.pdf \
     -o examples/output \
     -p examples/pic/
-    
+    ```
+
 5. Mutational signature
    > Output figure is shown like [**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
-
+    
+    ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/ms.maf \
     -ms 0 "[SBS1, SBS5, SBS40, SBS87]" \
@@ -234,45 +236,49 @@ Some simple test commands are displayed below.
     -ms 2 "[3]" \
     -o examples/output \
     -p examples/pic/
-
+    ```
 
 6. HRD Score
    > Output figure is shown like [**Fig. 4A, B**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     
+    ```
     python3 mafAnalysis.py \
     -hrd examples/tsv/hrd.tsv grch37 \
     -o examples/output \
     -p examples/pic/
-    
+    ```
 
 7. Whole-genome doubling (WGD) and Chromosome instability (CIN)
    > Output figure is shown like [**Fig. 4C, D**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig4.pdf).
     
+    ```
     python3 mafAnalysis.py \
     -wgdcin examples/tsv/hrd.tsv \
     -o examples/output \
     -p examples/pic/
-    
+    ```
 
 8. HRD, CIN and WGD Comparison
     > Output figure is shown like [**Fig. 5**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig5.pdf).
 
+    ```
     python3 mafAnalysis.py \
     -hcwc examples/tsv/hcw_comparison.tsv grch37 \
     -o examples/output \
     -p examples/pic/
-    
+    ```
 
 9. Actionable mutation (drug) annotation
    `[your_oncokb_token]` is gotten from [OncoKB Website](https://www.oncokb.org/). You must create  your own account and get your personal API token.
    > Output figure is shown like [**Fig. 6**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig6.pdf).
     
+    ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
     -oncokb ../oncokb-annotator/ [your_oncokb_token] 4 examples/test_data/oncokb/clinical_input.txt \
     -o examples/output \
     -p examples/pic/
-    
+    ```
 
 ## Reference
 ### If you use MutScape in your work, please cite
