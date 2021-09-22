@@ -89,7 +89,7 @@ To make sure all code smoothly implement, you need to install several modules th
 
 ## Implementation
 
-MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. Detailed structure please refer to [**Fig. 1**](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/Fig1.pdf).
+MutScape has simply separated into two main modules: data preprocessing and analysis and visualization. Detailed structure please refer to [**Fig. 1**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig1.pdf).
 
 ### Data Preprocessing
 MutScape accepts both VCF and MAF files as input data. 
