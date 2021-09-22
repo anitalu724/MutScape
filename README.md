@@ -214,7 +214,8 @@ Some simple test commands are displayed below.
     ```
 
 5. Mutational signature
-   > Output figure is shown like [**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
+   > Output figure of `-ms 0` is shown in Wiki. 
+   > Output figure of `-ms 1` and `-ms 2` is shown like [**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
     
     ```
     python3 mafAnalysis.py \
