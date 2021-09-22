@@ -214,8 +214,7 @@ Some simple test commands are displayed below.
     ```
 
 5. Mutational signature
-   > Output figure of `-ms 0` is shown in [Wiki](https://github.com/anitalu724/MutScape/wiki/Mutational-Signature:-the-result-of-signature-refitting). 
-   
+   > Output figure of `-ms 0` is shown in [Wiki](https://github.com/anitalu724/MutScape/wiki/Mutational-Signature:-the-result-of-signature-refitting). </br>
    > Output figure of `-ms 1` and `-ms 2` is shown like [**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
     
     ```
