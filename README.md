@@ -170,7 +170,8 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Table-of-arguments-for-an
 Some simple test commands are displayed below.
 
 <details>
-  <summary>1. Significantly mutated gene detection</summary>
+    <summary>1. Significantly mutated gene detection</summary>
+    <p>
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
@@ -178,6 +179,7 @@ Some simple test commands are displayed below.
     -o examples/output \
     -p examples/pic/
     ```
+    </p>
 </details>
 
 2. Known cancer gene annotation
