@@ -172,24 +172,27 @@ Some simple test commands are displayed below.
 <details>
     <summary>1. Significantly mutated gene detection</summary>
 
-    ```
      python3 mafAnalysis.py \
      -f examples/test_data/maf/TCGA_test.maf \
      -smg \
      -o examples/output \
      -p examples/pic/
-    ```
-
+    
 </details>
 
-2. Known cancer gene annotation
-    ```
+<details>
+    <summary>2. Known cancer gene annotation</summary>
+    
+    ```bash
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
     -kcga \
     -o examples/output \
     -p examples/pic/
     ```
+
+</details>
+
 3. Mutation burden statistics
     ```
     python3 mafAnalysis.py \
