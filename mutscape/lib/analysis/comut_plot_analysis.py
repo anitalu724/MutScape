@@ -123,7 +123,7 @@ class CoMutPlot:
         self.fd         {dict}      -- The file dictionary for each subplot. 
         self.info       {dict}      -- The information dictionary for each subplot.
 
-    Outputs:
+    Pictures:
         An image of CoMut plot.
     '''  
     def __init__(self, tsv_file, tsv_info):
