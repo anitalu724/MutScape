@@ -171,14 +171,15 @@ Some simple test commands are displayed below.
 
 <details>
     <summary>1. Significantly mutated gene detection</summary>
-    ```bash
+
+    ```
      python3 mafAnalysis.py \
      -f examples/test_data/maf/TCGA_test.maf \
      -smg \
      -o examples/output \
      -p examples/pic/
     ```
-        
+
 </details>
 
 2. Known cancer gene annotation
