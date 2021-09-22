@@ -50,7 +50,7 @@ If you have already install Ensembl's VEP, you may skip this part and directly i
     conda install -c bioconda -c conda-forge -c defaults ensembl-vep=102.0 
 
 ### Install vcf2maf
-For transforming the VCF into the MAF, this procedure is implemented by `vcf2maf` utility, which processes variant annotation and transcript prioritization. You can refer to  [this script]((https://github.com/mskcc/vcf2maf)) or just follow the commands below. (Before this step, you must be sure that you have installed [ Ensembl's VEP ](https://gist.github.com/ckandoth/61c65ba96b011f286220fa4832ad2bc0))
+For transforming the VCF into the MAF, this procedure is implemented by `vcf2maf` utility, which processes variant annotation and transcript prioritization. You can refer to  [this script]((https://github.com/mskcc/vcf2maf)) or just follow the commands below. (Before this step, you must be sure that you have installed [Ensembl's VEP](https://gist.github.com/ckandoth/61c65ba96b011f286220fa4832ad2bc0))
 
     wget https://github.com/mskcc/vcf2maf/archive/refs/tags/v1.6.20.tar.gz
     tar -zxf v1.6.20.tar.gz
@@ -96,7 +96,7 @@ MutScape accepts both VCF and MAF files as input data.
 For multiple VCF/MAF files will be implemented simultaneously, MutScape requires a limited-format TSV file as input. For the detailed format please refer to example files such as `examples/tsv/testData_vcf.tsv` and `examples/tsv/testData_maf.tsv` or just see [Wiki](https://github.com/anitalu724/MutScape/wiki/Column-information-of-input-TSV-file).
 
 #### Quick start from VCFs
-For VCFs as input data, `-f`, `-o` and `-m` are required while `-vf`, `-v2m` and `-mf` are optional. 
+For VCFs as input data, `-f`, `-o` and `-m` are required while `-vf`, `-ra`, `-v2m` and `-mf` are optional. 
 Some simple test commands are displayed below.</br>
 See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-data-preprocessing) for detailed information.
 
@@ -134,6 +134,16 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-dat
     -mf GI [1,3]
 
 
+    python3 dataPreprocess.py \
+    -f examples/tsv/testData_vcf.tsv \
+    -ra examples/test_data/vcf/reject.vcf examples/test_data/vcf/accept.vcf \
+    -o examples/output \
+    -m examples/meta \
+    -vf CI "*,*,*,6,*,*,*,*" \
+    -v2m 8 \
+    -mf GI [1,3]
+
+
 #### Quick start from MAFs
 For MAFs as input data, `-f`, `-o` and `-m` are required while `-mf` are optional. 
 Some simple test commands are displayed below.
@@ -153,13 +163,14 @@ Some simple test commands are displayed below.
 
 
 ### Analysis and Visualization
-MutScape provides 8 different analyses and some of them generate plots after analysis.</br>
+MutScape provides 9 different analyses and some of them generate plots after analysis.</br>
 See [Wiki](https://github.com/anitalu724/MutScape/wiki/Table-of-arguments-for-analysis-and-visualization) for detailed information.
 
 #### Quick start
 Some simple test commands are displayed below.
 
-1. Significantly mutated gene detection
+<details>
+  <summary>1. Significantly mutated gene detection</summary>
     ```
     python3 mafAnalysis.py \
     -f examples/test_data/maf/TCGA_test.maf \
@@ -167,6 +178,8 @@ Some simple test commands are displayed below.
     -o examples/output \
     -p examples/pic/
     ```
+</details>
+
 2. Known cancer gene annotation
     ```
     python3 mafAnalysis.py \
@@ -267,7 +280,3 @@ Some simple test commands are displayed below.
 
 
 
-<details>
-  <summary></summary>
-
-</details>
