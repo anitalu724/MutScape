@@ -4,7 +4,7 @@
 
 
 ## Introduction
-We developed a user-friendly Python toolkit, MutScape, which provides a comprehensive pipeline of filtering, combination, transformation, analysis, and visualization for researchers, to easily explore the cohort-based mutational characterization for studying cancer genomics when obtaining somatic mutation data. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses simultaneously. Furthermore, MutScape supports somatic variant data in both Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication-quality images are generated automatically. Herein, we demonstrate the ability of MutScape to correctly reproduce known results using breast cancer samples from The Cancer Genome Atlas. More significantly, discovery of novel results in cancer genomics studies is enabled through the advanced features in MutScape.
+We developed a user-friendly Python toolkit, MutScape, which provides a comprehensive pipeline of filtering, combination, transformation, analysis, and visualization for researchers, to easily explore the cohort-based mutational characterization for studying cancer genomics when obtaining somatic mutation data. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses simultaneously. Furthermore, MutScape supports somatic variant data in both Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication-quality images are generated automatically.
 
 
 ## Quick installation
@@ -133,7 +133,7 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-dat
     -v2m 8 \
     -mf GI [1,3]
 
-
+    # reject & accept list
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
     -ra examples/test_data/vcf/reject.vcf examples/test_data/vcf/accept.vcf \
