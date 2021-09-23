@@ -258,7 +258,7 @@ class HCWComparison:
         hrdList = []
         for hrd_file in self.hrdFile:
             hrdList.append([int(elem >= 42) for elem in list(pd.read_csv(hrd_file)['HRD-sum'])])
-        hrdList.reverse()
+        # hrdList.reverse()
 
         M = np.array(hrdList)
         from matplotlib.colors import ListedColormap
