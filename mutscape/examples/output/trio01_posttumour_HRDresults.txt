@@ -1,2 +1,0 @@
-""	"HRD"	"Telomeric AI"	"LST"	"HRD-sum"
-"trio01_posttumour"	1	2	0	3
