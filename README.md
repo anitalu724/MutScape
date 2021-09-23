@@ -135,6 +135,7 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-dat
 
 
 * Reject and accept list (-ra)
+    > Schematic diagram is shown in [**S2**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/S2.pdf).
     ```bash
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
