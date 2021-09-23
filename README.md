@@ -139,7 +139,7 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-dat
     ```bash
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
-    -ra examples/test_data/vcf/reject.vcf examplestest_data/   vcf/accept.vcf \
+    -ra examples/test_data/vcf/reject.vcf examplestest_data/vcf/accept.vcf \
     -o examples/output \
     -m examples/meta \
     -vf CI "*,*,*,6,*,*,*,*" \
