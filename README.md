@@ -132,9 +132,9 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-dat
     -m examples/meta \
     -v2m 8 \
     -mf GI [1,3]
-</br>
 
-* Reject and accept list
+
+* Reject and accept list (-ra)
     ```bash
     python3 dataPreprocess.py \
     -f examples/tsv/testData_vcf.tsv \
