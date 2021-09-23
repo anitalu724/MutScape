@@ -133,15 +133,17 @@ See [Wiki](https://github.com/anitalu724/MutScape/wiki/Specific-arguments-in-dat
     -v2m 8 \
     -mf GI [1,3]
 
-    # reject & accept list
-    python3 dataPreprocess.py \
-    -f examples/tsv/testData_vcf.tsv \
-    -ra examples/test_data/vcf/reject.vcf examples/test_data/vcf/accept.vcf \
-    -o examples/output \
-    -m examples/meta \
-    -vf CI "*,*,*,6,*,*,*,*" \
-    -v2m 8 \
-    -mf GI [1,3]
+
+    * Reject and accept list
+    
+        python3 dataPreprocess.py \
+        -f examples/tsv/testData_vcf.tsv \
+        -ra examples/test_data/vcf/reject.vcf examples/test_data/   vcf/accept.vcf \
+        -o examples/output \
+        -m examples/meta \
+        -vf CI "*,*,*,6,*,*,*,*" \
+        -v2m 8 \
+        -mf GI [1,3]
 
 
 #### Quick start from MAFs
