@@ -4,7 +4,7 @@
 
 
 ## Introduction
-Cancer genomics has been evolving rapidly, fueled by the emergence of numerous studies and public databases through next-generation sequencing tech-nologies. However, the downstream programs used to preprocess and analyze data on somatic mutations are scattered in different tools, most of which require specific input formats. Here, we developed a user-friendly Python toolkit, MutScape, which provides a comprehensive pipeline of filtering, combination, transformation, analysis, and visualization for re-searchers, to easily explore the cohort-based muta-tional characterization for studying cancer genomics when obtaining somatic mutation data. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses simul-taneously, including driver gene detection, muta-tional signature, large-scale alteration identification, and actionable biomarker annotation. Furthermore, MutScape supports somatic variant data in both Vari-ant Call Format (VCF) and Mutation Annotation For-mat (MAF), and leverages caller combination strate-gies to quickly eliminate false-positives. With only two simple commands, robust results and publica-tion-quality images are generated automatically. Here-in, we demonstrate the ability of MutScape to correct-ly reproduce known results using breast cancer sam-ples from The Cancer Genome Atlas. More signifi-cantly, discovery of novel results in cancer genomics studies is enabled through the advanced features in MutScape.
+We developed a user-friendly Python toolkit, MutScape, which provides a comprehensive pipeline of filtering, combination, transformation, analysis, and visualization for researchers, to easily explore the cohort-based mutational characterization for studying cancer genomics when obtaining somatic mutation data. MutScape can not only preprocess millions of mutation records in a few minutes, but offers various analyses simultaneously. Furthermore, MutScape supports somatic variant data in both Variant Call Format (VCF) and Mutation Annotation Format (MAF), and leverages caller combination strategies to quickly eliminate false-positives. With only two simple commands, robust results and publication-quality images are generated automatically. Herein, we demonstrate the ability of MutScape to correctly reproduce known results using breast cancer samples from The Cancer Genome Atlas. More significantly, discovery of novel results in cancer genomics studies is enabled through the advanced features in MutScape.
 
 
 ## Quick installation
@@ -214,8 +214,8 @@ Some simple test commands are displayed below.
     ```
 
 5. Mutational signature
-   > Output figure of `-ms 0` is shown in [Wiki](https://github.com/anitalu724/MutScape/wiki/Mutational-Signature:-the-result-of-signature-refitting). </br>
-   > Output figure of `-ms 1` and `-ms 2` is shown like [**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
+   > Signature refitting: the output figure of `-ms 0` is shown in [Wiki](https://github.com/anitalu724/MutScape/wiki/Mutational-Signature:-the-result-of-signature-refitting). </br>
+   > NMF: the output figure of `-ms 1` and `-ms 2` is shown like [**Fig. 3**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig3.pdf).
     
     ```
     python3 mafAnalysis.py \
