@@ -274,6 +274,7 @@ Some simple test commands are displayed below.
     ```
 
 9. Actionable mutation (drug) annotation
+   > oncokb-annotator was free under the GPL 3.0 license.
    > `[your_oncokb_token]` is gotten from [OncoKB Website](https://www.oncokb.org/). You must create  your own account and get your personal API token.
    > Output figure is shown like [**Fig. 6**](https://github.com/anitalu724/MutScape/blob/main/mutscape/examples/images/Fig6.pdf).
     
