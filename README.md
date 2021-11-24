@@ -288,7 +288,7 @@ Some simple test commands are displayed below.
 
 ## Reference
 ### If you use MutScape in your work, please cite
-> Cheng-Hua Lu*, Chia-Shin Wu*, Mong-Hsun Tsai, Liang-Chuan Lai, Eric Y. Chuang (2021) MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics (Submitted)
+> Lu, C. H., Wu, C. H., Tsai, M. H., Lai, L. C., & Chuang, E. Y. (2021). MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics. NAR genomics and bioinformatics, 3(4), lqab099.
 
 
 
