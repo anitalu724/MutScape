@@ -1,5 +1,7 @@
 # MutScape: an analytical toolkit for probing the mutational landscape in cancer genomics
-
+![issues](https://img.shields.io/github/issues/anitalu724/mutscape?style=plastic)
+![stars](https://img.shields.io/github/stars/anitalu724/mutscape?style=plastic)
+![license](https://img.shields.io/github/license/anitalu724/mutscape?style=plastic)
 ![all_figure](https://github.com/anitalu724/MutScape/blob/main/mutscape/data/MutScape_movie.gif?raw=true)
 
 
